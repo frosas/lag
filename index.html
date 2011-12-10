@@ -13,12 +13,10 @@
             url: url,
             timeout: 5000,
             dataType: 'script',
-            success: function() {
-                var end = new Date
-                callback(null, end - start)
-            },
-            error: function(xhr, status, error) {
-                callback(error)
+            complete: function(xhr, status) {
+                var lag = new Date - start
+                var error = status in ['error', 'timeout'] ? status : null
+                callback(error, lag)
             }
         })
     }
@@ -29,9 +27,12 @@
             if (error) {
                 console.error(error)
             } else {
-                console.log(lag)
+                console.log('Lag: ' + lag + ' ms')
             }
-            continuousPing()
+
+            var minWait = 1000
+            var wait = Math.min(minWait, lag)
+            setTimeout(continuousPing, wait)
         })
     })()
 </script>
