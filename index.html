@@ -21,7 +21,7 @@
         })
     }
 
-    ;(function continuousPing() {
+    ;(function() {
         var url = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
         ping(url, function(error, lag) {
             if (error) {
@@ -32,7 +32,7 @@
 
             var minWait = 1000
             var wait = Math.min(minWait, lag)
-            setTimeout(continuousPing, wait)
+            setTimeout(arguments.callee, wait)
         })
     })()
 </script>
