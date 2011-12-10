@@ -1,0 +1,37 @@
+<!doctype html>
+
+<title>Lag checker</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+    /**
+     * @param url It has to be a Javascript file
+     */
+    var ping = function(url, callback) {
+        var start = new Date
+        $.ajax({
+            url: url,
+            timeout: 5000,
+            dataType: 'script',
+            success: function() {
+                var end = new Date
+                callback(null, end - start)
+            },
+            error: function(xhr, status, error) {
+                callback(error)
+            }
+        })
+    }
+
+    ;(function continuousPing() {
+        var url = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
+        ping(url, function(error, lag) {
+            if (error) {
+                console.error(error)
+            } else {
+                console.log(lag)
+            }
+            continuousPing()
+        })
+    })()
+</script>
