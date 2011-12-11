@@ -2,37 +2,10 @@
 
 <title>Lag checker</title>
 
+<link rel="stylesheet" href="main.css" />
+
+<div id="chart"></div>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>
-    /**
-     * @param url It has to be a Javascript file
-     */
-    var ping = function(url, callback) {
-        var start = new Date
-        $.ajax({
-            url: url,
-            timeout: 5000,
-            dataType: 'script',
-            complete: function(xhr, status) {
-                var lag = new Date - start
-                var error = status in ['error', 'timeout'] ? status : null
-                callback(error, lag)
-            }
-        })
-    }
-
-    ;(function() {
-        var url = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
-        ping(url, function(error, lag) {
-            if (error) {
-                console.error(error)
-            } else {
-                console.log('Lag: ' + lag + ' ms')
-            }
-
-            var minWait = 1000
-            var wait = Math.min(minWait, lag)
-            setTimeout(arguments.callee, wait)
-        })
-    })()
-</script>
+<script src="http://mbostock.github.com/d3/d3.js?2.7.0"></script>
+<script src="main.js"></script>
