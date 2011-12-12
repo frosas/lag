@@ -1,21 +1,4 @@
-require(['page-title'], function(pageTitle) {
-
-    /**
-     * @param url It has to be a Javascript file
-     */
-    var ping = function(url, callback) {
-        var start = new Date
-        $.ajax({
-            url: url,
-            timeout: 5000,
-            dataType: 'script',
-            complete: function(xhr, status) {
-                var lag = new Date - start
-                var error = status in ['error', 'timeout'] ? status : null
-                callback(error, {start: start, lag: lag})
-            }
-        })
-    }
+require(['ping-url', 'page-title'], function(pingUrl, pageTitle) {
 
     var pings = (function() {
         var pings = []
@@ -31,19 +14,9 @@ require(['page-title'], function(pageTitle) {
         }
     })()
 
-    var pageTitle = (function() {
-        var original = document.title
-        return {
-            update: function(ping) {
-                // TODO Update only every second with the average lag
-                document.title = original + " (" + ping.lag + " ms)"
-            }
-        }
-    })()
-
     ;(function continuousPing() {
         var url = 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js'
-        ping(url, function(error, ping) {
+        pingUrl(url, function(error, ping) {
             if (error) {
                 console.error(error)
             } else {
