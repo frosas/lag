@@ -6,7 +6,7 @@ define(function() {
         return {
             add: function(ping) {
                 pings.push(ping)
-                if (pings.length > max) pings = pings.slice(1)
+                pings = pings.slice(-max)
             },
             pings: function() {
                 return pings
