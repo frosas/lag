@@ -1,4 +1,0 @@
-body { font: 13px sans-serif }
-#chart { overflow: hidden; font-size: 9px }
-#chart > div { float: left; color: #fff; background: steelblue; padding: 3px 0; margin: 1px }
-#chart > div > div { -webkit-transform: rotate(-90deg) }
