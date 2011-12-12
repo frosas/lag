@@ -29,6 +29,16 @@ var pings = (function() {
     }
 })()
 
+var pageTitle = (function() {
+    var original = document.title
+    return {
+        update: function(ping) {
+            // TODO Update only every second with the average lag
+            document.title = original + " (" + ping.lag + " ms)"
+        }
+    }
+})()
+
 ;(function continuousPing() {
     var url = 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js'
     ping(url, function(error, ping) {
@@ -46,6 +56,8 @@ var pings = (function() {
                 .append('div')
                     .text(function(ping) { return ping.lag })
             update.exit().remove()
+
+            pageTitle.update(ping)
         }
 
         setTimeout(continuousPing, 1)
