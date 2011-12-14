@@ -14,38 +14,43 @@ define(function() {
         }
     })()
 
-    var element = d3.select('#chart').append('svg:svg')
-    var elementHeight = parseInt(element.style('height'))
+    var chart = (function() {
 
-    var maxPing = 5000 // TODO DRY
+        var element = d3.select('#chart').append('svg:svg')
+        var elementHeight = parseInt(element.style('height'))
 
-    var y = d3.scale.linear()
-        .domain([0, maxPing])
-        .range([0, elementHeight])
+        var maxPing = 5000 // TODO DRY
 
-    var barWidth = 10 
-    var setX = function(ping, i) { return i * barWidth }
+        var yScale = d3.scale.linear()
+            .domain([0, maxPing])
+            .range([0, elementHeight])
 
-    var update = function() {
+        var barWidth = 10 
+        var setX = function(ping, i) { return i * barWidth }
 
-        var update = element.selectAll('rect')
-            .data(pings.all(), function(ping) { return ping.start })
+        return {
+            update: function() {
 
-        update.enter().append('svg:rect')
-            .attr('x', setX)
-            .attr('y', function(ping) { return y(maxPing - ping.lag) })
-            .attr('width', barWidth)
-            .attr('height', function(ping) { return y(ping.lag)  })
+                var update = element.selectAll('rect')
+                    .data(pings.all(), function(ping) { return ping.start })
 
-        update.attr('x', setX)
+                update.attr('x', setX)
 
-        update.exit().remove()
-    }
+                update.enter().append('svg:rect')
+                    .attr('x', setX)
+                    .attr('y', function(ping) { return yScale(maxPing - ping.lag) })
+                    .attr('width', barWidth)
+                    .attr('height', function(ping) { return yScale(ping.lag) })
+
+                update.exit().remove()
+            }
+        }
+    })()
 
     return {
         add: function(ping) {
             pings.add(ping)
-            update()
+            chart.update()
         }
     }
 })
