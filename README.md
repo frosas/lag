@@ -10,3 +10,4 @@
 - Try pinging a blank.js file or through web sockets 
 - Create lag.frosas.net
 - Try pinging every a constant time interval
+- Consume less CPU
