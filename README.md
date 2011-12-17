@@ -7,7 +7,5 @@
 - Use color to indicate lag quality (alternative presentation?)
 - Use transitions to add/update/remove bars
 - Try pinging a blank.js file or through web sockets 
-- Try pinging every a constant time interval
-- Consume less CPU
 - Make favicon work on Firefox and Safari
 - Show average pings (like in Unix uptime)

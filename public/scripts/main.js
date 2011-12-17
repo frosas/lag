@@ -21,7 +21,10 @@ require(['ping-url', 'chart', 'page-title', 'page-icon'], function(pingUrl, char
                 pingElement.text(ping.lag + " ms")
             }
 
-            setTimeout(continuousPing, 1)
+            var minDelay = 500
+            var delay = Math.max(minDelay - ping.lag, minDelay)
+
+            setTimeout(continuousPing, delay)
         })
     })()
 })
