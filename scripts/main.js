@@ -1,4 +1,4 @@
-require(['ping-url', 'chart', 'page-title'], function(pingUrl, chart, pageTitle) {
+require(['ping-url', 'chart', 'page-title', 'page-icon'], function(pingUrl, chart, pageTitle, pageIcon) {
 
     ;(function continuousPing() {
 
@@ -15,6 +15,7 @@ require(['ping-url', 'chart', 'page-title'], function(pingUrl, chart, pageTitle)
             } else {
                 chart.add(ping)
                 pageTitle.update(ping)
+                pageIcon.update(ping)
             }
 
             setTimeout(continuousPing, 1)
