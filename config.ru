@@ -8,6 +8,6 @@ run lambda { |env|
         {
             'Content-Type' => 'text/html'
         },
-        File.open('public/index.html', File:RDONLY)
+        File.open('public/index.html', File::RDONLY)
     ]
 }
