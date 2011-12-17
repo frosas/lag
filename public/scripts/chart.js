@@ -2,7 +2,7 @@ define(function() {
 
     var pings = (function() {
         var pings = []
-        var max = 80
+        var max = 100 
         return {
             add: function(ping) {
                 pings.push(ping)
@@ -10,6 +10,9 @@ define(function() {
             },
             all: function() {
                 return pings
+            },
+            max: function() {
+                return max
             }
         }
     })()
@@ -17,6 +20,7 @@ define(function() {
     var chart = (function() {
 
         var element = d3.select('#chart').append('svg:svg')
+        var elementWidth = parseInt(element.style('width'))
         var elementHeight = parseInt(element.style('height'))
 
         var maxPing = 5000 // TODO DRY
@@ -25,7 +29,9 @@ define(function() {
             .domain([0, maxPing])
             .range([0, elementHeight])
 
-        var barWidth = 10 
+        // TODO It is not displayed correctly if results in a float
+        var barWidth = elementWidth / pings.max()
+
         var setX = function(ping, i) { return i * barWidth }
 
         return {

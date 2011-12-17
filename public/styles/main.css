@@ -1,4 +1,4 @@
 body { font: 13px sans-serif }
-#chart > svg { width: 800px; height: 300px; font-size: 9px; border-right: 1px solid #ddd }
-#chart > svg > rect { stroke: #fff; fill: steelblue }
+#chart > svg { width: 800px; height: 300px; font-size: 9px; background-image: -webkit-linear-gradient(top, rgb(255,255,255) 0, rgb(242,241,211) 75%) }
+#chart > svg > rect { fill: #474739 }
 #ping { font-size: 60px }
