@@ -5,3 +5,4 @@ body { font: 13px sans-serif; color: #474739 }
     background-image: -moz-linear-gradient(#fff 0, #F2F1D3 100%) }
 #chart > svg > rect { fill: #474739 }
 #ping { font-size: 60px }
+#fork-me > img { position: absolute; top: 0; right: 0; border: 0 }
