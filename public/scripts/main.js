@@ -1,5 +1,7 @@
 require(['ping-url', 'chart', 'page-title', 'page-icon'], function(pingUrl, chart, pageTitle, pageIcon) {
 
+    var pingElement = $('#ping')
+
     ;(function continuousPing() {
 
         // Resource has to be
@@ -16,6 +18,7 @@ require(['ping-url', 'chart', 'page-title', 'page-icon'], function(pingUrl, char
                 chart.add(ping)
                 pageTitle.update(ping)
                 pageIcon.update(ping)
+                pingElement.text(ping.lag + " ms")
             }
 
             setTimeout(continuousPing, 1)
