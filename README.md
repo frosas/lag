@@ -10,3 +10,5 @@
 - Try pinging every a constant time interval
 - Consume less CPU
 - Make favicon work on Firefox and Safari
+- Show average pings (like in Unix uptime)
+- Show ping as number in the page
