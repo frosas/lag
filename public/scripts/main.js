@@ -1,30 +1,22 @@
-require(['ping-url', 'chart', 'page-title', 'page-icon'], function(pingUrl, chart, pageTitle, pageIcon) {
+require(['chart', 'page-title', 'page-icon'], function(chart, pageTitle, pageIcon) {
 
     var pingElement = $('#ping')
 
-    ;(function continuousPing() {
+    var socket = io.connect()
 
-        // Resource has to be
-        // - Small
-        // - In a CDN (close to the user)
-        // - A Javascript (TODO really?)
-        var url = 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js'
+    socket.on('connect', function() {
+        setInterval(function() {
+            socket.emit('ping', {start: new Date().getTime()})
+        }, 500)
+    })
 
-        pingUrl(url, function(error, ping) {
+    socket.on('pong', function(ping) {
 
-            if (error) {
-                console.error(error)
-            } else {
-                chart.add(ping)
-                pageTitle.update(ping)
-                pageIcon.update(ping)
-                pingElement.text(ping.lag + " ms")
-            }
+        ping.lag = new Date().getTime() - ping.start
 
-            var minDelay = 500
-            var delay = Math.max(minDelay - ping.lag, minDelay)
-
-            setTimeout(continuousPing, delay)
-        })
-    })()
+        chart.add(ping)
+        pingElement.text(ping.lag + " ms")
+        pageTitle.update(ping)
+        pageIcon.update(ping)
+    })
 })

@@ -1,0 +1,9 @@
+{
+    "name": "lag",
+    "version": "1.0.0",
+    "main": "app.js",
+    "dependencies": {
+        "express": "2.5.x",
+        "socket.io": "0.8.x"
+    }
+}
