@@ -6,4 +6,3 @@
 - Try pinging a blank.js file or through web sockets 
 - Make favicon work on Firefox and Safari
 - Show average pings (like in Unix uptime)
-- Show not ponged pings in a distinct color
