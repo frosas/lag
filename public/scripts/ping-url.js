@@ -10,9 +10,8 @@ define(function() {
             timeout: 5000,
             dataType: 'script',
             complete: function(xhr, status) {
-                var lag = new Date - start
                 var error = status in ['error', 'timeout'] ? status : null
-                callback(error, {start: start, lag: lag})
+                callback(error, start)
             }
         })
     }
