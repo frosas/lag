@@ -16,7 +16,7 @@ define(['chart-pings'], function(pings) {
             .attr('x', function(ping, i) { return i * barWidth })
             .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
             .attr('height', function(ping) { return yScale(ping.lag()) })
-            .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.2 })
+            .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
     }
 
     setInterval(function() {
