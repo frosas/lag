@@ -2,29 +2,23 @@ require(['ping-url', 'chart', 'page-title', 'page-icon'], function(pingUrl, char
 
     var pingElement = $('#ping')
 
-    ;(function continuousPing() {
+    // Resource has to be
+    // - Small
+    // - In a CDN (close to the user)
+    // - A Javascript (TODO really?)
+    var url = 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js'
 
-        // Resource has to be
-        // - Small
-        // - In a CDN (close to the user)
-        // - A Javascript (TODO really?)
-        var url = 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js'
-
-        pingUrl(url, function(error, ping) {
-
+    setInterval(function() {
+        var ping = chart.addPing()
+        pingUrl(url, function(error) {
             if (error) {
                 console.error(error)
             } else {
-                chart.add(ping)
+                ping.pong()
                 pageTitle.update(ping)
                 pageIcon.update(ping)
-                pingElement.text(ping.lag + " ms")
+                pingElement.text(ping.lag() + " ms")
             }
-
-            var minDelay = 500
-            var delay = Math.max(minDelay - ping.lag, minDelay)
-
-            setTimeout(continuousPing, delay)
         })
-    })()
+    }, 500)
 })

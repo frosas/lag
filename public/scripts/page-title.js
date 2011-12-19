@@ -5,7 +5,7 @@ define(function() {
     return {
         update: function(ping) {
             // TODO Update only every second with the average lag
-            document.title = original + " (" + ping.lag + " ms)"
+            document.title = original + " (" + ping.lag() + " ms)"
         }
     }
 })

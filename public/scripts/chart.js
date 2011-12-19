@@ -1,62 +1,42 @@
-define(function() {
+define(['chart-pings'], function(pings) {
 
-    var pings = (function() {
-        var pings = []
-        var max = 100 
-        return {
-            add: function(ping) {
-                pings.push(ping)
-                pings = pings.slice(-max)
-            },
-            all: function() {
-                return pings
-            },
-            max: function() {
-                return max
-            }
-        }
-    })()
+    var element = d3.select('#chart').append('svg:svg')
+    var elementWidth = parseInt(element.style('width'))
+    var elementHeight = parseInt(element.style('height'))
 
-    var chart = (function() {
+    var maxPing = 5000 // TODO DRY
 
-        var element = d3.select('#chart').append('svg:svg')
-        var elementWidth = parseInt(element.style('width'))
-        var elementHeight = parseInt(element.style('height'))
+    var yScale = d3.scale.linear().domain([0, maxPing]).range([0, elementHeight])
 
-        var maxPing = 5000 // TODO DRY
+    // TODO It is not displayed correctly if results in a float
+    var barWidth = elementWidth / pings.max()
 
-        var yScale = d3.scale.linear()
-            .domain([0, maxPing])
-            .range([0, elementHeight])
+    var setChangingValues = function(selection) {
+        selection
+            .attr('x', function(ping, i) { return i * barWidth })
+            .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
+            .attr('height', function(ping) { return yScale(ping.lag()) })
+    }
 
-        // TODO It is not displayed correctly if results in a float
-        var barWidth = elementWidth / pings.max()
+    setInterval(function() {
 
-        var setX = function(ping, i) { return i * barWidth }
+        var update = element.selectAll('rect')
+            .data(pings.all(), function(ping, i) { return ping.start() })
 
-        return {
-            update: function() {
+        setChangingValues(update)
 
-                var update = element.selectAll('rect')
-                    .data(pings.all(), function(ping) { return ping.start })
+        var enter = update.enter().append('svg:rect')
+        enter
+            .attr('width', barWidth)
+        setChangingValues(enter)
 
-                update.attr('x', setX)
+        update.exit().remove()
 
-                update.enter().append('svg:rect')
-                    .attr('x', setX)
-                    .attr('y', function(ping) { return yScale(maxPing - ping.lag) })
-                    .attr('width', barWidth)
-                    .attr('height', function(ping) { return yScale(ping.lag) })
-
-                update.exit().remove()
-            }
-        }
-    })()
+    }, 50)
 
     return {
-        add: function(ping) {
-            pings.add(ping)
-            chart.update()
+        addPing: function() {
+            return pings.add()
         }
     }
 })
