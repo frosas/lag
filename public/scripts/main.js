@@ -12,12 +12,14 @@ require(['chart', 'page-title', 'page-icon'], function(chart, pageTitle, pageIco
             dataType: 'script',
             success: function() {
                 ping.pong()
-                pageTitle.update(ping)
-                pageIcon.update(ping)
-                pingElement.text(ping.lag() + " ms")
             },
             error: function(xhr, status, error) {
                 console.error(error)
+            },
+            complete: function() {
+                pageTitle.update(ping)
+                pageIcon.update(ping)
+                pingElement.text(ping.lag() + " ms")
             }
         })
     }, 500)
