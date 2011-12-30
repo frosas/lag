@@ -11,33 +11,45 @@ define(['chart-pings'], function(pings) {
     // TODO It is not displayed correctly if results in a float
     var barWidth = elementWidth / pings.max()
 
-    var setChangingValues = function(selection) {
-        selection
-            .attr('x', function(ping, i) { return i * barWidth })
-            .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
-            .attr('height', function(ping) { return yScale(ping.lag()) })
-            .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
-    }
-
+    var selections = (function() {
+        var enter, update, exit
+        return {
+            entered: function() { return enter },
+            updated: function() { return update },
+            exited: function() { return exit },
+            update: function() {
+                update = element.selectAll('rect')
+                    .data(pings.all(), function(ping, i) { return ping.start() })
+                enter = update.enter().append('svg:rect')
+                exit = update.exit()
+            }
+        }
+    })()
+    
     setInterval(function() {
-
-        var update = element.selectAll('rect')
-            .data(pings.all(), function(ping, i) { return ping.start() })
-
-        setChangingValues(update)
-
-        var enter = update.enter().append('svg:rect')
-        enter
-            .attr('width', barWidth)
-        setChangingValues(enter)
-
-        update.exit().remove()
-
+        var updated = selections.updated()
+        if (updated) {
+            updated
+                .attr('x', function(ping, i) { return i * barWidth })
+                .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
+                .attr('height', function(ping) { return yScale(ping.lag()) })
+                .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
+        }
     }, 50)
 
     return {
         addPing: function() {
-            return pings.add()
+
+            var ping = pings.add()
+
+            selections.update()
+
+            var entered = selections.entered()
+            entered.attr('width', barWidth)
+
+            selections.exited().remove()
+
+            return ping
         }
     }
 })
