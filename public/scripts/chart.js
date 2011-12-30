@@ -25,16 +25,16 @@ define(['chart-pings'], function(pings) {
             }
         }
     })()
+
+    selections.update()
     
     setInterval(function() {
         var updated = selections.updated()
-        if (updated) {
-            updated
-                .attr('x', function(ping, i) { return i * barWidth })
-                .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
-                .attr('height', function(ping) { return yScale(ping.lag()) })
-                .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
-        }
+        updated
+            .attr('x', function(ping, i) { return i * barWidth })
+            .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
+            .attr('height', function(ping) { return yScale(ping.lag()) })
+            .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
     }, 50)
 
     return {
