@@ -1,4 +1,4 @@
-require(['chart', 'page-title', 'page-icon'], function(chart, pageTitle, pageIcon) {
+require(['chart', 'page-title', 'page-icon', 'config'], function(chart, pageTitle, pageIcon, config) {
 
     var pingElement = $('#ping')
 
@@ -8,7 +8,7 @@ require(['chart', 'page-title', 'page-icon'], function(chart, pageTitle, pageIco
             // Resource has to be: small, close to the user (eg, in a CDN), a 
             // Javascript (TODO really?)
             url: 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js',
-            timeout: 5000,
+            timeout: config.maxPing,
             dataType: 'script',
             success: function() {
                 ping.pong()
@@ -22,5 +22,5 @@ require(['chart', 'page-title', 'page-icon'], function(chart, pageTitle, pageIco
                 pingElement.text(ping.lag() + " ms")
             }
         })
-    }, 500)
+    }, config.pingInterval)
 })
