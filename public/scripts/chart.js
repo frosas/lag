@@ -32,14 +32,15 @@ define(['chart-pings'], function(pings) {
 
     setInterval(function() {
 
-        selections.updated()
-            .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
-            .attr('height', function(ping) { return yScale(ping.lag()) })
-            .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
-
-        var now = new Date().getTime()
-        xScale.domain([now - pings.max() * pingInterval, now])
         ;[selections.updated(), selections.exited()].forEach(function(selection) {
+
+            selection
+                .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
+                .attr('height', function(ping) { return yScale(ping.lag()) })
+                .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
+
+            var now = new Date().getTime()
+            xScale.domain([now - pings.max() * pingInterval, now])
             selection.attr('x', function(ping) { return xScale(ping.start()) })
         })
 
