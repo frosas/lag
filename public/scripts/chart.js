@@ -5,37 +5,45 @@ define(['chart-pings'], function(pings) {
     var elementHeight = parseInt(element.style('height'))
 
     var maxPing = 5000 // TODO DRY
+    var pingInterval = 500 // TODO DRY
 
     var yScale = d3.scale.linear().domain([0, maxPing]).range([0, elementHeight])
+    var xScale = d3.scale.linear().range([0, elementWidth])
 
     // TODO It is not displayed correctly if results in a float
     var barWidth = elementWidth / pings.max()
 
     var selections = (function() {
-        var enter, update, exit
+        var entered, updated, exited
         return {
-            entered: function() { return enter },
-            updated: function() { return update },
-            exited: function() { return exit },
+            entered: function() { return entered },
+            updated: function() { return updated },
+            exited: function() { return exited },
             update: function() {
-                update = element.selectAll('rect')
+                updated = element.selectAll('rect')
                     .data(pings.all(), function(ping, i) { return ping.start() })
-                enter = update.enter().append('svg:rect')
-                exit = update.exit()
+                entered = updated.enter()
+                exited = updated.exit()
             }
         }
     })()
 
     selections.update()
-    
+
     setInterval(function() {
-        var updated = selections.updated()
-        updated
-            .attr('x', function(ping, i) { return i * barWidth })
+
+        selections.updated()
             .attr('y', function(ping) { return yScale(maxPing - ping.lag()) })
             .attr('height', function(ping) { return yScale(ping.lag()) })
             .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
-    }, 50)
+
+        var now = new Date().getTime()
+        xScale.domain([now - pings.max() * pingInterval, now])
+        ;[selections.updated(), selections.exited()].forEach(function(selection) {
+            selection.attr('x', function(ping) { return xScale(ping.start()) })
+        })
+
+    }, 60)
 
     return {
         addPing: function() {
@@ -44,10 +52,12 @@ define(['chart-pings'], function(pings) {
 
             selections.update()
 
-            var entered = selections.entered()
-            entered.attr('width', barWidth)
+            selections.entered().append('svg:rect')
+                .attr('width', barWidth)
 
-            selections.exited().remove()
+            selections.exited().transition()
+                .duration(pingInterval) // TODO DRY
+                .remove()
 
             return ping
         }
