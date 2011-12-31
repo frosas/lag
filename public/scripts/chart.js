@@ -4,8 +4,8 @@ define(['chart-pings', 'config'], function(pings, config) {
     var elementWidth = parseInt(element.style('width'))
     var elementHeight = parseInt(element.style('height'))
 
-    var yScale = d3.scale.linear().domain([0, config.maxPing]).range([elementHeight, 0])
     var xScale = d3.scale.linear().range([0, elementWidth])
+    var yScale = d3.scale.linear().domain([0, config.maxPing]).range([0, elementHeight])
 
     // TODO It is not displayed correctly if results in a float
     var barWidth = elementWidth / pings.max()
@@ -30,7 +30,7 @@ define(['chart-pings', 'config'], function(pings, config) {
     d3.timer(function() {
         ;[selections.updated(), selections.exited()].forEach(function(selection) {
             selection
-                .attr('y', function(ping) { return yScale(ping.lag()) })
+                .attr('y', function(ping) { return yScale(config.maxPing - ping.lag()) })
                 .attr('height', function(ping) { return yScale(ping.lag()) })
                 .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
 
