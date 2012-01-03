@@ -27,7 +27,7 @@ define(['chart-pings', 'config'], function(pings, config) {
 
     selections.update()
 
-    d3.timer(function() {
+    setInterval(function() {
         ;[selections.updated(), selections.exited()].forEach(function(selection) {
             selection
                 .attr('y', function(ping) { return yScale(config.maxPing - ping.lag()) })
@@ -38,7 +38,7 @@ define(['chart-pings', 'config'], function(pings, config) {
             xScale.domain([now - pings.max() * config.pingInterval, now])
             selection.attr('x', function(ping) { return xScale(ping.start()) })
         })
-    })
+    }, 50)
 
     return {
         addPing: function() {
