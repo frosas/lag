@@ -18,7 +18,7 @@ define(['chart-pings', 'config'], function(pings, config) {
             exited: function() { return exited },
             update: function() {
                 updated = element.selectAll('rect')
-                    .data(pings.all(), function(ping, i) { return ping.start() })
+                    .data(pings.all(), function(ping) { return ping.start() })
                 entered = updated.enter()
                 exited = updated.exit()
             }

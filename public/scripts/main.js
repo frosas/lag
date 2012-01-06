@@ -5,9 +5,8 @@ require(['chart', 'page-title', 'page-icon', 'config'], function(chart, pageTitl
     setInterval(function() {
         var ping = chart.addPing()
         $.ajax({
-            // Resource has to be: small, close to the user (eg, in a CDN), a 
-            // Javascript (TODO really?)
-            url: 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js',
+            // Resource shall be small, close to the user (eg, in a CDN)
+            url: 'http://lag.frosas.net/scripts/blank.js',
             timeout: config.maxPing,
             dataType: 'script',
             success: function() {
