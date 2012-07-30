@@ -1,8 +1,8 @@
 define(['chart-pings', 'common'], function(pings, common) {
 
     var element = d3.select('#chart').append('svg:svg')
-    var elementWidth = parseInt(element.style('width'))
-    var elementHeight = parseInt(element.style('height'))
+    var elementWidth = parseInt(element.style('width'), 10)
+    var elementHeight = parseInt(element.style('height'), 10)
 
     var xScale = d3.scale.linear().range([0, elementWidth])
     var yScale = d3.scale.linear().domain([0, common.maxPing]).range([0, elementHeight])
