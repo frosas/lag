@@ -1,5 +1,4 @@
 define(function() {
-
     var pings = []
     var max = 100
 

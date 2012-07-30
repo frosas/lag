@@ -1,5 +1,4 @@
 define(['chart-pings', 'common'], function(pings, common) {
-
     var element = d3.select('#chart').append('svg:svg')
     var elementWidth = parseInt(element.style('width'), 10)
     var elementHeight = parseInt(element.style('height'), 10)
@@ -42,7 +41,6 @@ define(['chart-pings', 'common'], function(pings, common) {
 
     return {
         addPing: function() {
-
             var ping = pings.add()
 
             selections.update()

@@ -6,7 +6,7 @@ require(['chart', 'page-title', 'page-icon', 'common'], function(chart, pageTitl
             // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
             // intranet)
             url: 'http://lag.frosas.net/scripts/blank.js',
-            timeout: common.maxPing,
+            timeout: 60000  ,
             dataType: 'script',
             success: function() {
                 ping.pong()
