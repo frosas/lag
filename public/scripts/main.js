@@ -1,13 +1,12 @@
-require(['chart', 'page-title', 'page-icon', 'config'], function(chart, pageTitle, pageIcon, config) {
-
-    var pingElement = $('#ping')
-
+require(['chart', 'page-title', 'page-icon', 'common'], function(chart, pageTitle, pageIcon, common) {
+    var $pingEl = $('#ping')
     setInterval(function() {
         var ping = chart.addPing()
         $.ajax({
-            // Resource shall be small, close to the user (eg, in a CDN)
+            // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
+            // intranet)
             url: 'http://lag.frosas.net/scripts/blank.js',
-            timeout: config.maxPing,
+            timeout: common.maxPing,
             dataType: 'script',
             success: function() {
                 ping.pong()
@@ -18,8 +17,8 @@ require(['chart', 'page-title', 'page-icon', 'config'], function(chart, pageTitl
             complete: function() {
                 pageTitle.update(ping)
                 pageIcon.update(ping)
-                pingElement.text(ping.lag() + " ms")
+                $pingEl.text(ping.lag() + " ms")
             }
         })
-    }, config.pingInterval)
+    }, common.pingInterval)
 })
