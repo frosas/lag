@@ -4,7 +4,13 @@ define(['chart-pings', 'common'], function(pings, common) {
     var elementHeight = parseInt(element.style('height'), 10)
 
     var xScale = d3.scale.linear().range([0, elementWidth])
-    var yScale = d3.scale.linear().domain([0, common.maxPing]).range([0, elementHeight])
+    var yScale = function(ping) { 
+        // 0 -> 0, normalPing -> .1, ∞ -> 1
+        var normalPing = 200
+        var normalizedPing = Math.atan(ping / normalPing / 10) * 2 / Math.PI
+
+        return normalizedPing * elementHeight 
+    }
 
     // TODO It is not displayed correctly if results in a float
     var barWidth = elementWidth / pings.max()
@@ -29,7 +35,7 @@ define(['chart-pings', 'common'], function(pings, common) {
     setInterval(function() {
         ;[selections.updated(), selections.exited()].forEach(function(selection) {
             selection
-                .attr('y', function(ping) { return yScale(common.maxPing - ping.lag()) })
+                .attr('y', function(ping) { return elementHeight - yScale(ping.lag()) })
                 .attr('height', function(ping) { return yScale(ping.lag()) })
                 .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
 
