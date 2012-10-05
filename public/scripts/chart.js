@@ -1,9 +1,17 @@
 define(['chart-pings', 'common'], function(pings, common) {
     var element = d3.select('#chart').append('svg:svg')
-    var elementWidth = parseInt(element.style('width'), 10)
     var elementHeight = parseInt(element.style('height'), 10)
 
-    var xScale = d3.scale.linear().range([0, elementWidth])
+    var xScale = d3.scale.linear()
+
+    var onResize = function() {
+        var elementWidth = parseInt(element.style('width'), 10)
+        pings.setMax(Math.ceil(elementWidth / common.barWidth))
+        xScale.range([0, elementWidth])
+    }
+    window.addEventListener('resize', onResize)
+    onResize()
+
     var yScale = function(ping) { 
         // 0 -> 0, normalPing -> .1, ∞ -> 1
         var normalPing = 200
@@ -11,9 +19,6 @@ define(['chart-pings', 'common'], function(pings, common) {
 
         return normalizedPing * elementHeight 
     }
-
-    // TODO It is not displayed correctly if results in a float
-    var barWidth = elementWidth / pings.max()
 
     var selections = (function() {
         var entered, updated, exited
@@ -51,8 +56,7 @@ define(['chart-pings', 'common'], function(pings, common) {
 
             selections.update()
 
-            selections.entered().append('svg:rect')
-                .attr('width', barWidth)
+            selections.entered().append('svg:rect').attr('width', common.barWidth)
 
             selections.exited().transition()
                 .duration(common.pingInterval)

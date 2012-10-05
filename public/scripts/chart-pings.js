@@ -29,11 +29,13 @@ define(function() {
             var ping = create()
             pings.push(ping)
             pings = pings.slice(-max)
-            // console.log(pings.map(function(ping) { return ping.lag() }))
             return ping
         },
         all: function() {
             return pings
+        },
+        setMax: function(_max) {
+            max = _max
         },
         max: function() {
             return max
