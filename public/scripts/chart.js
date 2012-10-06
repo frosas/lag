@@ -58,9 +58,11 @@ define(['chart-pings', 'common'], function(pings, common) {
 
             selections.entered().append('svg:rect').attr('width', common.barWidth)
 
-            selections.exited().transition()
-                .duration(common.pingInterval)
-                .remove()
+            selections.exited().each(function(ping) {
+                if (this.getAttribute('data-exiting')) return
+                d3.select(this).transition().duration(common.pingInterval * 2).remove()
+                this.setAttribute('data-exiting', true)
+            })
 
             return ping
         }
