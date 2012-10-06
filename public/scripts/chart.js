@@ -37,7 +37,7 @@ define(['chart-pings', 'common'], function(pings, common) {
 
     selections.update()
 
-    setInterval(function() {
+    d3.timer(function() {
         ;[selections.updated(), selections.exited()].forEach(function(selection) {
             selection
                 .attr('y', function(ping) { return elementHeight - yScale(ping.lag()) })
@@ -48,7 +48,7 @@ define(['chart-pings', 'common'], function(pings, common) {
             xScale.domain([now - pings.max() * common.pingInterval, now])
             selection.attr('x', function(ping) { return xScale(ping.start()) })
         })
-    }, 50)
+    })
 
     return {
         addPing: function() {
