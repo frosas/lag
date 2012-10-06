@@ -5,7 +5,8 @@ body { font: 13px sans-serif; color: #474739; padding: 0; margin: 0 }
 #chart > svg { height: 300px; font-size: 9px; 
     background-image: linear-gradient(#fff 0, #F2F1D3 100%);
     background-image: -webkit-linear-gradient(#fff 0, #F2F1D3 100%);
-    background-image: -moz-linear-gradient(#fff 0, #F2F1D3 100%) }
+    background-image: -moz-linear-gradient(#fff 0, #F2F1D3 100%);
+    box-shadow: 0 0 10px #aaa }
 #chart > svg > rect { fill: #474739 }
 
 #fork-me > img { position: absolute; top: 0; right: 0; border: 0 }
