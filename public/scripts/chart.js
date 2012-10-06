@@ -44,11 +44,13 @@ define(['chart-pings', 'common'], function(pings, common) {
         ;[selections.updated(), selections.exited()].forEach(function(selection) {
             selection.each(function(datum) {
                 if (datum.ended) return
-                if (datum.ping.end()) datum.ended = true
+                if (datum.ping.end()) {
+                    datum.ended = true
+                    d3.select(this).style('fill-opacity', 1)
+                }
                 d3.select(this)
-                    .attr('y', function() { return elementHeight - yScale(datum.ping.lag()) })
-                    .attr('height', function() { return yScale(datum.ping.lag()) })
-                    .style('fill-opacity', function() { return datum.ping.end() ? 1 : 0.7 })
+                    .attr('y', elementHeight - yScale(datum.ping.lag()))
+                    .attr('height', yScale(datum.ping.lag()))
             })
 
             var now = Date.now()
@@ -63,7 +65,9 @@ define(['chart-pings', 'common'], function(pings, common) {
 
             selections.update()
 
-            selections.entered().append('svg:rect').attr('width', common.barWidth)
+            selections.entered().append('svg:rect')
+                .attr('width', common.barWidth)
+                .attr('fill-opacity', .7)
 
             selections.exited().each(function(datum) {
                 if (datum.exiting) return
