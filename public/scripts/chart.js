@@ -6,7 +6,7 @@ define(['chart-pings', 'common'], function(pings, common) {
 
     var onResize = function() {
         var elementWidth = parseInt(element.style('width'), 10)
-        pings.setMax(Math.ceil(elementWidth / common.barWidth))
+        pings.setMax(elementWidth / common.barWidth) // Yes, this a float
         xScale.range([0, elementWidth])
     }
     window.addEventListener('resize', onResize)
