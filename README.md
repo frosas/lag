@@ -1,3 +1,5 @@
+![Screenshot](https://raw.github.com/frosas/lag/master/screenshot.png)
+
 # TODO
 
 - Make favicon work on Firefox and Safari
