@@ -44,7 +44,7 @@ define(['chart-pings', 'common'], function(pings, common) {
                 .attr('height', function(ping) { return yScale(ping.lag()) })
                 .style('fill-opacity', function(ping) { return ping.end() ? 1 : 0.7 })
 
-            var now = new Date().getTime()
+            var now = Date.now()
             xScale.domain([now - pings.max() * common.pingInterval, now])
             selection.attr('x', function(ping) { return xScale(ping.start()) })
         })

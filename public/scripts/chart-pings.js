@@ -3,14 +3,14 @@ define(function() {
     var max = 100
 
     var create = function() {
-        var start = new Date().getTime()
+        var start = Date.now()
         var end
         var currentEnd = function() {
-            return end || new Date().getTime()
+            return end || Date.now()
         }
         return {
             pong: function() {
-                end = new Date().getTime()
+                end = Date.now()
             },
             lag: function() {
                 return currentEnd() - start
