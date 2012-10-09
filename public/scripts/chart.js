@@ -2,12 +2,13 @@ define(['common'], function(common) {
     return function(pings) {
         var element = d3.select('#chart').append('svg:svg')
         var elementHeight = parseInt(element.style('height'), 10)
+        var barWidth = 8 // px
 
         var xScale = d3.scale.linear()
 
         var onResize = function() {
             var elementWidth = parseInt(element.style('width'), 10)
-            pings.setMax(elementWidth / common.barWidth) // Yes, this a float
+            pings.setMax(elementWidth / barWidth) // Yes, this a float
             xScale.range([0, elementWidth])
         }
         window.addEventListener('resize', onResize)
@@ -64,7 +65,7 @@ define(['common'], function(common) {
             selections.update()
 
             selections.entered().append('svg:rect')
-                .attr('width', common.barWidth)
+                .attr('width', barWidth)
                 .attr('fill-opacity', .7)
 
             selections.exited().each(function(datum) {
