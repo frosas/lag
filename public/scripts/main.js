@@ -8,13 +8,11 @@ require.config({
     }
 })
 
-require(['chart', 'page-title', 'page-icon', 'common', 'pings', 'title', 'user', 'backbone'], function(Chart, PageTitle, PageIcon, common, Pings, Title, User) {
+require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'backbone'], function(Chart, PageTitle, PageIcon, Pings, Title, User) {
     var user = new User
     var pings = new Pings
     new Chart(user, pings)
     new PageTitle(user, pings)
     new PageIcon(user, pings)
     new Title(user, pings)
-
-    setInterval(function() { pings.add() }, common.pingInterval)
 })
