@@ -1,11 +1,8 @@
 define(function() {
-    return function() {
+    return function(user, pings) {
         var original = document.title
-
-        return {
-            update: function(lag) {
-                document.title = original + " (" + lag + " ms)"
-            }
-        }
+        user.on('read', function() {
+            document.title = original + " (" + pings.currentLag() + " ms)"
+        })
     }
 })

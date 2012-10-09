@@ -1,10 +1,8 @@
 define(function() {
-    return function() {
+    return function(user, pings) {
         var $title = $('#title')
-        return {
-            update: function(lag) {
-                $title.text(lag + " ms")
-            }
-        }
+        user.on('read', function() {
+            $title.text(pings.currentLag() + " ms")
+        })
     }
 })

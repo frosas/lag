@@ -8,19 +8,13 @@ require.config({
     }
 })
 
-require(['chart', 'page-title', 'page-icon', 'common', 'pings', 'title', 'backbone'], function(Chart, PageTitle, PageIcon, common, Pings, Title) {
+require(['chart', 'page-title', 'page-icon', 'common', 'pings', 'title', 'user', 'backbone'], function(Chart, PageTitle, PageIcon, common, Pings, Title, User) {
+    var user = new User
     var pings = new Pings
-    var chart = new Chart(pings)
-    var pageTitle = new PageTitle
-    var pageIcon = new PageIcon
-    var title = new Title
+    new Chart(user, pings)
+    new PageTitle(user, pings)
+    new PageIcon(user, pings)
+    new Title(user, pings)
 
     setInterval(function() { pings.add() }, common.pingInterval)
-
-    setInterval(function() {
-        var lag = pings.currentLag()
-        pageTitle.update(lag)
-        pageIcon.update(lag)
-        title.update(lag)
-    }, 250 /* Give enough time to read it */)
 })

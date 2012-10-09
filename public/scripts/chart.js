@@ -1,5 +1,5 @@
 define(['common'], function(common) {
-    return function(pings) {
+    return function(user, pings) {
         var element = d3.select('#chart').append('svg:svg')
         var elementHeight = parseInt(element.style('height'), 10)
         var barWidth = 8 // px
@@ -42,7 +42,7 @@ define(['common'], function(common) {
 
         selections.update()
 
-        d3.timer(function() {
+        user.on('view', function() {
             ;[selections.updated(), selections.exited()].forEach(function(selection) {
                 selection.each(function(datum) {
                     if (datum.ended) return
