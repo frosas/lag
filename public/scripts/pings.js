@@ -2,6 +2,7 @@ define(['common', 'underscore', 'backbone'], function(common) {
     return function() {
         var pings = []
         var max = 100
+        var lastRespondingPingLag = 0
 
         var create = function() {
             var start = Date.now()
@@ -11,17 +12,7 @@ define(['common', 'underscore', 'backbone'], function(common) {
                 return end || Date.now()
             }
 
-            $.ajax({
-                // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
-                // intranet)
-                url: 'http://lag.frosas.net/scripts/blank.js',
-                timeout: 60000  ,
-                dataType: 'script',
-                success: function() { end = Date.now() },
-                error: function(xhr, status, error) { console.error(error) }
-            })
-
-            return {
+            var ping = {
                 lag: function() {
                     return currentEnd() - start
                 },
@@ -32,12 +23,21 @@ define(['common', 'underscore', 'backbone'], function(common) {
                     return end
                 }
             }
-        }
 
-        var getLastRespondedPing = function() {
-            for (var i = pings.length - 1; i >= 0; i--) {
-                if (pings[i].end()) return pings[i]
-            }
+            $.ajax({
+                // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
+                // intranet)
+                url: 'http://lag.frosas.net/scripts/blank.js',
+                timeout: 60000  ,
+                dataType: 'script',
+                success: function() { 
+                    end = Date.now()
+                    lastRespondingPingLag = ping.lag()
+                },
+                error: function(xhr, status, error) { console.error(error) }
+            })
+
+            return ping
         }
 
         var getFirstOfTheLastUnrespondedPings = function() {
@@ -60,9 +60,6 @@ define(['common', 'underscore', 'backbone'], function(common) {
                 return max
             },
             currentLag: function() {
-                var lastRespondingPing = getLastRespondedPing()
-                var lastRespondingPingLag = lastRespondingPing ? lastRespondingPing.lag() : 0
-
                 var firstOfTheLastUnrespondedPings = getFirstOfTheLastUnrespondedPings()
                 if (firstOfTheLastUnrespondedPings) {
                     return Math.max(lastRespondingPingLag, firstOfTheLastUnrespondedPings.lag())
