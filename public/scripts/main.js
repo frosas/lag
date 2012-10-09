@@ -10,7 +10,7 @@ require.config({
     }
 })
 
-require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'backbone'], function(Chart, PageTitle, PageIcon, Pings, Title, User) {
+require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user'], function(Chart, PageTitle, PageIcon, Pings, Title, User) {
     var user = new User
     var pings = new Pings
     new Chart(user, pings)
