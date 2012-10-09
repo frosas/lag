@@ -1,4 +1,4 @@
-define(['chart-pings', 'common'], function(pings, common) {
+define(['pings', 'common'], function(pings, common) {
     var element = d3.select('#chart').append('svg:svg')
     var elementHeight = parseInt(element.style('height'), 10)
 
