@@ -60,24 +60,18 @@ define(['common'], function(common) {
             })
         })
 
-        return {
-            addPing: function() {
-                var ping = pings.add()
+        pings.on('add', function() {
+            selections.update()
 
-                selections.update()
+            selections.entered().append('svg:rect')
+                .attr('width', common.barWidth)
+                .attr('fill-opacity', .7)
 
-                selections.entered().append('svg:rect')
-                    .attr('width', common.barWidth)
-                    .attr('fill-opacity', .7)
-
-                selections.exited().each(function(datum) {
-                    if (datum.exiting) return
-                    datum.exiting = true
-                    d3.select(this).transition().duration(common.pingInterval * 2).remove()
-                })
-
-                return ping
-            }
-        }
+            selections.exited().each(function(datum) {
+                if (datum.exiting) return
+                datum.exiting = true
+                d3.select(this).transition().duration(common.pingInterval * 2).remove()
+            })
+        })
     }
 })

@@ -1,4 +1,14 @@
-require(['chart', 'page-title', 'page-icon', 'common', 'pings'], function(Chart, PageTitle, PageIcon, common, Pings) {
+require.config({
+    paths: {
+        underscore: 'http://documentcloud.github.com/underscore/underscore-min',
+        backbone: 'http://backbonejs.org/backbone-min'
+    },
+    shim: {
+        'backbone': ['underscore']
+    }
+})
+
+require(['chart', 'page-title', 'page-icon', 'common', 'pings', 'backbone'], function(Chart, PageTitle, PageIcon, common, Pings) {
     var pings = new Pings
     var chart = new Chart(pings)
     var pageTitle = new PageTitle
@@ -6,7 +16,7 @@ require(['chart', 'page-title', 'page-icon', 'common', 'pings'], function(Chart,
 
     var $pingEl = $('#ping')
     setInterval(function() {
-        var ping = chart.addPing()
+        var ping = pings.add()
         $.ajax({
             // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
             // intranet)
