@@ -1,4 +1,4 @@
-define(['common', 'd3'], function(common) {
+define(['d3'], function() {
     return function(user, pings) {
         var element = d3.select('#chart').append('svg:svg')
         var elementHeight = parseInt(element.style('height'), 10)
@@ -56,7 +56,7 @@ define(['common', 'd3'], function(common) {
                 })
 
                 var now = Date.now()
-                xScale.domain([now - pings.max() * common.pingInterval, now])
+                xScale.domain([now - pings.max() * pings.pingInterval(), now])
                 selection.attr('x', function(datum) { return xScale(datum.ping.start()) })
             })
         })
@@ -71,7 +71,7 @@ define(['common', 'd3'], function(common) {
             selections.exited().each(function(datum) {
                 if (datum.exiting) return
                 datum.exiting = true
-                d3.select(this).transition().duration(common.pingInterval * 2).remove()
+                d3.select(this).transition().duration(pings.pingInterval() * 2).remove()
             })
         })
     }

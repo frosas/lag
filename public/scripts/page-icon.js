@@ -1,4 +1,4 @@
-define(['common', 'jquery'], function(common) {
+define(['jquery'], function() {
     return function(user, pings) {
         var pingQualityIconUrl = function() {
             var lag = pings.currentLag()

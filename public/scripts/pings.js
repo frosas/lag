@@ -1,8 +1,9 @@
-define(['common', 'underscore', 'backbone', 'jquery'], function(common) {
+define(['underscore', 'backbone', 'jquery'], function() {
     return function() {
         var pings = []
         var max = 100
         var lastRespondingPingLag = 0
+        var pingInterval = 500
 
         var create = function() {
             var start = Date.now()
@@ -66,6 +67,9 @@ define(['common', 'underscore', 'backbone', 'jquery'], function(common) {
                 }
 
                 return lastRespondingPingLag
+            },
+            pingInterval: function() {
+                return pingInterval
             }
         }
 
@@ -76,7 +80,7 @@ define(['common', 'underscore', 'backbone', 'jquery'], function(common) {
             pings.push(ping)
             pings = pings.slice(-max)
             object.trigger('add', ping)
-        }, common.pingInterval)
+        }, pingInterval)
 
         return object
     }
