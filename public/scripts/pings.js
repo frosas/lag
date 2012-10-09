@@ -25,6 +25,21 @@ define(['underscore', 'backbone'], function() {
             }
         }
 
+        var getLastRespondedPing = function() {
+            for (var i = pings.length - 1; i >= 0; i--) {
+                if (pings[i].end()) return pings[i]
+            }
+        }
+
+        var getFirstOfTheLastUnrespondedPings = function() {
+            var first
+            for (var i = pings.length - 1; i >= 0; i--) {
+                if (pings[i].end()) break
+                first = pings[i]
+            }
+            if (first) return first
+        }
+
         var object = {
             add: function() {
                 var ping = create()
@@ -41,6 +56,17 @@ define(['underscore', 'backbone'], function() {
             },
             max: function() {
                 return max
+            },
+            currentLag: function() {
+                var lastRespondingPing = getLastRespondedPing()
+                if (! lastRespondingPing) return '–'
+
+                var firstOfTheLastUnrespondedPings = getFirstOfTheLastUnrespondedPings()
+                if (firstOfTheLastUnrespondedPings) {
+                    return Math.max(lastRespondingPing.lag(), firstOfTheLastUnrespondedPings.lag())
+                }
+
+                return lastRespondingPing.lag()
             }
         }
 

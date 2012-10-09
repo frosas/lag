@@ -3,8 +3,8 @@ define(function() {
         var original = document.title
 
         return {
-            update: function(ping) {
-                document.title = original + " (" + ping.lag() + " ms)"
+            update: function(lag) {
+                document.title = original + " (" + lag + " ms)"
             }
         }
     }

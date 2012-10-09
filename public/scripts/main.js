@@ -28,12 +28,14 @@ require(['chart', 'page-title', 'page-icon', 'common', 'pings', 'backbone'], fun
             },
             error: function(xhr, status, error) {
                 console.error(error)
-            },
-            complete: function() {
-                pageTitle.update(ping)
-                pageIcon.update(ping)
-                $pingEl.text(ping.lag() + " ms")
             }
         })
     }, common.pingInterval)
+
+    setInterval(function() {
+        var lag = pings.currentLag()
+        pageTitle.update(lag)
+        $pingEl.text(lag + " ms")
+        pageIcon.update(lag)
+    }, 250 /* Give enough time to read it */)
 })
