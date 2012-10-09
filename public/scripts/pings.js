@@ -67,14 +67,15 @@ define(['underscore', 'backbone'], function() {
                 return max
             },
             currentLag: function() {
-                var lastRespondingPing = getLastRespondedPing() || 0
+                var lastRespondingPing = getLastRespondedPing()
+                var lastRespondingPingLag = lastRespondingPing ? lastRespondingPing.lag() : 0
 
                 var firstOfTheLastUnrespondedPings = getFirstOfTheLastUnrespondedPings()
                 if (firstOfTheLastUnrespondedPings) {
-                    return Math.max(lastRespondingPing.lag(), firstOfTheLastUnrespondedPings.lag())
+                    return Math.max(lastRespondingPingLag, firstOfTheLastUnrespondedPings.lag())
                 }
 
-                return lastRespondingPing.lag()
+                return lastRespondingPingLag
             }
         }
 
