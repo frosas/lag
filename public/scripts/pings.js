@@ -67,8 +67,7 @@ define(['underscore', 'backbone'], function() {
                 return max
             },
             currentLag: function() {
-                var lastRespondingPing = getLastRespondedPing()
-                if (! lastRespondingPing) return '–'
+                var lastRespondingPing = getLastRespondedPing() || 0
 
                 var firstOfTheLastUnrespondedPings = getFirstOfTheLastUnrespondedPings()
                 if (firstOfTheLastUnrespondedPings) {
