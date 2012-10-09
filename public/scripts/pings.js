@@ -6,13 +6,22 @@ define(['underscore', 'backbone'], function() {
         var create = function() {
             var start = Date.now()
             var end
+
             var currentEnd = function() {
                 return end || Date.now()
             }
+
+            $.ajax({
+                // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
+                // intranet)
+                url: 'http://lag.frosas.net/scripts/blank.js',
+                timeout: 60000  ,
+                dataType: 'script',
+                success: function() { end = Date.now() },
+                error: function(xhr, status, error) { console.error(error) }
+            })
+
             return {
-                pong: function() {
-                    end = Date.now()
-                },
                 lag: function() {
                     return currentEnd() - start
                 },

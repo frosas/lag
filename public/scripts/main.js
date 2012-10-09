@@ -15,22 +15,8 @@ require(['chart', 'page-title', 'page-icon', 'common', 'pings', 'backbone'], fun
     var pageIcon = new PageIcon
 
     var $pingEl = $('#ping')
-    setInterval(function() {
-        var ping = pings.add()
-        $.ajax({
-            // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
-            // intranet)
-            url: 'http://lag.frosas.net/scripts/blank.js',
-            timeout: 60000  ,
-            dataType: 'script',
-            success: function() {
-                ping.pong()
-            },
-            error: function(xhr, status, error) {
-                console.error(error)
-            }
-        })
-    }, common.pingInterval)
+
+    setInterval(function() { pings.add() }, common.pingInterval)
 
     setInterval(function() {
         var lag = pings.currentLag()
