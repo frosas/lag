@@ -1,4 +1,4 @@
-define(['common'], function(common) {
+define(['common', 'd3'], function(common) {
     return function(user, pings) {
         var element = d3.select('#chart').append('svg:svg')
         var elementHeight = parseInt(element.style('height'), 10)

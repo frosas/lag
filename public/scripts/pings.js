@@ -1,4 +1,4 @@
-define(['common', 'underscore', 'backbone'], function(common) {
+define(['common', 'underscore', 'backbone', 'jquery'], function(common) {
     return function() {
         var pings = []
         var max = 100

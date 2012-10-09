@@ -1,4 +1,4 @@
-define(['common'], function(common) {
+define(['common', 'jquery'], function(common) {
     return function(user, pings) {
         var pingQualityIconUrl = function() {
             var lag = pings.currentLag()
@@ -6,7 +6,7 @@ define(['common'], function(common) {
             if (lag < 300) return 'images/bullet_yellow.png'  // Almost good
             if (lag < 1000) return 'images/bullet_orange.png' // So so
             if (lag < 5000) return 'images/bullet_red.png'    // Bad
-            return 'images/bullet_black.png'                         // Really bad
+            return 'images/bullet_black.png'                  // Really bad
         }
 
         var $icon = $('link[rel~=icon]')
