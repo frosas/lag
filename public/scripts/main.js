@@ -1,4 +1,9 @@
-require(['chart', 'page-title', 'page-icon', 'common'], function(chart, pageTitle, pageIcon, common) {
+require(['chart', 'page-title', 'page-icon', 'common', 'pings'], function(Chart, PageTitle, PageIcon, common, Pings) {
+    var pings = new Pings
+    var chart = new Chart(pings)
+    var pageTitle = new PageTitle
+    var pageIcon = new PageIcon
+
     var $pingEl = $('#ping')
     setInterval(function() {
         var ping = chart.addPing()

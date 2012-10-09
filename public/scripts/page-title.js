@@ -1,11 +1,11 @@
 define(function() {
+    return function() {
+        var original = document.title
 
-    var original = document.title
-
-    return {
-        update: function(ping) {
-            // TODO Update only every second with the average lag
-            document.title = original + " (" + ping.lag() + " ms)"
+        return {
+            update: function(ping) {
+                document.title = original + " (" + ping.lag() + " ms)"
+            }
         }
     }
 })
