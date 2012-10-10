@@ -1,15 +1,17 @@
 define(['d3'], function() {
     return function(user, pings) {
-        var element = d3.select('#chart').append('svg:svg')
-        var elementHeight = parseInt(element.style('height'), 10)
+        var $chart = $('#chart')
+        var d3Svg = d3.select($chart.get(0)).append('svg:svg')
+        // [1] Use the parent node dimensions as Firefox doesn't seem to work with the svg element ones
+        var d3SvgHeight = $chart.height()
         var barWidth = 8 // px
 
         var xScale = d3.scale.linear()
 
         var onResize = function() {
-            var elementWidth = parseInt(element.style('width'), 10)
-            pings.setMax(elementWidth / barWidth) // Yes, this a float
-            xScale.range([0, elementWidth])
+            var d3SvgWidth = $chart.width() // See [1]
+            pings.setMax(d3SvgWidth / barWidth) // Yes, this a float
+            xScale.range([0, d3SvgWidth])
         }
         window.addEventListener('resize', onResize)
         onResize()
@@ -19,7 +21,7 @@ define(['d3'], function() {
             var normalLag = 200
             var normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI
 
-            return normalizedLag * elementHeight 
+            return normalizedLag * d3SvgHeight 
         }
 
         var selections = (function() {
@@ -32,7 +34,7 @@ define(['d3'], function() {
                     var data = pings.all().map(function(ping) {
                         return {ping: ping, exiting: false, ended: false}
                     })
-                    updated = element.selectAll('rect')
+                    updated = d3Svg.selectAll('rect')
                         .data(data, function(datum) { return datum.ping.start() })
                     entered = updated.enter()
                     exited = updated.exit()
@@ -51,7 +53,7 @@ define(['d3'], function() {
                         d3.select(this).style('fill-opacity', 1)
                     }
                     d3.select(this)
-                        .attr('y', elementHeight - yScale(datum.ping.lag()))
+                        .attr('y', d3SvgHeight - yScale(datum.ping.lag()))
                         .attr('height', yScale(datum.ping.lag()))
                 })
 
