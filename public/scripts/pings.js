@@ -2,7 +2,7 @@ define(['underscore', 'backbone', 'jquery'], function() {
     return function() {
         var pings = []
         var max = 100
-        var lastRespondingPingLag = 0
+        var lastRespondingPing
         var pingInterval = 500
 
         var create = function() {
@@ -33,7 +33,9 @@ define(['underscore', 'backbone', 'jquery'], function() {
                 dataType: 'script',
                 success: function() { 
                     end = Date.now()
-                    lastRespondingPingLag = ping.lag()
+                    if (! lastRespondingPing || lastRespondingPing.start() < ping.start()) {
+                        lastRespondingPing = ping
+                    }
                 },
                 error: function(xhr, status, error) { console.error(error) }
             })
@@ -63,10 +65,10 @@ define(['underscore', 'backbone', 'jquery'], function() {
             currentLag: function() {
                 var firstOfTheLastUnrespondedPings = getFirstOfTheLastUnrespondedPings()
                 if (firstOfTheLastUnrespondedPings) {
-                    return Math.max(lastRespondingPingLag, firstOfTheLastUnrespondedPings.lag())
+                    return Math.max(lastRespondingPing.lag(), firstOfTheLastUnrespondedPings.lag())
                 }
 
-                return lastRespondingPingLag
+                return lastRespondingPing.lag()
             },
             pingInterval: function() {
                 return pingInterval
