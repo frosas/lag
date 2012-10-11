@@ -11,7 +11,7 @@ define(['ping', 'underscore', 'backbone', 'jquery'], function(Ping) {
                 if (pings[i].end()) break
                 first = pings[i]
             }
-            if (first) return first
+            return first
         }
 
         var object = {
