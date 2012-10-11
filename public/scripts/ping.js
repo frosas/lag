@@ -1,16 +1,10 @@
 define(['underscore', 'backbone'], function() {
     return function() {
-        var start
-        var end
-        var request
-
-        var currentEnd = function() {
-            return end || Date.now()
-        }
+        var start, end, request
 
         var ping = {
             lag: function() {
-                return currentEnd() - start
+                return (end || Date.now()) - start
             },
             start: function() {
                 return start
