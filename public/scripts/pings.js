@@ -8,6 +8,7 @@ define(['underscore', 'backbone', 'jquery'], function() {
         var create = function() {
             var start = Date.now()
             var end
+            var request
 
             var currentEnd = function() {
                 return end || Date.now()
@@ -22,14 +23,17 @@ define(['underscore', 'backbone', 'jquery'], function() {
                 },
                 end: function() {
                     return end
+                },
+                destroy: function() {
+                    request.abort()
                 }
             }
 
-            $.ajax({
+            request = $.ajax({
                 // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
                 // intranet)
                 url: 'http://lag.frosas.net/scripts/blank.js',
-                timeout: 60000,
+                timeout: 999999999, // "Forever"
                 dataType: 'script',
                 success: function() { 
                     end = Date.now()
@@ -82,7 +86,7 @@ define(['underscore', 'backbone', 'jquery'], function() {
         setInterval(function() {
             var ping = create()
             pings.push(ping)
-            pings = pings.slice(-max)
+            while (pings.length > max) pings.shift().destroy()
             object.trigger('add', ping)
         }, pingInterval)
 
