@@ -1,51 +1,9 @@
-define(['underscore', 'backbone', 'jquery'], function() {
+define(['ping', 'underscore', 'backbone', 'jquery'], function(Ping) {
     return function() {
         var pings = []
         var max = 100
         var lastRespondedPing
         var pingInterval = 500
-
-        var create = function() {
-            var start = Date.now()
-            var end
-            var request
-
-            var currentEnd = function() {
-                return end || Date.now()
-            }
-
-            var ping = {
-                lag: function() {
-                    return currentEnd() - start
-                },
-                start: function() {
-                    return start
-                },
-                end: function() {
-                    return end
-                },
-                destroy: function() {
-                    request.abort()
-                }
-            }
-
-            request = $.ajax({
-                // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
-                // intranet)
-                url: 'http://lag.frosas.net/scripts/blank.js',
-                timeout: 999999999, // "Forever"
-                dataType: 'script',
-                success: function() { 
-                    end = Date.now()
-                    if (! lastRespondedPing || lastRespondedPing.start() < ping.start()) {
-                        lastRespondedPing = ping
-                    }
-                },
-                error: function(xhr, status, error) { console.error(error) }
-            })
-
-            return ping
-        }
 
         var getFirstOfTheLastUnrespondedPings = function() {
             var first
@@ -84,7 +42,12 @@ define(['underscore', 'backbone', 'jquery'], function() {
         _.extend(object, Backbone.Events)
 
         setInterval(function() {
-            var ping = create()
+            var ping = new Ping
+            ping.on('pong', function() {
+                if (! lastRespondedPing || lastRespondedPing.start() < ping.start()) {
+                    lastRespondedPing = ping
+                }
+            })
             pings.push(ping)
             while (pings.length > max) pings.shift().destroy()
             object.trigger('add', ping)
