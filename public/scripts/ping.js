@@ -1,6 +1,6 @@
 define(['underscore', 'backbone'], function() {
     return function() {
-        var start = Date.now()
+        var start
         var end
         var request
 
@@ -31,6 +31,7 @@ define(['underscore', 'backbone'], function() {
             url: 'http://lag.frosas.net/scripts/blank.js',
             timeout: 999999999, // "Forever"
             dataType: 'script',
+            beforeSend: function() { start = Date.now() },
             success: function() { 
                 end = Date.now()
                 ping.trigger('pong')
