@@ -1,9 +1,11 @@
-define(['underscore', 'backbone'], function() {
+define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realtimeSetInterval) {
     return function() {
         var user = {}
         _.extend(user, Backbone.Events)
-        setInterval(function() { user.trigger('read') }, 250) // At more speed the user won't be able to read
-        d3.timer(function() { user.trigger('view') }) // At more speed the user won't notice any difference
+        // User won't notice higher intervals than these
+        setInterval(function() { user.trigger('read') }, 250)
+        d3.timer(function() { user.trigger('view') })
+        realtimeSetInterval(function() { user.trigger('hear') }, 100)
         return user
     }
 })

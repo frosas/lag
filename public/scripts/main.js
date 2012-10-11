@@ -18,5 +18,5 @@ require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio'],
     new PageTitle(user, pings)
     new PageIcon(user, pings)
     new Title(user, pings)
-    new Audio(pings)
+    new Audio(user, pings)
 })
