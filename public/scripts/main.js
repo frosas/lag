@@ -11,12 +11,13 @@ require.config({
     }
 })
 
-require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio'], function(Chart, PageTitle, PageIcon, Pings, Title, User, Audio) {
+require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 'controls'], function(Chart, PageTitle, PageIcon, Pings, Title, User, Audio, Controls) {
     var user = new User
     var pings = new Pings
     new Chart(user, pings)
     new PageTitle(user, pings)
     new PageIcon(user, pings)
     new Title(user, pings)
-    new Audio(user, pings)
+    var audio = new Audio(user, pings)
+    new Controls(audio)
 })
