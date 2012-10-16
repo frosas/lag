@@ -10,4 +10,7 @@ body { font: 13px sans-serif; color: #474739; padding: 10px; margin: 0 }
     box-shadow: 0 0 10px #aaa }
 #chart > svg > rect { fill: #474739 }
 
+#configuration { opacity: .2 }
+#configuration:hover { opacity: 1 }
+
 #fork-me > img { position: absolute; top: 0; right: 0; border: 0 }
