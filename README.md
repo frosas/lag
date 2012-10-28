@@ -6,5 +6,7 @@
 - Try WebSockets (less network and processor overhead?)
 - Don't let any space between bars (make it larger)
 - Consume as little battery as possible
-- Make sounds feel natural even with a 1 second interval (the default in background tabs)
-- Set a max sound frequency (similar to what is done in the chart)
+- Make sure it works in major browsers
+- Increase require.js loading timeout
+- Alert require.js loading errors
+- Does volume restores correctly on load?
