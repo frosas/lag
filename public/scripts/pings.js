@@ -1,4 +1,4 @@
-define(['ping', 'underscore', 'backbone', 'jquery'], function(Ping) {
+define(['ping', 'realtime-set-interval', 'underscore', 'backbone', 'jquery'], function(Ping, realtimeSetInterval) {
     return function() {
         var pings = []
         var max = 100
@@ -41,7 +41,7 @@ define(['ping', 'underscore', 'backbone', 'jquery'], function(Ping) {
 
         _.extend(object, Backbone.Events)
 
-        setInterval(function() {
+        realtimeSetInterval(function() {
             var ping = new Ping
             ping.on('pong', function() {
                 if (! lastRespondedPing || lastRespondedPing.start() < ping.start()) {
