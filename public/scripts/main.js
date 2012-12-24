@@ -1,14 +1,9 @@
-require.config({
-    paths: {
-        underscore: 'http://documentcloud.github.com/underscore/underscore-min',
-        backbone: 'http://backbonejs.org/backbone-min',
-        jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min',
-        d3: 'http://d3js.org/d3.v3.min',
-        audiolet: 'https://raw.github.com/oampo/Audiolet/master/src/audiolet/Audiolet.min'
-    },
-    shim: {
-        'backbone': ['underscore']
-    }
+var debug = true
+
+// Error handling
+
+addEventListener('error', function(event) {
+    alert(event.message)
 })
 
 requirejs.onError = function(error) {
@@ -21,8 +16,19 @@ requirejs.onError = function(error) {
     throw error
 }
 
-addEventListener('error', function(event) {
-    alert(event.message)
+//
+
+require.config({
+    paths: {
+        underscore: 'http://documentcloud.github.com/underscore/underscore' + (debug ? '' : '-min'),
+        backbone: 'http://backbonejs.org/backbone' + (debug ? '' : '-min'),
+        jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery' + (debug ? '' : '.min'),
+        d3: 'http://d3js.org/d3.v3' + (debug ? '' : '-min'),
+        audiolet: 'https://raw.github.com/oampo/Audiolet/master/src/audiolet/Audiolet' + (debug ? '' : '.min')
+    },
+    shim: {
+        'backbone': ['underscore']
+    }
 })
 
 require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 'controls'], function(Chart, PageTitle, PageIcon, Pings, Title, User, Audio, Controls) {
