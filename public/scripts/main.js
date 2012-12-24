@@ -21,6 +21,10 @@ requirejs.onError = function(error) {
     throw error
 }
 
+addEventListener('error', function(event) {
+    alert(event.message)
+})
+
 require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 'controls'], function(Chart, PageTitle, PageIcon, Pings, Title, User, Audio, Controls) {
     var user = new User
     var pings = new Pings
