@@ -22,9 +22,9 @@ require.config({
     paths: {
         underscore: 'http://documentcloud.github.com/underscore/underscore' + (debug ? '' : '-min'),
         backbone: 'http://backbonejs.org/backbone' + (debug ? '' : '-min'),
-        jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery' + (debug ? '' : '.min'),
         d3: 'http://d3js.org/d3.v3' + (debug ? '' : '-min'),
         audiolet: 'https://raw.github.com/oampo/Audiolet/master/src/audiolet/Audiolet' + (debug ? '' : '.min')
+        jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery' + (debug ? '' : '.min'),
     },
     shim: {
         'backbone': ['underscore']
