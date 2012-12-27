@@ -1,27 +1,51 @@
-define(['user', 'audiolet'], function(user) {
-    return function(user, pings) {
-        var audiolet = new Audiolet(null, 1)
-        var gain = new Gain(audiolet, 1)
-        gain.connect(audiolet.output)
-        var filter = new LowPassFilter(audiolet, 1)
-        filter.connect(gain)
-        var whiteNoise = new WhiteNoise(audiolet)
-        whiteNoise.connect(filter)
+define(['user'], function(user) {
+    var Noise = function(context) {
+        var lengthInSeconds = 5
+        var buffer = context.createBuffer(1, context.sampleRate * lengthInSeconds, context.sampleRate)
+        var data = buffer.getChannelData(0)
+        for (var i = data.length; i; i--) data[i] = Math.random() * 2 - 1
 
-        user.on('hear', function() { 
-            var currentFrequency = filter.frequency.getValue()
-            var targetFrequency = pings.currentLag() / 4
-            var targetFrequency = Math.min(targetFrequency, 800) // Frequency limit
-            var nextFrequency = currentFrequency + (targetFrequency - currentFrequency) / 8
-            filter.frequency.setValue(nextFrequency) 
+        var source = context.createBufferSource()
+        source.buffer = buffer
+        source.loop = true
+        source.noteOn(0)
+        return source
+    }
+
+    return function(user, pings) {
+        var AudioContext = AudioContext || webkitAudioContext
+        if (! AudioContext) {
+            console.warn("Web Audio API not available")
+            return
+        }
+
+        var context = new AudioContext
+
+        var gain = context.createGainNode()
+        gain.connect(context.destination)
+
+        var filter = context.createBiquadFilter()
+        filter.frequency.value = 100;
+        filter.Q.value = 0;
+        filter.connect(gain)
+
+        var noise = new Noise(context)
+        noise.connect(filter)
+
+        user.on('hear', function() {
+            var current = filter.frequency.value
+            var target = pings.currentLag() / 2
+            target = Math.min(target, 800) // Frequency limit
+            var next = current + (target - current) / 8 // Reach target incrementally
+            filter.frequency.value = next
         })
 
         return {
             setVolume: function(volume) {
-                gain.gain.setValue(volume)
+                gain.gain.value = volume
             },
             getVolume: function() {
-                return gain.gain.getValue()
+                return gain.gain.value
             }
         }
     }
