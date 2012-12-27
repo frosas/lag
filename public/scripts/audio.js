@@ -13,7 +13,7 @@ define(['user'], function(user) {
     }
 
     return function(user, pings) {
-        var AudioContext = AudioContext || webkitAudioContext
+        var AudioContext = window.AudioContext || window.webkitAudioContext
         if (! AudioContext) {
             console.warn("Web Audio API not available")
             return
