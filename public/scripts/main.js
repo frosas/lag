@@ -37,6 +37,6 @@ require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 
     new PageTitle(user, pings)
     new PageIcon(user, pings)
     new Title(user, pings)
-    var audio = new Audio(user, pings)
+    var audio = Audio.create(user, pings)
     new Controls(audio)
 })

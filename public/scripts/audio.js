@@ -12,15 +12,7 @@ define(['user'], function(user) {
         return source
     }
 
-    return function(user, pings) {
-        var AudioContext = window.AudioContext || window.webkitAudioContext
-        if (! AudioContext) {
-            console.warn("Web Audio API not available")
-            return
-        }
-
-        var context = new AudioContext
-
+    var Audio = function(context, user, pings) {
         var gain = context.createGainNode()
         gain.connect(context.destination)
 
@@ -49,4 +41,17 @@ define(['user'], function(user) {
             }
         }
     }
+
+    Audio.create = function(user, pings) {
+        var AudioContext = window.AudioContext || window.webkitAudioContext
+
+        if (! AudioContext) {
+            console.warn("Web Audio API not available")
+            return
+        }
+
+        return new Audio(new AudioContext, user, pings)
+    }
+
+    return Audio
 })
