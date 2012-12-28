@@ -50,7 +50,7 @@ define(['d3'], function() {
                     if (datum.ended) return
                     if (datum.ping.end()) {
                         datum.ended = true
-                        d3.select(this).style('fill-opacity', 1)
+                        d3.select(this).attr('fill-opacity', 1)
                     }
                     d3.select(this)
                         .attr('y', d3SvgHeight - yScale(datum.ping.lag()))
