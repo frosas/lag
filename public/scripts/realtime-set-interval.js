@@ -16,6 +16,6 @@ define(function() {
         }
     }
 
-    console.log("Worker or Blob not available, falling back to setInterval()")
+    console.warn("Worker or Blob not available, falling back to setInterval()")
     return setInterval
 })
