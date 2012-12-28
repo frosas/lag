@@ -8,17 +8,22 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
         window.msRequestAnimationFrame || 
         function(callback) { setTimeout(callback, 1000 / 60) }
 
+    // User won't notice lower intervals than these
     return function() {
         var user = _.extend({}, Backbone.Events)
+        var lastRead
 
-        // User won't notice lower intervals than these
-
-        setInterval(function() { user.trigger('read') }, 250)
-
-        // Consumes less CPU than d3.timer() (2.74% vs 7.63%)
+        // Consumes less CPU than d3.timer()
         ;(function userViewTimer() {
             requestAnimationFrame(userViewTimer)
+
             user.trigger('view')
+
+            var now = Date.now()
+            if (! lastRead || now - lastRead >= 250) {
+                user.trigger('read')
+                lastRead = now
+            }
         })()
 
         realtimeSetInterval(function() { user.trigger('hear') }, 100)
