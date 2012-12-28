@@ -12,6 +12,7 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
     return function() {
         var user = _.extend({}, Backbone.Events)
         var lastRead
+        var readInterval = 250
 
         // Consumes less CPU than d3.timer()
         ;(function userViewTimer() {
@@ -20,11 +21,14 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
             user.trigger('view')
 
             var now = Date.now()
-            if (! lastRead || now - lastRead >= 250) {
+            if (! lastRead || now - lastRead >= readInterval) {
                 user.trigger('read')
                 lastRead = now
             }
         })()
+
+        // 'read' event is not triggered when the page is not active
+        realtimeSetInterval(function() { user.trigger('readPageTitle') }, readInterval)
 
         realtimeSetInterval(function() { user.trigger('hear') }, 100)
 
