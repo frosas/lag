@@ -11,15 +11,12 @@ define(['underscore', 'backbone'], function() {
             },
             end: function() {
                 return end
-            },
-            destroy: function() {
-                request.abort()
             }
         }
 
         _.extend(ping, Backbone.Events)
 
-        request = $.ajax({
+        $.ajax({
             // Resource shall be small, close to the user (eg, in a CDN) and in the web (not in localhost or the
             // intranet)
             url: 'http://lag.frosas.net/scripts/blank.js',
