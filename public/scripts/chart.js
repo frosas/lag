@@ -25,19 +25,18 @@ define(['d3'], function() {
         }
 
         var selections = (function() {
-            var entered, updated, exited
+            var updated
             return {
-                entered: function() { return entered },
+                entered: function() { return updated.enter() },
                 updated: function() { return updated },
-                exited: function() { return exited },
+                exited: function() { return updated.exit() },
                 update: function() {
                     var data = pings.all().map(function(ping) {
                         return {ping: ping, exiting: false, ended: false}
                     })
-                    updated = d3Svg.selectAll('rect')
-                        .data(data, function(datum) { return datum.ping.start() })
-                    entered = updated.enter()
-                    exited = updated.exit()
+                    updated = d3Svg.selectAll('rect').data(data, function(datum) { 
+                        return datum.ping.start() 
+                    })
                 }
             }
         })()
