@@ -13,7 +13,7 @@ define(['jquery'], function() {
         if (! $icon.length) $icon = $('<link rel="icon">').appendTo('head')
         $icon.attr('type', 'image/png')
 
-        user.on('read', function() {
+        user.on('readPageTitle', function() {
             $icon.attr('href', pingQualityIconUrl())
         })
     }
