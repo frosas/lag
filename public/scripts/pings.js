@@ -49,7 +49,7 @@ define(['ping', 'realtime-set-interval', 'underscore', 'backbone', 'jquery'], fu
                 }
             })
             pings.push(ping)
-            while (pings.length > max) pings.shift()
+            if (pings.length > max) pings.shift()
             object.trigger('add', ping)
         }, pingInterval)
 
