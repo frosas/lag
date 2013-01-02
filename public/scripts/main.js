@@ -1,22 +1,8 @@
 var debug = true
 
 // Error handling
-
-addEventListener('error', function(event) {
-    alert(event.message)
-})
-
-requirejs.onError = function(error) {
-    if (error.requireType == 'timeout') {
-        alert("Timeout reached loading the dependencies. Please, try reloading the page.")
-    } else {
-        alert("Unknown error found loading the dependencies. See console for details.")
-    }
-
-    throw error
-}
-
-//
+addEventListener('error', function(event) { alert(event.message) })
+requirejs.onError = function(error) { throw error.message + ' (see console for details)' }
 
 require.config({
     paths: {
