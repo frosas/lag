@@ -21,7 +21,7 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
             user.trigger('view')
 
             var now = Date.now()
-            if (! lastRead || now - lastRead >= readInterval) {
+            if (now - lastRead >= readInterval) {
                 user.trigger('read')
                 lastRead = now
             }
