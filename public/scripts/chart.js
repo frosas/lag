@@ -52,8 +52,8 @@ define(['d3'], function() {
                         d3.select(this).attr('fill-opacity', 1)
                     }
                     d3.select(this)
-                        .attr('y', d3SvgHeight - yScale(datum.ping.lag()))
-                        .attr('height', yScale(datum.ping.lag()))
+                        .attr('y', Math.floor(d3SvgHeight - yScale(datum.ping.lag())))
+                        .attr('height', Math.floor(yScale(datum.ping.lag())))
                 })
 
                 var now = Date.now()
