@@ -12,7 +12,7 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
     return function() {
         var user = _.extend({}, Backbone.Events)
         var lastRead
-        var readInterval = 250
+        var readInterval = 500
 
         // Consumes less CPU than d3.timer()
         ;(function userViewTimer() {
