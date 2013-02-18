@@ -27,7 +27,7 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
             }
         })()
 
-        // 'read' event is not triggered when the page is not active
+        // We can't use the 'read' event as it is not triggered when the tab is not active
         realtimeSetInterval(function() { user.trigger('readPageTitle') }, readInterval)
 
         realtimeSetInterval(function() { user.trigger('hear') }, 100)
