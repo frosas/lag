@@ -1,4 +1,4 @@
-define(['ping', 'realtime-set-interval', 'underscore', 'backbone', 'jquery'], function(Ping, realtimeSetInterval) {
+define(['ping', 'realtime-set-interval', 'underscore', 'backbone'], function(Ping, realtimeSetInterval) {
     return function() {
         var pings = []
         var max = 100
