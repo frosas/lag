@@ -35,7 +35,7 @@ define(['d3'], function() {
                         return {ping: ping, exiting: false, ended: false}
                     })
                     updated = d3Svg.selectAll('rect').data(data, function(datum) { 
-                        return datum.ping.start() 
+                        return datum.ping.start 
                     })
                 }
             }
@@ -47,7 +47,7 @@ define(['d3'], function() {
             ;[selections.updated(), selections.exited()].forEach(function(selection) {
                 selection.each(function(datum) {
                     if (datum.ended) return
-                    if (datum.ping.end()) {
+                    if (datum.ping.end) {
                         datum.ended = true
                         d3.select(this).attr('fill-opacity', 1)
                     }
@@ -58,7 +58,7 @@ define(['d3'], function() {
 
                 var now = Date.now()
                 xScale.domain([now - pings.max() * pings.pingInterval(), now])
-                selection.attr('x', function(datum) { return xScale(datum.ping.start()) })
+                selection.attr('x', function(datum) { return xScale(datum.ping.start) })
             })
         })
 

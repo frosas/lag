@@ -8,7 +8,7 @@ define(['ping', 'realtime-set-interval', 'underscore', 'backbone', 'jquery'], fu
         var getFirstOfTheLastUnrespondedPings = function() {
             var first
             for (var i = pings.length - 1; i >= 0; i--) {
-                if (pings[i].end()) break
+                if (pings[i].end) break
                 first = pings[i]
             }
             return first
@@ -44,7 +44,7 @@ define(['ping', 'realtime-set-interval', 'underscore', 'backbone', 'jquery'], fu
         realtimeSetInterval(function() {
             var ping = new Ping
             ping.on('pong', function() {
-                if (! lastRespondedPing || lastRespondedPing.start() < ping.start()) {
+                if (! lastRespondedPing || lastRespondedPing.start < ping.start) {
                     lastRespondedPing = ping
                 }
             })
