@@ -6,9 +6,9 @@ requirejs.onError = function(error) { throw error.message + ' (see console for d
 
 require.config({
     paths: {
-        underscore: 'http://documentcloud.github.com/underscore/underscore' + (debug ? '' : '-min'),
-        backbone: 'http://backbonejs.org/backbone' + (debug ? '' : '-min'),
         jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery' + (debug ? '' : '.min'),
+        underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore' + (debug ? '' : '-min'),
+        backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min',
         d3: 'http://d3js.org/d3.v3' + (debug ? '' : '-min')
     },
     shim: {
