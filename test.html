@@ -6,8 +6,7 @@
 <script src="https://rawgithub.com/visionmedia/mocha/1.8.0/mocha.js"></script>
 <script>
     mocha.setup('bdd')
-    require.config({paths: {chai: 'https://rawgithub.com/chaijs/chai/1.5.0/chai'}})
-    require(['chai'], function(chai) {
+    require(['https://rawgithub.com/chaijs/chai/1.5.0/chai.js'], function(chai) {
         chai.should()
         require(['test/math'], function() {
             mocha.run()
