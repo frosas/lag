@@ -3,7 +3,7 @@ define(['ping', 'realtime-set-interval', 'underscore', 'backbone'], function(Pin
         var list = []
         var max = 100
         var lastRespondedPing
-        var pingInterval = 500
+        var pingInterval = 1000
 
         var getFirstOfTheLastUnrespondedPings = function() {
             var first
