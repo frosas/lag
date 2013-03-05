@@ -1,12 +1,12 @@
 <!doctype html>
 <title>Lag tests</title>
-<link rel="stylesheet" href="node_modules/mocha/mocha.css">
+<link rel="stylesheet" href="https://rawgithub.com/visionmedia/mocha/1.8.0/mocha.css">
 <div id="mocha"></div>
 <script src="http://requirejs.org/docs/release/2.1.4/minified/require.js"></script>
-<script src="https://raw.github.com/visionmedia/mocha/1.8.0/mocha.js"></script>
+<script src="https://rawgithub.com/visionmedia/mocha/1.8.0/mocha.js"></script>
 <script>
     mocha.setup('bdd')
-    require.config({paths: {chai: 'https://raw.github.com/chaijs/chai/1.5.0/chai'}})
+    require.config({paths: {chai: 'https://rawgithub.com/chaijs/chai/1.5.0/chai'}})
     require(['chai'], function(chai) {
         chai.should()
         require(['test/math'], function() {
