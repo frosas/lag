@@ -47,6 +47,8 @@ define(['ping', 'realtime-set-interval', 'underscore', 'backbone'], function(Pin
                 if (! lastRespondedPing || lastRespondedPing.start < ping.start) {
                     lastRespondedPing = ping
                 }
+
+                pings.trigger('pong', ping)
             })
             list.push(ping)
             if (list.length > max) list.shift()

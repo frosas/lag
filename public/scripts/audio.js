@@ -1,4 +1,4 @@
-define(['user'], function(user) {
+define(['user', 'math'], function(user, _Math) {
     var Noise = function(context) {
         var lengthInSeconds = 5
         var buffer = context.createBuffer(1, context.sampleRate * lengthInSeconds, context.sampleRate)
@@ -24,12 +24,27 @@ define(['user'], function(user) {
         var noise = new Noise(context)
         noise.connect(filter)
 
-        user.on('hear', function() {
-            var current = filter.frequency.value
-            var target = pings.currentLag() / 2
-            target = Math.min(target, 800) // Frequency limit
-            var next = current + (target - current) / 8 // Reach target incrementally
-            filter.frequency.value = next
+        var increments = []
+        pings.on('pong', function() {
+            // Set the new increments
+            increments = []
+            var from = filter.frequency.value
+            var to = pings.currentLag()
+            to = Math.min(to, 800) // Max frequency
+            while (! _Math.equal(from, to)) {
+                var increment = to - from
+                increment = Math.min(Math.abs(increment), 25) * _Math.polarity(increment)
+                from += increment
+                increments.push(increment)
+            }
+
+            // Apply them
+            ;(function doSteps() {
+                var increment = increments.splice(0, 1)[0]
+                if (! increment) return
+                filter.frequency.value += increment
+                user.once('hear', doSteps)
+            })()
         })
 
         return {
