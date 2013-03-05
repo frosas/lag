@@ -13,7 +13,8 @@ require.config({
     },
     shim: {
         'backbone': ['underscore']
-    }
+    },
+    waitSeconds: 60
 })
 
 require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 'controls'], function(Chart, PageTitle, PageIcon, Pings, Title, User, Audio, Controls) {
