@@ -26,4 +26,7 @@ require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 
     new Title(user, pings)
     var audio = Audio.create(user, pings)
     new Controls(audio)
+
+    // Update the visualization as soon as we get new data
+    pings.on('pong', function() { user.trigger('read') })
 })
