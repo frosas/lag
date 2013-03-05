@@ -1,4 +1,3 @@
-var assert = require('assert') // TODO
 var requirejs = require('requirejs')
 require('chai').should()
 
