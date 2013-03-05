@@ -1,22 +1,22 @@
 define(['ping', 'realtime-set-interval', 'underscore', 'backbone'], function(Ping, realtimeSetInterval) {
     return function() {
-        var pings = []
+        var list = []
         var max = 100
         var lastRespondedPing
         var pingInterval = 500
 
         var getFirstOfTheLastUnrespondedPings = function() {
             var first
-            for (var i = pings.length - 1; i >= 0; i--) {
-                if (pings[i].end) break
-                first = pings[i]
+            for (var i = list.length - 1; i >= 0; i--) {
+                if (list[i].end) break
+                first = list[i]
             }
             return first
         }
 
-        var object = {
+        var pings = {
             all: function() {
-                return pings
+                return list
             },
             setMax: function(_max) {
                 max = _max
@@ -39,7 +39,7 @@ define(['ping', 'realtime-set-interval', 'underscore', 'backbone'], function(Pin
             }
         }
 
-        _.extend(object, Backbone.Events)
+        _.extend(pings, Backbone.Events)
 
         realtimeSetInterval(function() {
             var ping = new Ping
@@ -48,11 +48,11 @@ define(['ping', 'realtime-set-interval', 'underscore', 'backbone'], function(Pin
                     lastRespondedPing = ping
                 }
             })
-            pings.push(ping)
-            if (pings.length > max) pings.shift()
-            object.trigger('add', ping)
+            list.push(ping)
+            if (list.length > max) list.shift()
+            pings.trigger('add', ping)
         }, pingInterval)
 
-        return object
+        return pings
     }
 })
