@@ -10,7 +10,10 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
 
     // User won't notice lower intervals than these
     return function() {
-        var user = _.extend({}, Backbone.Events)
+        var user = {hearingInterval: 250 /* ms */}
+
+        user = _.extend(user, Backbone.Events)
+
         var lastRead
         var readInterval = 500
 
@@ -22,15 +25,15 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
 
             var now = Date.now()
             if (! lastRead || now - lastRead >= readInterval) {
+                // Note that it will be triggered just once a second when the tab is 
+                // not active
                 user.trigger('read')
+
                 lastRead = now
             }
         })()
 
-        // We can't use the 'read' event as it is not triggered when the tab is not active
-        realtimeSetInterval(function() { user.trigger('readPageTitle') }, readInterval)
-
-        realtimeSetInterval(function() { user.trigger('hear') }, 100)
+        realtimeSetInterval(function() { user.trigger('hear') }, user.hearingInterval)
 
         return user
     }
