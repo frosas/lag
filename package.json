@@ -1,9 +1,0 @@
-{
-    "name": "frosas-lag",
-    "version": "0.1.0",
-    "devDependencies": {
-        "requirejs": "~2.1",
-        "mocha": "~1.8",
-        "chai": "~1.5"
-    }
-}
