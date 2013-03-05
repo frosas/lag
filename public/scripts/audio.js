@@ -24,24 +24,17 @@ define(['user', 'math'], function(user, _Math) {
         var noise = new Noise(context)
         noise.connect(filter)
 
-        var increments = []
+        var maxIncrement = 25 // Hertz
+        var currentPongId = 0 // To have a single logic executed at once
         pings.on('pong', function() {
-            // Set the new increments
-            increments = []
-            var from = filter.frequency.value
+            var pongId = ++currentPongId
             var to = pings.currentLag()
             to = Math.min(to, 800) // Max frequency
-            while (! _Math.equal(from, to)) {
-                var increment = to - from
-                increment = Math.min(Math.abs(increment), 25) * _Math.polarity(increment)
-                from += increment
-                increments.push(increment)
-            }
-
-            // Apply them
             ;(function doSteps() {
-                var increment = increments.splice(0, 1)[0]
-                if (! increment) return
+                var from = filter.frequency.value
+                if (pongId !== currentPongId || _Math.equal(from, to)) return
+                var increment = to - from
+                increment = Math.min(Math.abs(increment), maxIncrement) * _Math.polarity(increment)
                 filter.frequency.value += increment
                 user.once('hear', doSteps)
             })()
