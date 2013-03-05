@@ -4,8 +4,8 @@
 
 - Make favicon work on Firefox and Safari
 - Try WebSockets (less network and processor overhead?)
-- Consume as little [battery](http://www.w3.org/TR/battery-status/) as possible
 - Make sure it works in all major browsers
 - Make it work [offline](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html) (to start it without a connection)
 - When no pings are ponged the current lag (number) is wrong
 - Show lag in seconds (1+ s) or minutes (1+ m) when pertinent
+- Testing
