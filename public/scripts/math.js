@@ -2,8 +2,8 @@ define(function() {
     return {
         equal: function(a, b, decimals) {
             if (typeof decimals == 'undefined') decimals = 0
-            a *= Math.pow(a, decimals)
-            b *= Math.pow(b, decimals)
+            a *= Math.pow(10, decimals)
+            b *= Math.pow(10, decimals)
             return ! (parseInt(a, 10) - parseInt(b, 10))
         },
 
