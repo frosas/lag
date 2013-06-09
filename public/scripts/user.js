@@ -10,30 +10,32 @@ define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realt
 
     // User won't notice lower intervals than these
     return function() {
-        var user = {hearingInterval: 250 /* ms */}
+        var user = _.extend({}, Backbone.Events)
+        var maxReadInterval = 250
 
-        user = _.extend(user, Backbone.Events)
-
-        var lastRead
-        var readInterval = 500
-
-        // Consumes less CPU than d3.timer()
-        ;(function userViewTimer() {
-            requestAnimationFrame(userViewTimer)
-
-            user.trigger('view')
-
-            var now = Date.now()
-            if (! lastRead || now - lastRead >= readInterval) {
-                // Note that it will be triggered just once a second when the tab is 
-                // not active
-                user.trigger('read')
-
-                lastRead = now
+        var triggerReadIfNeeded = (function() {
+            var lastRead
+            return function() {
+                var now = Date.now()
+                if (! lastRead || now - lastRead >= maxReadInterval) {
+                    user.trigger('read')
+                    lastRead = now
+                }
             }
         })()
 
-        realtimeSetInterval(function() { user.trigger('hear') }, user.hearingInterval)
+        ;(function userViewTimer() {
+            requestAnimationFrame(userViewTimer) // Consumes less CPU than d3.timer()
+            user.trigger('view')
+            triggerReadIfNeeded()
+        })()
+
+        // requestanimationframe() is not always triggered when the tab is not 
+        // active. Here we ensure it is called at least once every second (as we 
+        // are not using realtimeSetInterval())
+        setInterval(triggerReadIfNeeded, maxReadInterval)
+
+        realtimeSetInterval(function() { user.trigger('hear') }, 250)
 
         return user
     }
