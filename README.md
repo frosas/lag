@@ -9,3 +9,4 @@
 - When no pings are ponged the current lag (number) is wrong
 - Show lag in seconds (1+ s) or minutes (1+ m) when pertinent
 - Testing
+- Use CSS animations? Probably it's smoother and accelerated.
