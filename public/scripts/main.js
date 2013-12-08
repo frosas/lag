@@ -1,14 +1,14 @@
 var debug = true
 
 // Error handling
-addEventListener('error', function(event) { alert(event.message) })
-requirejs.onError = function(error) { throw error.message + ' (see console for details)' }
+addEventListener('error', function(event) { alert(event.message); console.log(event) })
+require.onError = function(error) { alert(error.message); console.log(error) }
 
 require.config({
     paths: {
-        underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore' + (debug ? '' : '-min'),
-        backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min',
-        jquery: '//code.jquery.com/jquery-1.9.1' + (debug ? '' : '.min'),
+        underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore' + (debug ? '' : '-min'),
+        backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min',
+        jquery: 'http://code.jquery.com/jquery-1.9.1' + (debug ? '' : '.min'),
         d3: 'http://d3js.org/d3.v3' + (debug ? '' : '-min')
     },
     shim: {
