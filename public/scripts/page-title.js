@@ -1,8 +1,8 @@
-define(['human-interval'], function(humanInterval) {
+define(function() {
     return function(user, pings) {
         var original = document.title
         user.on('read', function() { 
-            document.title = original + " (" + humanInterval(pings.currentLag()) + ")" 
+            document.title = original + " (" + pings.currentLag() + " ms)" 
         })
     }
 })

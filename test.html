@@ -8,10 +8,7 @@
     mocha.setup('bdd')
     require(['https://rawgithub.com/chaijs/chai/1.5.0/chai.js'], function(chai) {
         chai.should()
-        require([
-            'test/math',
-            'test/human-interval'
-        ], function() {
+        require(['test/math'], function() {
             mocha.run()
         })
     })
