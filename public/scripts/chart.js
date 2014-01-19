@@ -1,4 +1,4 @@
-define(['d3'], function() {
+define(['d3'], function(d3) {
     return function(user, pings) {
         var $chart = $('#chart')
         var d3Svg = d3.select($chart.get(0)).append('svg:svg')
