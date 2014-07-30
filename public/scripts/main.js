@@ -1,8 +1,19 @@
 var debug = true
 
 // Error handling
-addEventListener('error', function(event) { alert(event.message); console.log(event) })
-require.onError = function(error) { alert(error.message); console.log(error) }
+
+onerror = function(message, file, line, column, error) { 
+    if (error) console.error('Uncaught error', error)
+    alert(error && error.message || error || message) 
+}
+
+require.onError = function(error) { 
+    // Call onerror() directly as throwing the error makes the browser show a 
+    // "Script error" error
+    onerror('', '', '', '', error) 
+}
+
+//
 
 require.config({
     paths: {
