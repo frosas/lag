@@ -17,7 +17,7 @@ define(['underscore', 'backbone'], function() {
 
         this.script = document.createElement('script')
         this.script.async = true
-        this.script.addEventListener('load', _.bind(this.onLoad, this))
+        this.script.addEventListener('load', this.onLoad.bind(this))
         this.start = Date.now()
         this.script.src = url + '?' + this.start
         document.head.appendChild(this.script)

@@ -17,7 +17,10 @@ require.config({
     waitSeconds: 60
 })
 
-require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 'controls'], function(Chart, PageTitle, PageIcon, Pings, Title, User, Audio, Controls) {
+require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 
+    'controls'], function(Chart, PageTitle, PageIcon, Pings, Title, User, Audio, 
+    Controls) {
+        
     var user = new User
     var pings = new Pings
     new Chart(user, pings)
@@ -26,7 +29,7 @@ require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 
     new Title(user, pings)
     var audio = Audio.create(user, pings)
     new Controls(audio)
-
+    
     // Update the visualization as soon as we get new data
     pings.on('pong', function() { user.trigger('read') })
 })
