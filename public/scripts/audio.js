@@ -8,12 +8,12 @@ define(['user', 'math'], function(user, _Math) {
         var source = context.createBufferSource()
         source.buffer = buffer
         source.loop = true
-        source.noteOn(0)
+        source.start(0)
         return source
     }
 
     var Audio = function(context, user, pings) {
-        var gain = context.createGainNode()
+        var gain = context.createGain()
         gain.connect(context.destination)
 
         var filter = context.createBiquadFilter()
