@@ -1,42 +1,47 @@
-define(['realtime-set-interval', 'underscore', 'backbone', 'd3'], function(realtimeSetInterval) {
-    // From http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-    var requestAnimationFrame = 
-        window.requestAnimationFrame || 
-        window.webkitRequestAnimationFrame || 
-        window.mozRequestAnimationFrame || 
-        window.oRequestAnimationFrame || 
-        window.msRequestAnimationFrame || 
-        function(callback) { setTimeout(callback, 1000 / 60) }
+/* eslint-env amd */
 
-    // User won't notice lower intervals than these
-    return function() {
-        var user = _.extend({}, Backbone.Events)
-        var maxReadInterval = 250
+define(
+    ['realtime-set-interval', 'underscore', 'backbone'], 
+    function(realtimeSetInterval, _, Backbone) {
+        // From http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+        var requestAnimationFrame = 
+            window.requestAnimationFrame || 
+            window.webkitRequestAnimationFrame || 
+            window.mozRequestAnimationFrame || 
+            window.oRequestAnimationFrame || 
+            window.msRequestAnimationFrame || 
+            function(callback) { setTimeout(callback, 1000 / 60); };
 
-        var triggerReadIfNeeded = (function() {
-            var lastRead
-            return function() {
-                var now = Date.now()
-                if (! lastRead || now - lastRead >= maxReadInterval) {
-                    user.trigger('read')
-                    lastRead = now
-                }
-            }
-        })()
+        // User won't notice lower intervals than these
+        return function() {
+            var user = _.extend({}, Backbone.Events);
+            var maxReadInterval = 250;
 
-        ;(function userViewTimer() {
-            requestAnimationFrame(userViewTimer) // Consumes less CPU than d3.timer()
-            user.trigger('view')
-            triggerReadIfNeeded()
-        })()
+            var triggerReadIfNeeded = (function() {
+                var lastRead;
+                return function() {
+                    var now = Date.now();
+                    if (!lastRead || now - lastRead >= maxReadInterval) {
+                        user.trigger('read');
+                        lastRead = now;
+                    }
+                };
+            })();
 
-        // requestanimationframe() is not always triggered when the tab is not 
-        // active. Here we ensure it is called at least once every second (as we 
-        // are not using realtimeSetInterval())
-        setInterval(triggerReadIfNeeded, maxReadInterval)
+            (function userViewTimer() {
+                requestAnimationFrame(userViewTimer); // Consumes less CPU than d3.timer()
+                user.trigger('view');
+                triggerReadIfNeeded();
+            })();
 
-        realtimeSetInterval(function() { user.trigger('hear') }, 250)
+            // requestanimationframe() is not always triggered when the tab is not 
+            // active. Here we ensure it is called at least once every second (as we 
+            // are not using realtimeSetInterval())
+            setInterval(triggerReadIfNeeded, maxReadInterval);
 
-        return user
+            realtimeSetInterval(function() { user.trigger('hear'); }, 250);
+
+            return user;
+        };
     }
-})
+);
