@@ -7,7 +7,6 @@ define(
             var list = [];
             var max = 100;
             var lastRespondedPing;
-            var pingInterval = 1000;
 
             var getFirstOfTheLastUnrespondedPings = function() {
                 var first;
@@ -19,6 +18,7 @@ define(
             };
 
             var pings = {
+                interval: 1000,
                 all: function() {
                     return list;
                 },
@@ -37,9 +37,6 @@ define(
                     })();
 
                     return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
-                },
-                pingInterval: function() {
-                    return pingInterval;
                 }
             };
 
@@ -57,7 +54,7 @@ define(
                 list.push(ping);
                 if (list.length > max) list.shift().destroy();
                 pings.trigger('add', ping);
-            }, pingInterval);
+            }, pings.interval);
 
             return pings;
         };

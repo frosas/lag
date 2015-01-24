@@ -57,7 +57,7 @@ define(['d3'], function(d3) {
                 })
 
                 var now = Date.now()
-                xScale.domain([now - pings.max() * pings.pingInterval(), now])
+                xScale.domain([now - pings.max() * pings.interval, now])
                 selection.attr('x', function(datum) { return xScale(datum.ping.start) })
             })
         })
@@ -72,7 +72,7 @@ define(['d3'], function(d3) {
             selections.exited().each(function(datum) {
                 if (datum.exiting) return
                 datum.exiting = true
-                d3.select(this).transition().duration(pings.pingInterval() * 2).remove()
+                d3.select(this).transition().duration(pings.interval * 2).remove()
             })
         })
     }
