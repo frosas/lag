@@ -17,9 +17,9 @@ require.onError = function(error) {
 
 require.config({
     paths: {
-        underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore' + (debug ? '' : '-min'),
-        backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min',
-        jquery: 'http://code.jquery.com/jquery-1.9.1' + (debug ? '' : '.min'),
+        underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore' + (debug ? '' : '-min'),
+        backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min',
+        jquery: 'http://code.jquery.com/jquery-2.1.3' + (debug ? '' : '.min'),
         d3: 'http://d3js.org/d3.v3' + (debug ? '' : '-min')
     },
     shim: {
