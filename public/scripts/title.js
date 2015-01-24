@@ -1,10 +1,10 @@
 /* eslint-env amd */
 
-define(['jquery'], function($) {
+define(['jquery', 'lag'], function($, lag) {
     return function(user, pings) {
         var $title = $('#title');
         user.on('read', function() {
-            $title.text(pings.currentLag() + " ms");
+            $title.text(lag.humanize(pings.currentLag()));
         });
     };
 });
