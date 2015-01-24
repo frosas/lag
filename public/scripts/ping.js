@@ -38,6 +38,8 @@ define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
     };
     
     Ping.prototype._send = function() {
+        var ping = this;
+        
         // Here we have a copy of the site in a CDN close to the user. Ensure the 
         // CDN is configured to not forward query strings to reduce latency.
         var url = 'http://d18ks85av1x0pi.cloudfront.net/scripts/blank.js';
@@ -45,8 +47,7 @@ define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
         this.start = Date.now();
         this._request = $.ajax({url: url, dataType: 'script'});
         this._request.then(this._onLoad.bind(this));
-        
-        // TODO Abort ping if request fails
+        this._request.then(null, function () { ping.abort(); });
     };
 
     Ping.prototype._onLoad = function() {
