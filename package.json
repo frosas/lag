@@ -1,0 +1,13 @@
+{
+  "name": "lag",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.11.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
