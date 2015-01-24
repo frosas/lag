@@ -3,15 +3,6 @@
 define(
     ['realtime-set-interval', 'underscore', 'backbone'], 
     function(realtimeSetInterval, _, Backbone) {
-        // From http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-        var requestAnimationFrame = 
-            window.requestAnimationFrame || 
-            window.webkitRequestAnimationFrame || 
-            window.mozRequestAnimationFrame || 
-            window.oRequestAnimationFrame || 
-            window.msRequestAnimationFrame || 
-            function(callback) { setTimeout(callback, 1000 / 60); };
-
         // User won't notice lower intervals than these
         return function() {
             var user = _.extend({}, Backbone.Events);
