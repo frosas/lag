@@ -25,7 +25,7 @@ require.config({
     shim: {
         'backbone': ['underscore']
     },
-    waitSeconds: 60
+    waitSeconds: 5 /* mins */ * 60
 })
 
 require(['chart', 'page-title', 'page-icon', 'pings', 'title', 'user', 'audio', 
