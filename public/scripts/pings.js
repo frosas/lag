@@ -8,6 +8,18 @@ define(
             var max = 100;
             var lastRespondedPing;
 
+            /**
+             * The amount of active pings (i.e. connections) that can run concurrently.
+             * 
+             * This should solve the problem of the connection being restored after 
+             * being offline for a while (thus, there being a lot of open connections), 
+             * and new pings not working as the browser already reached the limit 
+             * of open connections.
+             * 
+             * @type {integer}
+             */
+            var pingsConcurrencyLimit = 20;
+            
             var getFirstOfTheLastUnrespondedPings = function() {
                 var first;
                 for (var i = list.length - 1; i >= 0; i--) {
@@ -16,9 +28,13 @@ define(
                 }
                 return first;
             };
+            
+            var getRunningPings = function () {
+                return list.filter(function (ping) { return !ping.done; });
+            };
 
             var pings = {
-                interval: 1000,
+                interval: 1000 /* msecs */, // How often pings are created
                 all: function() {
                     return list;
                 },
@@ -41,8 +57,16 @@ define(
             };
 
             _.extend(pings, Backbone.Events);
-
-            realtimeSetInterval(function() {
+            
+            var removePingsOverLimit = function () {
+                list = _.last(list, max);
+            };
+            
+            var abortOldestPingsOverConcurrencyLimit = function () {
+                _.chain(getRunningPings()).initial(pingsConcurrencyLimit).invoke('abort');
+            };
+            
+            var addPing = function () {
                 var ping = new Ping;
                 ping.on('pong', function() {
                     if (!lastRespondedPing || lastRespondedPing.start < ping.start) {
@@ -52,8 +76,13 @@ define(
                     pings.trigger('pong', ping);
                 });
                 list.push(ping);
-                if (list.length > max) list.shift().destroy();
                 pings.trigger('add', ping);
+            };
+
+            realtimeSetInterval(function() {
+                removePingsOverLimit();                
+                abortOldestPingsOverConcurrencyLimit();
+                addPing();
             }, pings.interval);
 
             return pings;

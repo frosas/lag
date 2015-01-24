@@ -8,7 +8,6 @@ body { font: 13px sans-serif; color: #474739; padding: 10px; margin: 0 }
     background-image: -moz-linear-gradient(#fff 0, #F2F1D3 100%);
     background-image: -o-linear-gradient(#fff 0, #F2F1D3 100%);
     box-shadow: 0 0 10px #aaa }
-#chart > svg > rect { fill: #474739 }
 
 #configuration { opacity: .2 }
 #configuration:hover { opacity: 1 }

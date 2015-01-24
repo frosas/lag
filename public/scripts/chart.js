@@ -25,6 +25,11 @@ define(['d3', 'jquery'], function(d3, $) {
             return normalizedLag * d3SvgHeight;
         };
 
+        var onPingDone = function (element, datum) {
+            element.attr('fill-opacity', 1);
+            if (datum.ping.failed) element.attr('fill', '#ae3f24');            
+        };
+
         var selections = (function() {
             var updated;
             return {
@@ -33,7 +38,7 @@ define(['d3', 'jquery'], function(d3, $) {
                 exited: function() { return updated.exit(); },
                 update: function() {
                     var data = pings.all().map(function(ping) {
-                        return {ping: ping, exiting: false, ended: false};
+                        return {ping: ping, exiting: false, done: false};
                     });
                     updated = d3Svg.selectAll('rect').data(data, function(datum) { 
                         return datum.ping.start;
@@ -43,18 +48,18 @@ define(['d3', 'jquery'], function(d3, $) {
         })();
 
         selections.update();
-
+        
         user.on('view', function() {
             [selections.updated(), selections.exited()].forEach(function(selection) {
                 selection.each(function(datum) {
-                    if (datum.ended) return;
-                    if (datum.ping.end) {
-                        datum.ended = true;
-                        d3.select(this).attr('fill-opacity', 1);
-                    }
-                    d3.select(this)
+                    var element = d3.select(this);
+                    element
                         .attr('y', Math.floor(d3SvgHeight - yScale(datum.ping.lag())))
                         .attr('height', Math.floor(yScale(datum.ping.lag())));
+                    if (!datum.done && datum.ping.done) {
+                        datum.done = true;
+                        onPingDone(element, datum);
+                    }
                 });
 
                 var now = Date.now();
@@ -68,7 +73,8 @@ define(['d3', 'jquery'], function(d3, $) {
 
             selections.entered().append('svg:rect')
                 .attr('width', barWidth)
-                .attr('fill-opacity', .7);
+                .attr('fill-opacity', .7)
+                .attr('fill', '#474739');
 
             selections.exited().each(function(datum) {
                 if (datum.exiting) return;
