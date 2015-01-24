@@ -1,33 +1,39 @@
-define(['underscore', 'backbone'], function() {
-    var Ping = function() {
-        _.extend(this, Backbone.Events)
-        this.load()
-    }
+/* eslint-env amd */
 
-    Ping.prototype.end = null
+define(['underscore', 'backbone'], function(_, Backbone) {
+    var Ping = function() {
+        _.extend(this, Backbone.Events);
+        this.load();
+    };
+
+    Ping.prototype.end = null;
 
     Ping.prototype.lag = function() { 
-        return (this.end || Date.now()) - this.start
-    }
+        return (this.end || Date.now()) - this.start;
+    };
 
     Ping.prototype.load = function() {
         // Here we have a copy of the site in a CDN close to the user. Ensure the 
         // CDN is configured to not forward query strings to reduce latency.
-        var url = 'http://d18ks85av1x0pi.cloudfront.net/scripts/blank.js'
+        var url = 'http://d18ks85av1x0pi.cloudfront.net/scripts/blank.js';
 
-        this.script = document.createElement('script')
-        this.script.async = true
-        this.script.addEventListener('load', this.onLoad.bind(this))
-        this.start = Date.now()
-        this.script.src = url + '?' + this.start
-        document.head.appendChild(this.script)
-    }
+        this.script = document.createElement('script');
+        this.script.async = true;
+        this.script.addEventListener('load', this.onLoad.bind(this));
+        this.start = Date.now();
+        this.script.src = url + '?' + this.start;
+        document.head.appendChild(this.script);
+    };
 
     Ping.prototype.onLoad = function() {
-        this.end = Date.now()
-        this.trigger('pong')
-        this.script.parentNode.removeChild(this.script)
-    }
+        this.end = Date.now();
+        this.trigger('pong');
+        this.destroy();
+    };
+    
+    Ping.prototype.destroy = function () {
+        this.script.parentNode.removeChild(this.script);
+    };
 
-    return Ping
-})
+    return Ping;
+});
