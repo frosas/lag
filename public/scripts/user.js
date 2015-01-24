@@ -12,7 +12,7 @@ define(
                 var lastRead;
                 return function() {
                     var now = Date.now();
-                    if (!lastRead || now - lastRead >= maxReadInterval) {
+                    if (!lastRead || now > lastRead + maxReadInterval) {
                         user.trigger('read');
                         lastRead = now;
                     }
