@@ -1,6 +1,6 @@
 /* eslint-env amd */
 
-define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
+define(['underscore', 'backbone', 'jquery', './lag'], function(_, Backbone, $, lag) {
     var Ping = function() {
         _.extend(this, Backbone.Events);
         this._send();
@@ -8,16 +8,6 @@ define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
 
     Ping.prototype.lag = function() { 
         return (this.end || Date.now()) - this.start;
-    };
-    
-    Ping.prototype.humaneLag = function () {
-        var amount = this.lag();
-        var unit = 'ms';
-        if (amount > 1000) {
-            amount = (amount / 1000).toFixed(1);
-            unit = 's';
-        }
-        return amount + " " + unit;
     };
     
     Ping.prototype.destroy = function () {
@@ -40,7 +30,7 @@ define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
         
         this._timeoutWarningTimeout = setTimeout(function () {
             if (ping._script.parentNode) {
-                console.error("A ping started " + ping.humaneLag() + " ago is still loading");
+                console.error("A ping started " + lag.humanize(ping.lag()) + " ago is still loading");
             }
         }, 5 /* mins */ * 60 * 1000);
     };
