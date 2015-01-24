@@ -1,6 +1,6 @@
 /* eslint-env amd */
 
-define(['underscore', 'backbone'], function(_, Backbone) {
+define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
     var Ping = function() {
         _.extend(this, Backbone.Events);
         this._send();
@@ -10,6 +10,10 @@ define(['underscore', 'backbone'], function(_, Backbone) {
         return (this.end || Date.now()) - this.start;
     };
     
+    Ping.prototype.destroy = function () {
+        $(this._script).remove();
+    };
+
     Ping.prototype._send = function() {
         // Here we have a copy of the site in a CDN close to the user. Ensure the 
         // CDN is configured to not forward query strings to reduce latency.
@@ -26,7 +30,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
     Ping.prototype._onLoad = function() {
         this.end = Date.now();
         this.trigger('pong');
-        this._script.parentNode.removeChild(this._script);
+        this.destroy();
     };
 
     return Ping;

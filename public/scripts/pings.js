@@ -55,7 +55,7 @@ define(
                     pings.trigger('pong', ping);
                 });
                 list.push(ping);
-                if (list.length > max) list.shift();
+                if (list.length > max) list.shift().destroy();
                 pings.trigger('add', ping);
             }, pingInterval);
 
