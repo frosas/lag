@@ -1,8 +1,6 @@
 /* eslint-env amd */
 /* global console, alert */
 
-var debug = true;
-
 // Error handling
 
 onerror = function(message, file, line, column, error) { 
@@ -20,10 +18,10 @@ require.onError = function(error) {
 
 require.config({
     paths: {
-        underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore' + (debug ? '' : '-min'),
+        underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min',
         backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min',
-        jquery: 'http://code.jquery.com/jquery-2.1.3' + (debug ? '' : '.min'),
-        d3: 'http://d3js.org/d3.v3' + (debug ? '' : '-min')
+        jquery: 'http://code.jquery.com/jquery-2.1.3.min',
+        d3: 'http://d3js.org/d3.v3.min'
     },
     shim: {
         'backbone': ['underscore']
