@@ -3,8 +3,9 @@
 # TODO
 
 - Make favicon work on Firefox and Safari
-- Try WebSockets (less network and processor overhead?)
-- Make sure it works in all major browsers
-- Make it work [offline](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html) (to start it without a connection)
+- Consider using WebSockets to reduce latency and processor overhead
+- Make it work offline (to start it without a connection)
+  - http://www.html5rocks.com/en/tutorials/service-worker/introduction/
 - When no pings are ponged the current lag (number) is wrong
 - Testing
+- Consider using http://w3c.github.io/netinfo/
