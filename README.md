@@ -9,3 +9,4 @@
 - When no pings are ponged the current lag (number) is wrong
 - Testing
 - Consider using http://w3c.github.io/netinfo/
+- Do the pings in a Worker to improve accuracy?
