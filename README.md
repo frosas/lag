@@ -10,3 +10,6 @@
 - Testing
 - Consider using http://w3c.github.io/netinfo/
 - Do the pings in a Worker to improve accuracy?
+- Requests to blank.js are still forwarded to Heroku no?
+- Ping from another thread (use a Web Worker) to avoid altered values when the 
+  computer slows down.
