@@ -13,3 +13,5 @@
 - Requests to blank.js are still forwarded to Heroku no?
 - Ping from another thread (use a Web Worker) to avoid altered values when the 
   computer slows down.
+- Don't cancel all the requests after a while but leave a sample of them to be 
+  able to report a real lag.
