@@ -28,7 +28,7 @@
         "strict": 0,
         "curly": 0,
         "eqeqeq": 0,
-        "no-use-before-define": "nofunc",
+        "no-use-before-define": 0,
         "no-new": 0
     }
 }
