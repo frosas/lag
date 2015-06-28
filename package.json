@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "postinstall": "jspm install"
   },
   "dependencies": {
-    "express": "^4.11.1"
+    "express": "^4.11.1",
+    "jspm": "^0.15.7"
   },
   "engines": {
     "node": "0.10.x"
