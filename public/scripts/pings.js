@@ -1,7 +1,7 @@
 /* eslint-env amd */
 
 define(
-    ['ping', 'realtime-set-interval', 'underscore', 'backbone'], 
+    ['./ping', './realtime-set-interval', 'underscore', 'backbone'], 
     function(Ping, realtimeSetInterval, _, Backbone) {
         return function() {
             var list = [];

@@ -1,7 +1,7 @@
 /* eslint-env amd */
 
 define(
-    ['realtime-set-interval', 'underscore', 'backbone'], 
+    ['./realtime-set-interval', 'underscore', 'backbone'], 
     function(realtimeSetInterval, _, Backbone) {
         // User won't notice lower intervals than these
         return function() {

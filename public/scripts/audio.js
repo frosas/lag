@@ -1,4 +1,4 @@
-define(['user', 'math'], function(user, _Math) {
+define(['./user', './math'], function(user, _Math) {
     var Noise = function(context) {
         var lengthInSeconds = 5
         var buffer = context.createBuffer(1, context.sampleRate * lengthInSeconds, context.sampleRate)
