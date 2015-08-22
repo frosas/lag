@@ -1,0 +1,7 @@
+#!/bin/bash
+
+on_sigint() { kill 0; }
+trap on_sigint SIGINT
+npm start &
+npm run watch &
+wait

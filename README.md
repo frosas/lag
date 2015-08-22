@@ -1,5 +1,14 @@
 ![Screenshot](https://raw.github.com/frosas/lag/master/screenshot.png)
 
+# Development
+
+```bash
+$ npm i
+$ bin/dev
+```
+
+Open http://localhost:5000
+
 # TODO
 
 - Make favicon work on Firefox and Safari

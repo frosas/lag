@@ -3,28 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "webpack",
     "start": "node src/server.js",
-    "postinstall": "jspm install"
-  },
-  "dependencies": {
-    "express": "^4.11.1",
-    "jspm": "^0.15.7"
+    "watch": "webpack -w --devtool sourcemap"
   },
   "engines": {
     "node": "0.10.x"
   },
-  "jspm": {
-    "directories": {
-      "baseURL": "public"
-    },
-    "configFile": "public/scripts/config.js",
-    "dependencies": {
-      "d3": "github:mbostock/d3@^3.5.5"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.1.13",
-      "babel-runtime": "npm:babel-runtime@^5.1.13",
-      "core-js": "npm:core-js@^0.9.4"
-    }
+  "dependencies": {
+    "backbone": "^1.2.2",
+    "d3": "^3.5.6",
+    "express": "^4.11.1",
+    "jquery": "^2.1.4",
+    "underscore": "^1.8.3",
+    "webpack": "^1.11.0"
   }
 }
