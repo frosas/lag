@@ -1,4 +1,4 @@
-/* eslint-env node */
+/* eslint-env node, es6 */
 
 var Ping = require('./ping');
 var realtimeSetInterval = require('./realtime-set-interval');
@@ -17,72 +17,70 @@ var Backbone = require('backbone');
  */
 var PINGS_CONCURRENCY_LIMIT = 20;
     
-var Pings = module.exports = function() {
-    this._list = [];
-    this._max = 100;
-    this._lastRespondedPing;
-
-    _.extend(this, Backbone.Events);
-    
-    this._ping(); // Start pinging ASAP
-    realtimeSetInterval(this._ping.bind(this), this.interval);
-};
-
-Pings.prototype.interval = 1000;/* msecs */ // How often pings are created
-
-Pings.prototype.all = function () { return this._list; };
-
-Pings.prototype.setMax = function (max) { this._max = max; };
-
-Pings.prototype.max = function () { return this._max; };
-
-Pings.prototype.currentLag = function () {
-    var pings = this;
-    var lastRespondedPingLag = this._lastRespondedPing ? this._lastRespondedPing.lag() : 0;
-    var firstOfTheLastUnrespondedPingsLag = (function() {
-        var ping = pings._getFirstOfTheLastUnrespondedPings();
-        return ping ? ping.lag() : 0;
-    })();
-    return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
-};
-
-Pings.prototype._getFirstOfTheLastUnrespondedPings = function() {
-    var first;
-    for (var i = this._list.length - 1; i >= 0; i--) {
-        if (this._list[i].end) break;
-        first = this._list[i];
-    }
-    return first;
-};
-    
-Pings.prototype._getRunningPings = function () {
-    return this._list.filter(function (ping) { return !ping.done; });
-};
-    
-Pings.prototype._removePingsOverLimit = function () {
-    this._list = _.last(this._list, this._max);
-};
-    
-Pings.prototype._abortOldestPingsOverConcurrencyLimit = function () {
-    _.chain(this._getRunningPings()).initial(PINGS_CONCURRENCY_LIMIT).invoke('abort');
-};
-    
-Pings.prototype._addPing = function () {
-    var pings = this;
-    var ping = new Ping;
-    ping.on('pong', function() {
-        if (!pings._lastRespondedPing || pings._lastRespondedPing.start < ping.start) {
-            pings._lastRespondedPing = ping;
-        }
+module.exports = class Pings {
+    constructor() {
+        _.extend(this, Backbone.Events);
         
-        pings.trigger('pong', ping);
-    });
-    this._list.push(ping);
-    pings.trigger('add', ping);
-};
+        this.interval = 1000;/* msecs */ // How often pings are created
+        this._list = [];
+        this._max = 100;
+        this._lastRespondedPing;
+
+        this._ping(); // Start pinging ASAP
+        realtimeSetInterval(this._ping.bind(this), this.interval);
+    }
     
-Pings.prototype._ping = function () {
-    this._removePingsOverLimit();                
-    this._abortOldestPingsOverConcurrencyLimit();
-    this._addPing();
+    all() { return this._list; }
+    
+    setMax(max) { this._max = max; }
+    
+    max() { return this._max; }
+
+    currentLag() {
+        var pings = this;
+        var lastRespondedPingLag = this._lastRespondedPing ? this._lastRespondedPing.lag() : 0;
+        var firstOfTheLastUnrespondedPingsLag = (() => {
+            var ping = pings._getFirstOfTheLastUnrespondedPings();
+            return ping ? ping.lag() : 0;
+        })();
+        return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
+    };
+
+    _getFirstOfTheLastUnrespondedPings() {
+        var first;
+        for (var i = this._list.length - 1; i >= 0; i--) {
+            if (this._list[i].end) break;
+            first = this._list[i];
+        }
+        return first;
+    };
+        
+    _getRunningPings() {
+        return this._list.filter(ping => !ping.done);
+    };
+        
+    _ping() {
+        this._removePingsOverLimit();                
+        this._abortOldestPingsOverConcurrencyLimit();
+        this._addPing();
+    };
+        
+    _removePingsOverLimit() {
+        this._list = _.last(this._list, this._max);
+    };
+        
+    _abortOldestPingsOverConcurrencyLimit() {
+        _.chain(this._getRunningPings()).initial(PINGS_CONCURRENCY_LIMIT).invoke('abort');
+    };
+        
+    _addPing() {
+        var ping = new Ping;
+        ping.on('pong', () => {
+            var isLastResponded = !this._lastRespondedPing || this._lastRespondedPing.start < ping.start;
+            if (isLastResponded) this._lastRespondedPing = ping;
+            this.trigger('pong', ping);
+        });
+        this._list.push(ping);
+        this.trigger('add', ping);
+    };
 };
