@@ -1,38 +1,38 @@
-/* eslint-env amd */
+/* eslint-env node */
 
-define(
-    ['./realtime-set-interval', 'underscore', 'backbone'], 
-    function(realtimeSetInterval, _, Backbone) {
-        // User won't notice lower intervals than these
+var realtimeSetInterval = require('./realtime-set-interval');
+var _ = require('underscore');
+var Backbone = require('backbone');
+
+// User won't notice lower intervals than these
+var MAX_READ_INTERVAL = 250; // msecs
+
+module.exports = function () {
+    var user = _.extend({}, Backbone.Events);
+
+    var triggerReadIfNeeded = (function() {
+        var lastRead;
         return function() {
-            var user = _.extend({}, Backbone.Events);
-            var maxReadInterval = 250;
-
-            var triggerReadIfNeeded = (function() {
-                var lastRead;
-                return function() {
-                    var now = Date.now();
-                    if (!lastRead || now > lastRead + maxReadInterval) {
-                        user.trigger('read');
-                        lastRead = now;
-                    }
-                };
-            })();
-
-            (function userViewTimer() {
-                requestAnimationFrame(userViewTimer); // Consumes less CPU than d3.timer()
-                user.trigger('view');
-                triggerReadIfNeeded();
-            })();
-
-            // requestanimationframe() is not always triggered when the tab is not 
-            // active. Here we ensure it is called at least once every second (as we 
-            // are not using realtimeSetInterval())
-            setInterval(triggerReadIfNeeded, maxReadInterval);
-
-            realtimeSetInterval(function() { user.trigger('hear'); }, 250);
-
-            return user;
+            var now = Date.now();
+            if (!lastRead || now > lastRead + MAX_READ_INTERVAL) {
+                user.trigger('read');
+                lastRead = now;
+            }
         };
-    }
-);
+    })();
+
+    (function _userViewTimer() {
+        requestAnimationFrame(_userViewTimer); // Consumes less CPU than d3.timer()
+        user.trigger('view');
+        triggerReadIfNeeded();
+    })();
+
+    // requestanimationframe() is not always triggered when the tab is not 
+    // active. Here we ensure it is called at least once every second (as we 
+    // are not using realtimeSetInterval())
+    setInterval(triggerReadIfNeeded, MAX_READ_INTERVAL);
+
+    realtimeSetInterval(function() { user.trigger('hear'); }, 250);
+    
+    return user;
+};
