@@ -5,23 +5,23 @@ var realtimeSetInterval = require('./realtime-set-interval');
 var _ = require('underscore');
 var Backbone = require('backbone');
 
+/**
+ * The amount of active pings (i.e. connections) that can run concurrently.
+ * 
+ * This should solve the problem of the connection being restored after 
+ * being offline for a while (thus, there being a lot of open connections), 
+ * and new pings not working as the browser already reached the limit 
+ * of open connections.
+ * 
+ * @type {integer}
+ */
+var PINGS_CONCURRENCY_LIMIT = 20;
+    
 module.exports = function() {
     var list = [];
     var max = 100;
     var lastRespondedPing;
 
-    /**
-     * The amount of active pings (i.e. connections) that can run concurrently.
-     * 
-     * This should solve the problem of the connection being restored after 
-     * being offline for a while (thus, there being a lot of open connections), 
-     * and new pings not working as the browser already reached the limit 
-     * of open connections.
-     * 
-     * @type {integer}
-     */
-    var pingsConcurrencyLimit = 20;
-    
     var getFirstOfTheLastUnrespondedPings = function() {
         var first;
         for (var i = list.length - 1; i >= 0; i--) {
@@ -65,7 +65,7 @@ module.exports = function() {
     };
     
     var abortOldestPingsOverConcurrencyLimit = function () {
-        _.chain(getRunningPings()).initial(pingsConcurrencyLimit).invoke('abort');
+        _.chain(getRunningPings()).initial(PINGS_CONCURRENCY_LIMIT).invoke('abort');
     };
     
     var addPing = function () {
