@@ -1,5 +1,12 @@
-/* eslint-env node */
-/* global console, alert */
+/* eslint-env node, browser */
+
+(function _setupErrorHandling() {
+    var originalOnError = window.onerror || function () {};
+    window.onerror = function(message, file, line, column, error) { 
+        originalOnError.apply(this, arguments);
+        alert(error && error.message || error || message);
+    };
+})();
 
 var Chart = require('./chart');
 var PageTitle = require('./page-title');
@@ -9,12 +16,6 @@ var Title = require('./title');
 var User = require('./user');
 var Audio_ = require('./audio');
 var Controls = require('./controls');
-
-// Error handling
-window.onerror = function(message, file, line, column, error) { 
-    if (error) console.error('Uncaught error', error);
-    alert(error && error.message || error || message);
-};
 
 var user = new User;
 var pings = new Pings;
