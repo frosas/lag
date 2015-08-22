@@ -37,10 +37,9 @@ module.exports = class Pings {
     max() { return this._max; }
 
     currentLag() {
-        var pings = this;
         var lastRespondedPingLag = this._lastRespondedPing ? this._lastRespondedPing.lag() : 0;
         var firstOfTheLastUnrespondedPingsLag = (() => {
-            var ping = pings._getFirstOfTheLastUnrespondedPings();
+            var ping = this._getFirstOfTheLastUnrespondedPings();
             return ping ? ping.lag() : 0;
         })();
         return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
@@ -76,11 +75,14 @@ module.exports = class Pings {
     _addPing() {
         var ping = new Ping;
         ping.on('pong', () => {
-            var isLastResponded = !this._lastRespondedPing || this._lastRespondedPing.start < ping.start;
-            if (isLastResponded) this._lastRespondedPing = ping;
+            if (this._isLastRespondedPing(ping)) this._lastRespondedPing = ping;
             this.trigger('pong', ping);
         });
         this._list.push(ping);
         this.trigger('add', ping);
     };
+    
+    _isLastRespondedPing(ping) {
+        return !this._lastRespondedPing || this._lastRespondedPing.start < ping.start;
+    }
 };
