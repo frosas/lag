@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "webpack",
-    "start": "node src/server.js",
-    "watch": "webpack -w --devtool sourcemap"
+    "#": "Used by Dokku",
+    "postinstall": "webpack -p",
+    "start": "node src/server.js"
   },
   "engines": {
     "node": "0.10.x"
