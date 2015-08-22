@@ -78,12 +78,16 @@ define(
                 list.push(ping);
                 pings.trigger('add', ping);
             };
-
-            realtimeSetInterval(function() {
+            
+            var ping = function () {
                 removePingsOverLimit();                
                 abortOldestPingsOverConcurrencyLimit();
                 addPing();
-            }, pings.interval);
+            };
+            
+            ping(); // Start pinging ASAP
+            
+            realtimeSetInterval(ping, pings.interval);
 
             return pings;
         };
