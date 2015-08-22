@@ -4,6 +4,10 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = require('jquery');
 
+// Here we have a copy of the site in a CDN close to the user. Ensure the 
+// CDN is configured to not forward query strings to reduce latency.
+var URL_ = 'http://d18ks85av1x0pi.cloudfront.net/scripts/blank.js';
+    
 var Ping = module.exports = function() {
     _.extend(this, Backbone.Events);
     this._send();
@@ -42,13 +46,8 @@ Ping.prototype.toString = function () {
 
 Ping.prototype._send = function() {
     var ping = this;
-    
-    // Here we have a copy of the site in a CDN close to the user. Ensure the 
-    // CDN is configured to not forward query strings to reduce latency.
-    var url = 'http://d18ks85av1x0pi.cloudfront.net/scripts/blank.js';
-    
     this.start = Date.now();
-    this._request = $.ajax({url: url, dataType: 'script'});
+    this._request = $.ajax({url: URL_, dataType: 'script'});
     this._request.then(this._onPong.bind(this));
     this._request.then(null, function () { ping.abort(); });
 };
