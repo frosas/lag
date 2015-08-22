@@ -49,11 +49,11 @@ Ping.prototype._send = function() {
     
     this.start = Date.now();
     this._request = $.ajax({url: url, dataType: 'script'});
-    this._request.then(this._onLoad.bind(this));
+    this._request.then(this._onPong.bind(this));
     this._request.then(null, function () { ping.abort(); });
 };
 
-Ping.prototype._onLoad = function() {
+Ping.prototype._onPong = function() {
     this.done = true;
     this.end = Date.now();
     this.trigger('pong');
