@@ -1,6 +1,6 @@
 // See http://eslint.org/docs/
 {
-    "extends": "airbnb/base",
+    "extends": "airbnb",
     "rules": {
         "indent": [2, 4],
         "no-undef": 2,
