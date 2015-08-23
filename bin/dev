@@ -3,5 +3,5 @@
 on_sigint() { kill 0; }
 trap on_sigint SIGINT
 npm start &
-webpack -wd &
+DEV=1 webpack --watch &
 wait
