@@ -1,10 +1,8 @@
-/* eslint-env amd */
+var lag = require('./lag');
 
-define(['./lag'], function(lag) {
-    return function(user, pings) {
-        var original = document.title;
-        user.on('read', function() { 
-            document.title = original + " (" + lag.humanize(pings.currentLag()) + ")";
-        });
-    };
-});
+module.exports = (user, pings) => {
+    var original = document.title;
+    user.on('read', () => {
+        document.title = original + ' (' + lag.humanize(pings.currentLag()) + ')';
+    });
+};

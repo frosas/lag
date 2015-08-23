@@ -1,10 +1,7 @@
-/* eslint-env amd */
+var $ = require('jquery');
+var lag = require('./lag');
 
-define(['jquery', './lag'], function($, lag) {
-    return function(user, pings) {
-        var $title = $('#title');
-        user.on('read', function() {
-            $title.text(lag.humanize(pings.currentLag()));
-        });
-    };
-});
+module.exports = (user, pings) => {
+    var $title = $('#title');
+    user.on('read', () => { $title.text(lag.humanize(pings.currentLag())); });
+};

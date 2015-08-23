@@ -1,60 +1,51 @@
-define(['./user', './math'], function(user, _Math) {
-    var Noise = function(context) {
-        var lengthInSeconds = 5
-        var buffer = context.createBuffer(1, context.sampleRate * lengthInSeconds, context.sampleRate)
-        var data = buffer.getChannelData(0)
-        for (var i = data.length; i; i--) data[i] = Math.random() * 2 - 1
+/* eslint-disable no-console */
 
-        var source = context.createBufferSource()
-        source.buffer = buffer
-        source.loop = true
-        source.start(0)
-        return source
-    }
+var Math_ = require('./math');
 
-    var Audio = function(context, user, pings) {
-        var gain = context.createGain()
-        gain.connect(context.destination)
+function Noise(context) {
+    var lengthInSeconds = 5;
+    var buffer = context.createBuffer(1, context.sampleRate * lengthInSeconds, context.sampleRate);
+    var data = buffer.getChannelData(0);
+    for (var i = data.length; i; i--) data[i] = Math.random() * 2 - 1;
 
-        var filter = context.createBiquadFilter()
-        filter.frequency.value = 100;
-        filter.Q.value = 0;
-        filter.connect(gain)
+    var source = context.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    source.start(0);
+    return source;
+}
 
-        var noise = new Noise(context)
-        noise.connect(filter)
+var Audio_ = module.exports = function(context, user, pings) {
+    var gain = context.createGain();
+    gain.connect(context.destination);
 
-        var maxFrequency = 800
-        var maxFrequencyIncrement = 30
-        user.on('hear', function() {
-            var from = filter.frequency.value
-            var to = pings.currentLag()
-            to = Math.min(to, maxFrequency)
-            var increment = to - from
-            increment = Math.min(Math.abs(increment), maxFrequencyIncrement) * _Math.polarity(increment)
-            filter.frequency.value += increment
-        })
+    var filter = context.createBiquadFilter();
+    filter.frequency.value = 100;
+    filter.Q.value = 0;
+    filter.connect(gain);
 
-        return {
-            setVolume: function(volume) {
-                gain.gain.value = volume
-            },
-            getVolume: function() {
-                return gain.gain.value
-            }
-        }
-    }
+    var noise = new Noise(context);
+    noise.connect(filter);
 
-    Audio.create = function(user, pings) {
-        var AudioContext = window.AudioContext || window.webkitAudioContext
+    var maxFrequency = 800;
+    var maxFrequencyIncrement = 30;
+    user.on('hear', () => {
+        var from = filter.frequency.value;
+        var to = pings.currentLag();
+        to = Math.min(to, maxFrequency);
+        var increment = to - from;
+        increment = Math.min(Math.abs(increment), maxFrequencyIncrement) * Math_.polarity(increment);
+        filter.frequency.value += increment;
+    });
 
-        if (! AudioContext) {
-            console.warn("Web Audio API not available")
-            return
-        }
+    return {
+        setVolume: volume => { gain.gain.value = volume; },
+        getVolume: () => gain.gain.value,
+    };
+};
 
-        return new Audio(new AudioContext, user, pings)
-    }
-
-    return Audio
-})
+Audio_.create = (user, pings) => {
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) throw new Error('Web Audio API not available');
+    return new Audio_(new AudioContext, user, pings);
+};

@@ -1,14 +1,12 @@
-/* eslint-env node */
-
 module.exports = {
-    entry: "./src/browser/main",
+    entry: './src/browser/main',
     output: {
         path: './public/compiled/scripts',
-        filename: 'main.js'
+        filename: 'main.js',
     },
     module: {
         loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
-        ]
-    }
+            {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+        ],
+    },
 };
