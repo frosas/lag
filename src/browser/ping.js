@@ -4,7 +4,7 @@ var $ = require('jquery');
 
 // Here we have a copy of the site in a CDN close to the user. Ensure the
 // CDN is configured to not forward query strings to reduce latency.
-var URL_ = 'http://d18ks85av1x0pi.cloudfront.net/scripts/blank.js';
+var URL_ = '//d18ks85av1x0pi.cloudfront.net/scripts/blank.js';
 
 module.exports = class Ping {
     constructor() {
