@@ -2,7 +2,8 @@
 
 on_sigint() { kill 0; }
 trap on_sigint SIGINT
-node src/server/index.js &
+export DEBUG=app:*
+node src/server/http.js &
 if [[ $DEV ]]; then
     node src/server/https-proxy.js &
     webpack --watch &

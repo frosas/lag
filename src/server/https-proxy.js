@@ -3,6 +3,7 @@
 const proxy = require('http-proxy');
 const fs = require('fs');
 const config = require('./config');
+const debug = require('debug')('app:https-proxy');
 
 const proxyServer = proxy.createProxyServer({
     target: {host: 'localhost', port: config.httpPort},
@@ -13,4 +14,4 @@ const proxyServer = proxy.createProxyServer({
 });
 
 proxyServer.listen(config.httpsPort);
-console.log('[HTTPS Proxy] Listening on https://localhost:' + config.httpsPort);
+debug('Listening on https://localhost:' + config.httpsPort);

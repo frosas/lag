@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 
 var webpack = require('webpack');
+const debug = require('debug')('app:webpack');
 
 var isDev = JSON.parse(process.env.DEV || '0');
-console.log('[webpack] Running in ' + (isDev ? 'development' : 'production') + ' mode');
+debug('Running in ' + (isDev ? 'development' : 'production') + ' mode');
 
 module.exports = {
     entry: './src/browser/main',
