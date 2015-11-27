@@ -2,6 +2,6 @@
 
 on_sigint() { kill 0; }
 trap on_sigint SIGINT
-npm start &
-DEV=1 webpack --watch &
+node src/server.js &
+if [[ $DEV ]]; then webpack --watch & fi
 wait

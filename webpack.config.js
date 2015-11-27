@@ -3,7 +3,7 @@
 var webpack = require('webpack');
 
 var isDev = JSON.parse(process.env.DEV || '0');
-console.log('Running in ' + (isDev ? 'development' : 'production') + ' mode');
+console.log('[webpack] Running in ' + (isDev ? 'development' : 'production') + ' mode');
 
 module.exports = {
     entry: './src/browser/main',

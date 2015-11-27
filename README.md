@@ -3,8 +3,8 @@
 # Development
 
 ```bash
-$ npm i
-$ bin/dev
+$ DEV=1 npm i
+$ DEV=1 bin/server
 ```
 
 Open http://localhost:5000
@@ -21,3 +21,4 @@ Open http://localhost:5000
   computer slows down.
 - Don't cancel all the requests after a while but leave a sample of them to be 
   able to report a real lag.
+- `PROD=1` instead of `DEV=1`
