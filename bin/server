@@ -2,6 +2,9 @@
 
 on_sigint() { kill 0; }
 trap on_sigint SIGINT
-node src/server.js &
-if [[ $DEV ]]; then webpack --watch & fi
+node src/server/index.js &
+if [[ $DEV ]]; then
+    node src/server/https-proxy.js &
+    webpack --watch &
+fi
 wait
