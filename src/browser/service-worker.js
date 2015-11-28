@@ -1,18 +1,12 @@
 /* eslint-disable no-console */
 
+const util = require('../util');
+
 const debug = (...args) => console.log('[Service Worker]', ...args);
 
 const isCacheableRequest = request =>
     request.method === 'GET' &&
     !new URL(request.url).search.match(/[?&]nocache[&$]/);
-
-const timeout = (duration, promise) => Promise.race([
-    promise,
-    new Promise((resolve, reject) => setTimeout(
-        () => reject(new Error(`Timed out after ${duration} ms`)),
-        duration
-    )),
-]);
 
 self.addEventListener('install', () => debug('Installed'));
 
@@ -32,7 +26,7 @@ self.addEventListener('fetch', event => {
     }
 
     event.respondWith(
-        timeout(1000, fetch(event.request)).then(
+        util.timeout(1000, fetch(event.request)).then(
             response => {
                 fetchDebug(response);
                 const responseClone = response.clone();
