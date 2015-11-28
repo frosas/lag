@@ -19,3 +19,8 @@ Open http://localhost:5000
   computer slows down.
 - Don't cancel all the requests after a while but leave a sample of them to be 
   able to report a real lag.
+- Make user aware of the offline support
+  - SW not available: "Offline mode not supported on this browser"
+  - SW registered: "Offline mode ready"
+    - Note we don't have to ask the user to reload the page as this won't change
+      anything.
