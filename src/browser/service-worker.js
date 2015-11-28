@@ -16,8 +16,8 @@ self.addEventListener('fetch', event => {
         fetchDebug('Ignored (marked as not cacheable)');
         return;
     }
-    event.respondWith((() => {
-        return fetch(event.request).then(
+    event.respondWith(
+        fetch(event.request).then(
             response => {
                 fetchDebug(response);
                 const responseClone = response.clone();
@@ -34,6 +34,6 @@ self.addEventListener('fetch', event => {
                     return cachedResponse || error;
                 });
             }
-        );
-    })());
+        )
+    );
 });
