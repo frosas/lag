@@ -2,6 +2,10 @@
 
 const debug = (...args) => console.log('[Service Worker]', ...args);
 
+const isCacheableRequest = request =>
+    request.method === 'GET' &&
+    !new URL(request.url).search.match(/[?&]nocache[&$]/);
+
 self.addEventListener('install', () => debug('Installed'));
 
 self.addEventListener('activate', () => debug('Activated'));
@@ -11,11 +15,14 @@ let nextFetchId = 1;
 self.addEventListener('fetch', event => {
     const fetchId = nextFetchId++;
     const fetchDebug = (...args) => debug('[Fetch #' + fetchId + ']', ...args);
+
     fetchDebug(event.request);
-    if (new URL(event.request.url).search.match(/[?&]nocache[&$]/)) {
+
+    if (!isCacheableRequest(event.request)) {
         fetchDebug('Ignored (marked as not cacheable)');
         return;
     }
+
     event.respondWith(
         fetch(event.request).then(
             response => {
