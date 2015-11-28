@@ -24,5 +24,5 @@ module.exports = {
         isDev ? [] : new webpack.optimize.UglifyJsPlugin()
     ),
     debug: isDev,
-    devtool: isDev ? 'source-map' : '',
+    devtool: 'source-map',
 };
