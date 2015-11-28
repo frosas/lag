@@ -1,11 +1,15 @@
 #!/bin/bash
 
-if [[ $DEV ]]; then
+set -ex
+
+source $(dirname $0)/common
+
+if [[ $NODE_ENV == 'production' ]]; then
+    webpack # We'll be running webpack --watch in dev mode
+else
     # Recreate certicate only if it doesn't exist to avoid the browser to ask again
     # whether we accept it.
     if [ ! "$(ls tmp/*.pem)" ]; then
         openssl req -x509 -newkey rsa:2048 -keyout tmp/key.pem -out tmp/cert.pem -nodes -subj '/CN=localhost'
     fi
-else
-    webpack # We'll be running webpack --watch in dev mode
 fi
