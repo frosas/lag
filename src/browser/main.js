@@ -30,3 +30,5 @@ try {
 } catch (error) {
     setTimeout(() => { throw error; });
 }
+
+if (navigator.serviceWorker) navigator.serviceWorker.register('/service-worker.js');

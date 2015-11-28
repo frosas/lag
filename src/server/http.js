@@ -7,9 +7,10 @@ const debug = require('debug')('app:http');
 
 const app = express();
 app.use(compression());
-app.use(express.static(__dirname + '/../../public', { // eslint-disable-line
-    maxAge: 365 /* days */ * 24 * 60 * 60 * 1000,
-}));
+app.use(express.static(__dirname + '/../../public')); // eslint-disable-line
+
+// Ugly hack to expose /service-worker.js
+app.use(express.static(__dirname + '/../../public/compiled/scripts')); // eslint-disable-line
 
 app.listen(config.httpPort);
 debug('Listening on http://localhost:' + config.httpPort);

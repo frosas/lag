@@ -7,10 +7,13 @@ var isDev = JSON.parse(process.env.DEV || '0');
 debug('Running in ' + (isDev ? 'development' : 'production') + ' mode');
 
 module.exports = {
-    entry: './src/browser/main',
+    entry: {
+        main: './src/browser/main',
+        'service-worker': './src/browser/service-worker.js',
+    },
     output: {
         path: './public/compiled/scripts',
-        filename: 'main.js',
+        filename: '[name].js',
     },
     module: {
         loaders: [
