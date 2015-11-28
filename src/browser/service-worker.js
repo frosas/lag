@@ -34,7 +34,7 @@ self.addEventListener('fetch', event => {
         const responseClone = response.clone();
         caches.open('v1').then(cache =>
             cache.put(event.request, responseClone).
-            then(() => fetchDebug('Cached'))
+                then(() => fetchDebug('Cached'))
         );
         return response;
     });
