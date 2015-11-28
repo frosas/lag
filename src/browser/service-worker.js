@@ -25,24 +25,25 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    event.respondWith(
-        util.timeout(1000, fetch(event.request)).then(
-            response => {
-                fetchDebug(response);
-                const responseClone = response.clone();
-                caches.open('v1').then(cache =>
-                    cache.put(event.request, responseClone).
-                        then(() => fetchDebug('Cached'))
-                );
-                return response;
-            },
-            error => {
-                fetchDebug(error);
-                return caches.match(event.request).then(cachedResponse => {
-                    fetchDebug('Cached response', cachedResponse);
-                    return cachedResponse || error;
-                });
-            }
-        )
-    );
+    var responsePromise = fetch(event.request);
+
+    // Cache the request/response even if we already responded to the fetch. This
+    // way, next time it will be readily available from the cache.
+    responsePromise.then(response => {
+        fetchDebug(response);
+        const responseClone = response.clone();
+        caches.open('v1').then(cache =>
+            cache.put(event.request, responseClone).
+            then(() => fetchDebug('Cached'))
+        );
+        return response;
+    });
+
+    event.respondWith(util.timeout(1000 /* ms */, responsePromise).catch(error => {
+        fetchDebug(error);
+        return caches.match(event.request).then(cachedResponse => {
+            fetchDebug('Cached response', cachedResponse);
+            return cachedResponse || error;
+        });
+    }));
 });
