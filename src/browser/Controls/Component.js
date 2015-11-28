@@ -7,15 +7,17 @@ module.exports = class ControlsComponent extends React.Component {
     }
 
     render() {
-        return <form id="controls">
-            <label>
-                Volume {' '}
-                <input type="range" min="0" max="1" step="0.05"
-                    value={this.state.volume}
-                    onChange={this._onChange.bind(this)}
-                />
-            </label>
-        </form>;
+        return (
+            <form id="controls">
+                <label>
+                    Volume {' '}
+                    <input type="range" min="0" max="1" step="0.05"
+                        value={this.state.volume}
+                        onChange={this._onChange.bind(this)}
+                    />
+                </label>
+            </form>
+        );
     }
 
     _onChange(event) {
@@ -23,4 +25,4 @@ module.exports = class ControlsComponent extends React.Component {
         this.setState({volume: volume});
         this.props.onChangeVolume(volume);
     }
-}
+};
