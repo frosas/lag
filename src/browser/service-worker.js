@@ -6,15 +6,13 @@ const isCacheableRequest = request =>
     request.method === 'GET' &&
     !new URL(request.url).search.match(/[?&]nocache[&$]/);
 
-const fetchWithTimeout = params => {
-    return Promise.race([
-        fetch(params.request),
-        new Promise((resolve, reject) => setTimeout(
-            () => reject(new Error('Timed out after ' + params.timeout + ' ms')),
-            params.timeout
-        )),
-    ]);
-};
+const timeout = (duration, promise) => Promise.race([
+    promise,
+    new Promise((resolve, reject) => setTimeout(
+        () => reject(new Error(`Timed out after ${duration} ms`)),
+        duration
+    )),
+]);
 
 self.addEventListener('install', () => debug('Installed'));
 
@@ -34,7 +32,7 @@ self.addEventListener('fetch', event => {
     }
 
     event.respondWith(
-        fetchWithTimeout({request: event.request, timeout: 1000}).then(
+        timeout(1000, fetch(event.request)).then(
             response => {
                 fetchDebug(response);
                 const responseClone = response.clone();
