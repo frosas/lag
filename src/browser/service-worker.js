@@ -35,9 +35,9 @@ self.addEventListener('fetch', event => {
                 return response;
             },
             error => {
-                debug(error);
+                fetchDebug(error);
                 return caches.match(event.request).then(cachedResponse => {
-                    debug('Cached response', cachedResponse);
+                    fetchDebug('Cached response', cachedResponse);
                     return cachedResponse || error;
                 });
             }
