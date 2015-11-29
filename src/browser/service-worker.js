@@ -12,6 +12,11 @@ self.addEventListener('install', () => debug('Installed'));
 
 self.addEventListener('activate', () => debug('Activated'));
 
+// From http://www.nngroup.com/articles/response-times-3-important-limits/: "1.0
+// second is about the limit for the user's flow of thought to stay uninterrupted,
+// even though the user will notice the delay."
+const MAX_ACCEPTABLE_RESPONSE_TIME = 1000; // ms
+
 let nextFetchId = 1;
 
 self.addEventListener('fetch', event => {
@@ -39,15 +44,15 @@ self.addEventListener('fetch', event => {
         return response;
     });
 
-    // Caching approach:
-    // - Return the network response if it succeeded in a timely fashion, or
-    // - Return the cached resource if available, or
-    // - Return the network response
-    event.respondWith(util.timeout(1000 /* ms */, responsePromise).catch(error => {
-        fetchDebug(error);
-        return caches.match(event.request).then(cachedResponse => {
-            fetchDebug('Cached response', cachedResponse);
-            return cachedResponse || responsePromise;
-        });
-    }));
+    // Caching strategy: use the network response unless it's taking too long
+    // and there's a cached response available.
+    event.respondWith(
+        util.timeout(MAX_ACCEPTABLE_RESPONSE_TIME, responsePromise).catch(error => {
+            fetchDebug(error);
+            return caches.match(event.request).then(cachedResponse => {
+                fetchDebug('Cached response', cachedResponse);
+                return cachedResponse || responsePromise;
+            });
+        })
+    );
 });
