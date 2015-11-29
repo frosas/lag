@@ -39,11 +39,15 @@ self.addEventListener('fetch', event => {
         return response;
     });
 
+    // Caching approach:
+    // - Return the network response if it succeeded in a timely fashion, or
+    // - Return the cached resource if available, or
+    // - Return the network response
     event.respondWith(util.timeout(1000 /* ms */, responsePromise).catch(error => {
         fetchDebug(error);
         return caches.match(event.request).then(cachedResponse => {
             fetchDebug('Cached response', cachedResponse);
-            return cachedResponse || error;
+            return cachedResponse || responsePromise;
         });
     }));
 });
