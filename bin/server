@@ -6,7 +6,7 @@ source $(dirname $0)/common
 
 on_sigint() { kill 0; }
 trap on_sigint SIGINT
-node src/server/http.js &
+node_modules/.bin/forever src/server/http.js &
 if [[ $NODE_ENV != 'production' ]]; then
     node src/server/https-proxy.js &
     webpack --watch &
