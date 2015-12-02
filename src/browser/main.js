@@ -18,11 +18,12 @@ var User = require('./user');
 var Audio_ = require('./audio');
 var Controls = require('./controls');
 
+const version = Date.now();
 var user = new User;
 var pings = new Pings;
 new Chart(user, pings);
 new PageTitle(user, pings);
-new PageIcon(user, pings);
+new PageIcon(user, pings, version);
 new Title(user, pings);
 
 try {
