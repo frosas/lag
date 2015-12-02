@@ -2,10 +2,10 @@ const getBulletUrl = (color, version) => `images/bullet_${color}.png?v=${version
 
 const getIconUrl = (lag, version) => {
     const color =
-        lag < 100 && 'green' ||
-        lag < 300 && 'yellow' ||
-        lag < 1000 && 'orange' ||
-        lag < 5000 && 'red' ||
+        lag < 50 && 'green' ||
+        lag < 100 && 'yellow' ||
+        lag < 500 && 'orange' ||
+        lag < 1000 && 'red' ||
         'black';
     return getBulletUrl(color, version);
 };
