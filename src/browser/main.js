@@ -1,6 +1,6 @@
 /* eslint-env node, browser */
-/* eslint-disable no-alert */
-/* global BUILD_ID */
+/* eslint-disable no-alert, no-console */
+/* global BUILD_ID, BUILD_TIMESTAMP */
 
 (function _setupErrorHandling() {
     var originalOnError = window.onerror || () => {};
@@ -18,6 +18,8 @@ var Title = require('./title');
 var User = require('./user');
 var Audio_ = require('./audio');
 var Controls = require('./controls');
+
+console.log(`[Main] Build ID: ${BUILD_ID}, date: ${new Date(BUILD_TIMESTAMP)}`);
 
 var user = new User;
 var pings = new Pings;

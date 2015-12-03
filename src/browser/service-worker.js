@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* global BUILD_ID, BUILD_TIMESTAMP */
 
 const util = require('../util');
 
@@ -7,6 +8,8 @@ const debug = (...args) => console.log('[Service Worker]', ...args);
 const isCacheableRequest = request =>
     request.method === 'GET' &&
     !new URL(request.url).search.match(/[?&]nocache[&$]/);
+
+debug(`Build ID: ${BUILD_ID}, date: ${new Date(BUILD_TIMESTAMP)}`);
 
 self.addEventListener('install', event => {
     debug('Installing...');
