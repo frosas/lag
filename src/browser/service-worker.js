@@ -41,7 +41,6 @@ self.addEventListener('fetch', event => {
             cache.put(event.request, responseClone).
                 then(() => fetchDebug('Cached'))
         );
-        return response;
     });
 
     // Caching strategy: use the network response unless it's taking too long
