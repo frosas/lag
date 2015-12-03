@@ -8,9 +8,15 @@ const isCacheableRequest = request =>
     request.method === 'GET' &&
     !new URL(request.url).search.match(/[?&]nocache[&$]/);
 
-self.addEventListener('install', () => debug('Installed'));
+self.addEventListener('install', event => {
+    debug('Installing...');
+    event.waitUntil(self.skipWaiting().then(() => debug('Installed')));
+});
 
-self.addEventListener('activate', () => debug('Activated'));
+self.addEventListener('activate', event => {
+    debug('Activating...');
+    event.waitUntil(self.clients.claim().then(() => debug('Activated')));
+});
 
 // From http://www.nngroup.com/articles/response-times-3-important-limits/: "1.0
 // second is about the limit for the user's flow of thought to stay uninterrupted,
