@@ -8,12 +8,7 @@ on_sigint() { kill 0; }
 trap on_sigint SIGINT
 
 is_dev=$([[ $NODE_ENV == 'production' ]] || echo 1)
-
 node_modules/.bin/forever $([[ $is_dev ]] && echo '-w') src/server/http.js &
-
-if [[ $is_dev ]]; then
-    node src/server/https-proxy.js &
-    webpack --watch &
-fi
+if [[ $is_dev ]]; then webpack --watch & fi
 
 wait
