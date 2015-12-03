@@ -61,13 +61,14 @@ module.exports = class Pings {
     }
 
     _removePingsOverLimit() {
-        var firstOfTheLastUnrespondedPings = this._getFirstOfTheLastUnrespondedPings();
-        this._list = _.last(this._list, this._max);
-        // Don't remove the first of the last unresponded ping we got, otherwise
-        // the lag won't be bigger than the first ping in the list!
-        if (firstOfTheLastUnrespondedPings && !_.contains(this._list, firstOfTheLastUnrespondedPings)) {
-            this._list.unshift(firstOfTheLastUnrespondedPings);
+        // Don't remove the first of the last unresponded ping, otherwise the lag
+        // won't be bigger than the one for the first ping in the list!
+        const firstOfTheLastUnrespondedPings = this._getFirstOfTheLastUnrespondedPings();
+        while (this._list.length > this._max) {
+            const ping = this._list.shift();
+            if (ping !== firstOfTheLastUnrespondedPings) ping.abort();
         }
+        if (firstOfTheLastUnrespondedPings) this._list.unshift(firstOfTheLastUnrespondedPings);
     }
 
     _abortOldestPingsOverConcurrencyLimit() {

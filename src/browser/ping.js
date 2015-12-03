@@ -49,6 +49,7 @@ module.exports = class Ping {
      * Cancels the ping
      */
     abort() {
+        if (this.done) return;
         this._request.abort();
         this.done = true;
         this.failed = true;
