@@ -32,11 +32,10 @@ module.exports = class Ping {
     }
 
     _send() {
-        var ping = this;
         this.start = Date.now();
         this._request = $.ajax({url: URL_, dataType: 'script'});
         this._request.then(this._onPong.bind(this));
-        this._request.then(null, () => ping.abort());
+        this._request.then(null, () => this.abort());
     }
 
     _onPong() {
