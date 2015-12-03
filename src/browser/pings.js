@@ -78,7 +78,7 @@ module.exports = class Pings {
 
     _addPing() {
         var ping = new Ping;
-        ping.on('pong', () => {
+        ping.events.on('pong', () => {
             if (this._isLastRespondedPing(ping)) this._lastRespondedPing = ping;
             this.trigger('pong', ping);
         });
