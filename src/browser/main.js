@@ -1,5 +1,6 @@
 /* eslint-env node, browser */
 /* eslint-disable no-alert */
+/* global BUILD_ID */
 
 (function _setupErrorHandling() {
     var originalOnError = window.onerror || () => {};
@@ -18,12 +19,11 @@ var User = require('./user');
 var Audio_ = require('./audio');
 var Controls = require('./controls');
 
-const version = Date.now();
 var user = new User;
 var pings = new Pings;
 new Chart(user, pings);
 new PageTitle(user, pings);
-new PageIcon(user, pings, version);
+new PageIcon(user, pings, BUILD_ID);
 new Title(user, pings);
 
 try {
