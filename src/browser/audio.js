@@ -29,7 +29,7 @@ var Audio_ = module.exports = function(context, user, pings) {
 
     var maxFrequency = 800;
     var maxFrequencyIncrement = 30;
-    user.on('hear', () => {
+    user.events.on('hear', () => {
         var from = filter.frequency.value;
         var to = pings.currentLag();
         to = Math.min(to, maxFrequency);

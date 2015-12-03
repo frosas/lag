@@ -45,7 +45,7 @@ module.exports = function(user, pings) {
 
     selections.update();
 
-    user.on('view', () => {
+    user.events.on('view', () => {
         [selections.updated(), selections.exited()].forEach(selection => {
             selection.each(function(datum) {
                 var element = d3.select(this);

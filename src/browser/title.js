@@ -3,5 +3,5 @@ var lag = require('./lag');
 
 module.exports = (user, pings) => {
     var $title = $('#title');
-    user.on('read', () => { $title.text(lag.humanize(pings.currentLag())); });
+    user.events.on('read', () => { $title.text(lag.humanize(pings.currentLag())); });
 };

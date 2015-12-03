@@ -1,19 +1,18 @@
-var realtimeSetInterval = require('./realtime-set-interval');
-var _ = require('underscore');
-var Backbone = require('backbone');
+const realtimeSetInterval = require('./realtime-set-interval');
+const Events = require('events');
 
 // User won't notice lower intervals than these
 var MAX_READ_INTERVAL = 250; // msecs
 
 module.exports = () => {
-    var user = _.extend({}, Backbone.Events);
+    var user = {events: new Events};
 
     var triggerReadIfNeeded = (() => {
         var lastRead;
         return () => {
             var now = Date.now();
             if (!lastRead || now > lastRead + MAX_READ_INTERVAL) {
-                user.trigger('read');
+                user.events.emit('read');
                 lastRead = now;
             }
         };
@@ -21,7 +20,7 @@ module.exports = () => {
 
     (function _userViewTimer() {
         requestAnimationFrame(_userViewTimer); // Consumes less CPU than d3.timer()
-        user.trigger('view');
+        user.events.emit('view');
         triggerReadIfNeeded();
     })();
 
@@ -30,7 +29,7 @@ module.exports = () => {
     // are not using realtimeSetInterval())
     setInterval(triggerReadIfNeeded, MAX_READ_INTERVAL);
 
-    realtimeSetInterval(() => { user.trigger('hear'); }, 250);
+    realtimeSetInterval(() => { user.events.emit('hear'); }, 250);
 
     return user;
 };

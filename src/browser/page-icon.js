@@ -23,5 +23,5 @@ const getIconLinkElement = () => {
 
 module.exports = (user, pings, version) => {
     const iconElement = getIconLinkElement();
-    user.on('read', () => iconElement.href = getIconUrl(pings.currentLag(), version));
+    user.events.on('read', () => iconElement.href = getIconUrl(pings.currentLag(), version));
 };
