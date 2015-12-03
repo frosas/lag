@@ -1,9 +1,37 @@
-const $ = require('jquery');
 const Events = require('events');
 
 // Here we have a copy of the site in a CDN close to the user. Ensure the
 // CDN is configured to not forward query strings to reduce latency.
 const URL_ = '//d18ks85av1x0pi.cloudfront.net/scripts/blank.js?nocache';
+
+class Script {
+    constructor(url) {
+        this._element = document.createElement('script');
+        this._element.src = url;
+        this.loaded = new Promise((resolve, reject) => {
+            this._element.onload = resolve;
+            this._element.onerror = reject;
+        });
+        document.head.appendChild(this._element);
+    }
+
+    remove() {
+        if (!this._element) return;
+        this._element.parentNode.removeChild(this._element);
+        this._element = null;
+    }
+}
+
+class Request {
+    constructor() {
+        this._script = new Script(`${URL_}&v=${Date.now()}`);
+        this._script.loaded.then(() => this._script.remove(), () => this._script.remove());
+    }
+
+    abort() { this._script.remove(); }
+
+    get loaded() { return this._script.loaded; }
+}
 
 module.exports = class Ping {
     constructor() {
@@ -32,8 +60,8 @@ module.exports = class Ping {
 
     _send() {
         this.start = Date.now();
-        this._request = $.ajax({url: URL_, dataType: 'script'});
-        this._request.then(() => this._onPong(), () => this.abort());
+        this._request = new Request;
+        this._request.loaded.then(() => this._onPong(), () => this.abort());
     }
 
     _onPong() {
