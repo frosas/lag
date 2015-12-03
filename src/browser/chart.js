@@ -1,17 +1,16 @@
 var d3 = require('d3');
-var $ = require('jquery');
 
 module.exports = function(user, pings) {
-    var $chart = $('#chart');
-    var d3Svg = d3.select($chart.get(0)).append('svg:svg');
+    const chartEl = document.querySelector('#chart');
+    var d3Svg = d3.select(chartEl).append('svg:svg');
     // [1] Use the parent node dimensions as Firefox doesn't seem to work with the svg element ones
-    var d3SvgHeight = $chart.height();
+    var d3SvgHeight = chartEl.offsetHeight;
     var barWidth = 8; // px
 
     var xScale = d3.scale.linear();
 
     var onResize = () => {
-        var d3SvgWidth = $chart.width(); // See [1]
+        const d3SvgWidth = chartEl.offsetWidth; // See [1]
         pings.setMax(d3SvgWidth / barWidth); // Yes, this a float
         xScale.range([0, d3SvgWidth]);
     };
