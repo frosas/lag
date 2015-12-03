@@ -4,6 +4,6 @@ set -ex
 
 source $(dirname $0)/common
 
-if [[ $NODE_ENV == 'production' ]]; then
+if [[ ! $is_dev ]]; then
     webpack # We'll be running webpack --watch in dev mode
 fi

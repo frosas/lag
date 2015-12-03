@@ -1,3 +1,5 @@
 #!/bin/bash
 
 export DEBUG=app:*
+
+is_dev=$([[ $NODE_ENV == 'production' ]] || echo 1)

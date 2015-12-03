@@ -7,7 +7,6 @@ source $(dirname $0)/common
 on_sigint() { kill 0; }
 trap on_sigint SIGINT
 
-is_dev=$([[ $NODE_ENV == 'production' ]] || echo 1)
 node_modules/.bin/forever $([[ $is_dev ]] && echo '-w') src/server/http.js &
 if [[ $is_dev ]]; then webpack --watch & fi
 
