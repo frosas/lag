@@ -64,7 +64,7 @@ module.exports = function(user, pings) {
         });
     });
 
-    pings.on('add', () => {
+    pings.events.on('add', () => {
         selections.update();
 
         selections.entered().append('svg:rect')

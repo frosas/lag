@@ -1,7 +1,7 @@
-var Ping = require('./ping');
-var realtimeSetInterval = require('./realtime-set-interval');
-var _ = require('underscore');
-var Backbone = require('backbone');
+const Ping = require('./ping');
+const realtimeSetInterval = require('./realtime-set-interval');
+const _ = require('underscore');
+const Events = require('events');
 
 /**
  * The amount of active pings (i.e. connections) that can run concurrently.
@@ -17,13 +17,11 @@ var PINGS_CONCURRENCY_LIMIT = 20;
 
 module.exports = class Pings {
     constructor() {
-        _.extend(this, Backbone.Events);
-
+        this.events = new Events;
         this.interval = 1000;/* msecs */ // How often pings are created
         this._list = [];
         this._max = 100;
         this._lastRespondedPing;
-
         this._ping(); // Start pinging ASAP
         realtimeSetInterval(this._ping.bind(this), this.interval);
     }
@@ -80,10 +78,9 @@ module.exports = class Pings {
         var ping = new Ping;
         ping.events.on('pong', () => {
             if (this._isLastRespondedPing(ping)) this._lastRespondedPing = ping;
-            this.trigger('pong', ping);
         });
         this._list.push(ping);
-        this.trigger('add', ping);
+        this.events.emit('add', ping);
     }
 
     _isLastRespondedPing(ping) {
