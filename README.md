@@ -26,3 +26,4 @@ Open http://localhost:5000
       anything.
 - Include build details in every file (HTML, JS, ...)
 - Why production is not getting the last version? Is it CloudFlare?
+- Cache only success responses?
