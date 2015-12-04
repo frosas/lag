@@ -24,3 +24,5 @@ Open http://localhost:5000
   - SW registered: "Offline mode ready"
     - Note we don't have to ask the user to reload the page as this won't change
       anything.
+- Include build details in every file (HTML, JS, ...)
+- Why production is not getting the last version? Is it CloudFlare?
