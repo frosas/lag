@@ -1,6 +1,5 @@
 /* eslint-env node, browser */
 /* eslint-disable no-alert, no-console */
-/* global BUILD_ID, BUILD_TIMESTAMP */
 
 (function _setupErrorHandling() {
     var originalOnError = window.onerror || () => {};
@@ -19,13 +18,11 @@ var User = require('./user');
 var Audio_ = require('./audio');
 var Controls = require('./controls');
 
-console.log(`[Main] Build ID: ${BUILD_ID}, date: ${new Date(BUILD_TIMESTAMP)}`);
-
 var user = new User;
 var pings = new Pings;
 new Chart(user, pings);
 new PageTitle(user, pings);
-new PageIcon(user, pings, BUILD_ID);
+new PageIcon(user, pings);
 new Title(user, pings);
 
 try {

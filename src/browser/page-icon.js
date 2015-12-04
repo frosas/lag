@@ -1,13 +1,15 @@
-const getBulletUrl = (color, version) => `images/bullet_${color}.png?v=${version}`;
+/* global BUILD_ID */
 
-const getIconUrl = (lag, version) => {
+const getBulletUrl = (color) => `images/bullet_${color}.png?v=${BUILD_ID}`;
+
+const getIconUrl = (lag) => {
     const color =
         lag < 50 && 'green' ||
         lag < 100 && 'yellow' ||
         lag < 500 && 'orange' ||
         lag < 1000 && 'red' ||
         'black';
-    return getBulletUrl(color, version);
+    return getBulletUrl(color);
 };
 
 const getIconLinkElement = () => {
@@ -21,7 +23,7 @@ const getIconLinkElement = () => {
     return icon;
 };
 
-module.exports = (user, pings, version) => {
+module.exports = (user, pings) => {
     const iconElement = getIconLinkElement();
-    user.events.on('read', () => iconElement.href = getIconUrl(pings.currentLag(), version));
+    user.events.on('read', () => iconElement.href = getIconUrl(pings.currentLag()));
 };
