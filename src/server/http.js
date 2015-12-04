@@ -2,7 +2,6 @@
 
 const express = require('express');
 const compression = require('compression');
-const config = require('./config');
 const debug = require('debug')('app:http');
 
 const app = express();
@@ -18,5 +17,6 @@ app.use(express.static(__dirname + '/../../public')); // eslint-disable-line
 // Ugly hack to expose /service-worker.js
 app.use(express.static(__dirname + '/../../public/compiled/scripts')); // eslint-disable-line
 
-app.listen(config.httpPort);
-debug('Listening on http://localhost:' + config.httpPort);
+const httpPort = process.env.PORT || 5000;
+app.listen(httpPort);
+debug(`Listening on http://localhost:${httpPort}`);
