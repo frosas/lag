@@ -8,7 +8,7 @@
     "start": "bin/server"
   },
   "engines": {
-    "node": "^5.1.0"
+    "node": "^6.3.0"
   },
   "dependencies": {
     "babel-core": "^5.8.22",
