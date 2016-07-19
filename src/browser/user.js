@@ -1,4 +1,3 @@
-const realtimeSetInterval = require('./realtime-set-interval');
 const Events = require('events');
 
 // User won't notice lower intervals than these
@@ -25,11 +24,10 @@ module.exports = () => {
     })();
 
     // requestanimationframe() is not always triggered when the tab is not
-    // active. Here we ensure it is called at least once every second (as we
-    // are not using realtimeSetInterval())
+    // active. Here we ensure it is called at least once every second
     setInterval(triggerReadIfNeeded, MAX_READ_INTERVAL);
 
-    realtimeSetInterval(() => { user.events.emit('hear'); }, 250);
+    setInterval(() => user.events.emit('hear'), 250);
 
     return user;
 };

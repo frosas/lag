@@ -1,5 +1,4 @@
 const Ping = require('./ping');
-const realtimeSetInterval = require('./realtime-set-interval');
 const _ = require('underscore');
 const Events = require('events');
 
@@ -23,7 +22,7 @@ module.exports = class Pings {
         this._max = 100;
         this._lastRespondedPing;
         this._ping(); // Start pinging ASAP
-        realtimeSetInterval(this._ping.bind(this), this.interval);
+        setInterval(this._ping.bind(this), this.interval);
     }
 
     all() { return this._list; }
