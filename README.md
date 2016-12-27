@@ -3,7 +3,7 @@
 # Development
 
 ```bash
-$ npm i
+$ yarn
 $ bin/server
 ```
 
