@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "#": "Next scripts are used by Dokku",
+    "#": "Following scripts are used by Dokku",
     "postinstall": "bin/npm-postinstall",
     "start": "bin/server"
   },
