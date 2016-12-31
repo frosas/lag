@@ -1,24 +1,24 @@
-var React = require('react');
-var ControlsComponent = require('./Controls/Component');
+const React = require('react');
+const ControlsComponent = require('./Controls/Component');
 
-module.exports = class Controls {
-    constructor(audio) {
-        this._audio = audio;
+module.exports = class {
+  constructor(audio) {
+    this._audio = audio;
 
-        var savedVolume = localStorage && localStorage.getItem('volume');
-        if (savedVolume) audio.setVolume(savedVolume);
+    const savedVolume = localStorage && localStorage.getItem('volume');
+    if (savedVolume) audio.setVolume(savedVolume);
 
-        React.render(
-            <ControlsComponent
-                initialVolume={audio.getVolume()}
-                onChangeVolume={this._onChangeVolume.bind(this)}
-            />,
-            document.querySelector('#controls-placeholder')
-        );
-    }
+    React.render(
+      <ControlsComponent
+        initialVolume={audio.getVolume()}
+        onChangeVolume={this._onChangeVolume.bind(this)}
+      />,
+      document.querySelector('#controls-placeholder'),
+    );
+  }
 
-    _onChangeVolume(volume) {
-        this._audio.setVolume(volume);
-        localStorage && localStorage.setItem('volume', volume);
-    }
+  _onChangeVolume(volume) {
+    this._audio.setVolume(volume);
+    if (localStorage) localStorage.setItem('volume', volume);
+  }
 };
