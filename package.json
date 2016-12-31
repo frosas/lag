@@ -23,6 +23,7 @@
     "express": "^4.11.1",
     "forever": "^0.15.1",
     "jquery": "^2.1.4",
+    "nodemon": "^1.11.0",
     "react": "^0.13.3",
     "underscore": "^1.8.3",
     "webpack": "^1.11.0"

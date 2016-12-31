@@ -6,8 +6,12 @@ source $(dirname $0)/common
 
 on_sigint() { kill 0; }
 trap on_sigint SIGINT
+    
+if [[ $is_dev ]]; then
+    webpack --watch &
+    nodemon --exec 'eslint .' &
+fi
 
-if [[ $is_dev ]]; then webpack --watch & fi
 forever \
     --minUptime 1000 \
     --spinSleepTime 1000 \

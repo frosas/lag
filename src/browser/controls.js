@@ -13,7 +13,7 @@ module.exports = class {
         initialVolume={audio.getVolume()}
         onChangeVolume={this._onChangeVolume.bind(this)}
       />,
-      document.querySelector('#controls-placeholder'),
+      document.querySelector('#controls-placeholder')
     );
   }
 

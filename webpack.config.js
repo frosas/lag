@@ -24,7 +24,7 @@ module.exports = {
   plugins: [].concat(
     isDev ? [] : new webpack.optimize.UglifyJsPlugin(),
     new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
-    new webpack.BannerPlugin(`Build date: ${new Date()}`),
+    new webpack.BannerPlugin(`Build date: ${new Date()}`)
   ),
   debug: isDev,
   devtool: 'source-map',
