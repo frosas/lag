@@ -2,6 +2,8 @@
 
 const math = require('../src/browser/math');
 
+require('chai').should();
+
 describe('Math', () => {
   describe('equal()', () => {
     it('should be true with same integer', () => {
