@@ -12,7 +12,7 @@ const Events = require('events');
 *
 * @type {integer}
 */
-const PINGS_CONCURRENCY_LIMIT = 20;
+const PINGS_CONCURRENCY_LIMIT = 6;
 
 module.exports = class Pings {
   constructor() {
