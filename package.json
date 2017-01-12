@@ -20,6 +20,7 @@
     "debug": "^2.2.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.9.0",
     "express": "^4.11.1",
     "forever": "^0.15.1",
@@ -29,10 +30,5 @@
     "react": "^0.13.3",
     "underscore": "^1.8.3",
     "webpack": "^1.11.0"
-  },
-  "devDependencies": {
-    "eslint": "^3.12.2",
-    "eslint-config-airbnb-base": "^11.0.0",
-    "eslint-plugin-import": "^2.2.0"
   }
 }
