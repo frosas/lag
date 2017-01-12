@@ -10,7 +10,6 @@ module.exports = {
     rules: {
         'react/jsx-uses-vars': 'error',
         'no-underscore-dangle': 'off',
-        'no-param-reassign': 'off',
         'no-new': 'off',
         'comma-dangle': ['error', {
           arrays: 'always-multiline',
