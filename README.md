@@ -25,5 +25,4 @@ Open http://localhost:5000
     - Note we don't have to ask the user to reload the page as this won't change
       anything.
 - Include build details in every file (HTML, JS, ...)
-- Why production is not getting the last version? Is it CloudFlare?
-- Cache only success responses?
+- Support more than 6 open connections (e.g. use multiple hostnames)
