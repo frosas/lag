@@ -27,3 +27,4 @@ Open http://localhost:5000
 - Include build details in every file (HTML, JS, ...)
 - Support more than 6 open connections (e.g. use multiple hostnames)
 - Use http://recharts.org?
+- Why does it get stuck / consumes more CPU after a while?
