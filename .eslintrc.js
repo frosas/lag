@@ -17,6 +17,7 @@ module.exports = {
           imports: 'always-multiline',
           exports: 'always-multiline',
           functions: 'ignore',
-      }],
+        }],
+        'no-multi-assign': 'off'
     }
 }
