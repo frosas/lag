@@ -13,7 +13,7 @@ module.exports = class {
 
     const onResize = () => {
       const d3SvgWidth = chartEl.offsetWidth; // See [1]
-      pings.setMax(d3SvgWidth / barWidth); // Yes, this is a float
+      pings.max = d3SvgWidth / barWidth; // Yes, this is a float
       xScale.range([0, d3SvgWidth]);
     };
     addEventListener('resize', onResize);
@@ -60,7 +60,7 @@ module.exports = class {
         });
 
         const now = Date.now();
-        xScale.domain([now - (pings.max() * pings.interval), now]);
+        xScale.domain([now - pings.max * pings.interval, now]);
         selection.attr('x', datum => xScale(datum.ping.start));
       });
     });

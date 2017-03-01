@@ -28,11 +28,11 @@ module.exports = class Pings {
     return this._list;
   }
 
-  setMax(max) {
+  set max(max) {
     this._max = max;
   }
 
-  max() {
+  get max() {
     return this._max;
   }
 
