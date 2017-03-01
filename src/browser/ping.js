@@ -1,8 +1,14 @@
 const Events = require('events');
 
-// Here we have a copy of the site in a CDN close to the user. Ensure the
-// CDN is configured to not forward query strings to reduce latency.
-const URL_ = '//d18ks85av1x0pi.cloudfront.net/scripts/blank.js?nocache';
+// Here we have a copy of the site in a CDN close to the user.
+//
+// Note we use HTTPS. On Cloudfront this causes the connection to be upgraded to
+// HTTP/2 which causes the requests to reuse the same connection (thus avoiding
+// the connection handshake at every ping). Also, HTTP caused problems on networks
+// with captive portals (e.g. in many Internet cafes).
+//
+// Ensure the CDN is configured to not forward query strings to reduce latency.
+const URL_ = 'https://d18ks85av1x0pi.cloudfront.net/scripts/blank.js?nocache';
 
 class Script {
   constructor(url) {
