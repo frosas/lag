@@ -17,15 +17,14 @@ module.exports = {
     filename: '[name].js',
   },
   module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+    rules: [
+      {test: /\.js$/, exclude: /node_modules/, use: ['babel-loader']},
     ],
   },
   plugins: [].concat(
-    isDev ? [] : new webpack.optimize.UglifyJsPlugin(),
+    isDev ? [] : new webpack.optimize.UglifyJsPlugin({sourceMap: true}),
     new webpack.DefinePlugin({BUILD_ID: Date.now()}),
-    new webpack.BannerPlugin(`Build date: ${new Date()}`)
+    new webpack.BannerPlugin({banner: `Build date: ${new Date()}`})
   ),
-  debug: isDev,
   devtool: 'source-map',
 };
