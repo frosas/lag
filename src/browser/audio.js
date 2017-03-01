@@ -32,7 +32,7 @@ const Audio = module.exports = class {
     const maxFrequencyIncrement = 30;
     user.events.on('hear', () => {
       const from = filter.frequency.value;
-      let to = pings.currentLag();
+      let to = pings.currentLag;
       to = Math.min(to, maxFrequency);
       let increment = to - from;
       increment =
