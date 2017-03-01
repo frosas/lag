@@ -37,10 +37,10 @@ module.exports = class Pings {
   }
 
   currentLag() {
-    const lastRespondedPingLag = this._lastRespondedPing ? this._lastRespondedPing.lag() : 0;
+    const lastRespondedPingLag = this._lastRespondedPing ? this._lastRespondedPing.lag : 0;
     const firstOfTheLastUnrespondedPingsLag = (() => {
       const ping = this._getFirstOfTheLastUnrespondedPings();
-      return ping ? ping.lag() : 0;
+      return ping ? ping.lag : 0;
     })();
     return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
   }

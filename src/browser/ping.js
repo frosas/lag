@@ -45,7 +45,7 @@ module.exports = class Ping {
     this._send();
   }
 
-  lag() {
+  get lag() {
     return (this.end || Date.now()) - this.start;
   }
 

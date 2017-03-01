@@ -51,8 +51,8 @@ module.exports = class {
         selection.each(function(datum) { // eslint-disable-line func-names
           const element =
             d3.select(this)
-              .attr('y', Math.floor(d3SvgHeight - yScale(datum.ping.lag())))
-              .attr('height', Math.floor(yScale(datum.ping.lag())));
+              .attr('y', Math.floor(d3SvgHeight - yScale(datum.ping.lag)))
+              .attr('height', Math.floor(yScale(datum.ping.lag)));
           if (!datum.done && datum.ping.done) {
             datum.done = true; // eslint-disable-line no-param-reassign
             onPingDone(element, datum);
