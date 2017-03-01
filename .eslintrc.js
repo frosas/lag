@@ -5,7 +5,7 @@ module.exports = {
         ecmaVersion: 6,
         ecmaFeatures: {jsx: true}
     },
-    extends: 'google',
+    extends: ['eslint:recommended', 'google'],
     plugins: ['react'],
     rules: {
         'max-len': ['error', 100],
