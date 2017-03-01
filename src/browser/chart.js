@@ -19,7 +19,7 @@ module.exports = class {
     window.addEventListener('resize', onResize);
     onResize();
 
-    const yScale = (lag) => {
+    const yScale = lag => {
       // 0 -> 0, normalLag -> .1, ∞ -> 1
       const normalLag = 200;
       const normalizedLag = (Math.atan(lag / normalLag / 10) * 2) / Math.PI;
@@ -38,7 +38,7 @@ module.exports = class {
         updated: () => updated,
         exited: () => updated.exit(),
         update: () => {
-          const data = pings.all().map(ping => ({ ping, exiting: false, done: false }));
+          const data = pings.all().map(ping => ({ping, exiting: false, done: false}));
           updated = d3Svg.selectAll('rect').data(data, datum => datum.ping.start);
         },
       };
@@ -47,8 +47,8 @@ module.exports = class {
     selections.update();
 
     user.events.on('view', () => {
-      [selections.updated(), selections.exited()].forEach((selection) => {
-        selection.each(function (datum) { // eslint-disable-line func-names
+      [selections.updated(), selections.exited()].forEach(selection => {
+        selection.each(function(datum) { // eslint-disable-line func-names
           const element =
             d3.select(this)
               .attr('y', Math.floor(d3SvgHeight - yScale(datum.ping.lag())))
@@ -73,7 +73,7 @@ module.exports = class {
         .attr('fill-opacity', 0.7)
         .attr('fill', '#474739');
 
-      selections.exited().each((datum) => {
+      selections.exited().each(datum => {
         const element = this;
         if (datum.exiting) return;
         datum.exiting = true; // eslint-disable-line no-param-reassign

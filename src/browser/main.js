@@ -26,7 +26,9 @@ new Title(user, pings);
 try {
   new Controls(Audio_.create(user, pings));
 } catch (error) {
-  setTimeout(() => { throw error; });
+  setTimeout(() => {
+    throw error;
+  });
 }
 
 if (navigator.serviceWorker) navigator.serviceWorker.register('/service-worker.js');

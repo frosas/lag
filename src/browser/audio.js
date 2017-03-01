@@ -42,7 +42,7 @@ const Audio = module.exports = class {
     });
 
     return {
-      setVolume: (volume) => { gain.gain.value = volume; },
+      setVolume: volume => gain.gain.value = volume,
       getVolume: () => gain.gain.value,
     };
   }

@@ -5,19 +5,13 @@ module.exports = {
         ecmaVersion: 6,
         ecmaFeatures: {jsx: true}
     },
-    extends: 'airbnb-base',
+    extends: 'google',
     plugins: ['react'],
     rules: {
+        'max-len': ['error', 100],
+        'require-jsdoc': 'off',
         'react/jsx-uses-vars': 'error',
-        'no-underscore-dangle': 'off',
-        'no-new': 'off',
-        'comma-dangle': ['error', {
-          arrays: 'always-multiline',
-          objects: 'always-multiline',
-          imports: 'always-multiline',
-          exports: 'always-multiline',
-          functions: 'ignore',
-        }],
-        'no-multi-assign': 'off'
+        'no-invalid-this': 'off', // It's buggy
+        'arrow-parens': ['error', 'as-needed']
     }
 }

@@ -3,7 +3,7 @@ const React = require('react');
 const ControlsComponent = module.exports = class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { volume: props.initialVolume };
+    this.state = {volume: props.initialVolume};
   }
 
   render() {
@@ -21,7 +21,7 @@ const ControlsComponent = module.exports = class extends React.Component {
 
   _onChange(event) {
     const volume = event.target.value;
-    this.setState({ volume });
+    this.setState({volume});
     this.props.onChangeVolume(volume);
   }
 };

@@ -3,8 +3,7 @@ module.exports = {
    * @param {number} amount
    * @return {string} An easy to read lag
    */
-  humanize: (amountInMilliseconds) => {
-    let amount = amountInMilliseconds;
+  humanize: amount => {
     let unit = 'ms';
     if (amount > 1000) {
       amount = (amount / 1000).toFixed(1);

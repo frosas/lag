@@ -9,7 +9,7 @@ debug(`Running in ${(isDev ? 'development' : 'production')} mode`);
 
 module.exports = {
   entry: {
-    main: './src/browser/main',
+    'main': './src/browser/main',
     'service-worker': './src/browser/service-worker.js',
   },
   output: {
@@ -18,12 +18,12 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
     ],
   },
   plugins: [].concat(
     isDev ? [] : new webpack.optimize.UglifyJsPlugin(),
-    new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
+    new webpack.DefinePlugin({BUILD_ID: Date.now()}),
     new webpack.BannerPlugin(`Build date: ${new Date()}`)
   ),
   debug: isDev,

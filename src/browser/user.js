@@ -4,7 +4,7 @@ const Events = require('events');
 const MAX_READ_INTERVAL = 250; // msecs
 
 module.exports = () => {
-  const user = { events: new Events() };
+  const user = {events: new Events()};
 
   const triggerReadIfNeeded = (() => {
     let lastRead;
