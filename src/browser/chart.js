@@ -38,7 +38,7 @@ module.exports = class {
         updated: () => updated,
         exited: () => updated.exit(),
         update: () => {
-          const data = pings.all().map(ping => ({ping, exiting: false, done: false}));
+          const data = pings.all.map(ping => ({ping, exiting: false, done: false}));
           updated = d3Svg.selectAll('rect').data(data, datum => datum.ping.start);
         },
       };

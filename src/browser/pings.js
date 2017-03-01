@@ -24,7 +24,7 @@ module.exports = class Pings {
     setInterval(this._ping.bind(this), this.interval);
   }
 
-  all() {
+  get all() {
     return this._list;
   }
 
