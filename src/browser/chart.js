@@ -13,10 +13,10 @@ module.exports = class {
 
     const onResize = () => {
       const d3SvgWidth = chartEl.offsetWidth; // See [1]
-      pings.setMax(d3SvgWidth / barWidth); // Yes, this a float
+      pings.setMax(d3SvgWidth / barWidth); // Yes, this is a float
       xScale.range([0, d3SvgWidth]);
     };
-    window.addEventListener('resize', onResize);
+    addEventListener('resize', onResize);
     onResize();
 
     const yScale = lag => {
