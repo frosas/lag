@@ -27,11 +27,15 @@
     "forever": "^0.15.1",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
-    "react": "^0.13.3",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "underscore": "^1.8.3",
     "webpack": "^2.2.1"
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

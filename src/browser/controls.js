@@ -1,4 +1,5 @@
 const React = require('react');
+const ReactDOM = require('react-dom');
 const ControlsComponent = require('./Controls/Component');
 
 module.exports = class {
@@ -8,7 +9,7 @@ module.exports = class {
     const savedVolume = localStorage && localStorage.getItem('volume');
     if (savedVolume) audio.setVolume(savedVolume);
 
-    React.render(
+    ReactDOM.render(
       <ControlsComponent
         initialVolume={audio.getVolume()}
         onChangeVolume={this._onChangeVolume.bind(this)}

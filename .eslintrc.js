@@ -10,6 +10,7 @@ module.exports = {
     rules: {
         'max-len': ['error', 100],
         'require-jsdoc': 'off',
+        'react/jsx-uses-react': 'error',
         'react/jsx-uses-vars': 'error',
         'no-invalid-this': 'off', // It's buggy
         'arrow-parens': ['error', 'as-needed']
