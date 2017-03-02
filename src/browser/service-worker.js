@@ -65,3 +65,10 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
+self.addEventListener('message', event => {
+  switch (event.data) {
+    case 'toggleDebugging': isDebugEnabled = !isDebugEnabled; break;
+    default: throw new Error('Unknown message');
+  }
+});
