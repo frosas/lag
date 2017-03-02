@@ -2,11 +2,15 @@
 
 const util = require('../util');
 
-const debug = (...args) => console.log('[Service Worker]', ...args);
+let isDebugEnabled;
+
+const debug = (...args) => {
+  if (isDebugEnabled) console.log('[Service Worker]', ...args);
+};
 
 const isCacheableRequest = request =>
-  request.method === 'GET'
-  && !new URL(request.url).search.match(/[?&]nocache[&$]/);
+  request.method === 'GET' &&
+  !new URL(request.url).search.match(/[?&]nocache[&$]/);
 
 self.addEventListener('install', event => {
   debug('Installing...');
