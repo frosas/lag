@@ -30,3 +30,5 @@ Open http://localhost:5000
   - HTTPS — Is this any slower than an HTTP ping?
   - HTTP/2 — This should make the connection handshake to not be considered
   - WebSocket — Probably not needed if HTTP/2 is implemented
+- Pre-cache all resources to not fail loading them when offline. Anything else 
+  apart from the favicons?
