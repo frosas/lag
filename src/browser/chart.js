@@ -9,7 +9,7 @@ module.exports = class {
     const d3SvgHeight = chartEl.offsetHeight;
     const barWidth = 8; // px
 
-    const xScale = d3.scale.linear();
+    const xScale = d3.scaleLinear();
 
     const onResize = () => {
       const d3SvgWidth = chartEl.offsetWidth; // See [1]
