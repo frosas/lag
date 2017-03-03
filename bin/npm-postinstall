@@ -5,5 +5,5 @@ set -ex
 source $(dirname $0)/common
 
 if [[ ! $is_dev ]]; then
-    webpack # We'll be running webpack --watch in dev mode
+    webpack -p # We'll be running webpack --watch in dev mode
 fi
