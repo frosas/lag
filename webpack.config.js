@@ -13,7 +13,7 @@ module.exports = {
     'service-worker': './src/browser/service-worker.js',
   },
   output: {
-    path: './public/compiled/scripts',
+    path: `${__dirname}/public/compiled/scripts`,
     filename: '[name].js',
   },
   module: {
