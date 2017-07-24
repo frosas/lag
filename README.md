@@ -30,7 +30,7 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
   multiple hostnames)
 - Use http://recharts.org/#/en-US/api/BarChart?
 - Fix chart memory leak
-- Chart to not consume energy when not visible
+- Chart to not consume energy when not visible. See https://news.ycombinator.com/item?id=13473859.
 - webpack, eslint and mocha watchers to not conflict (changes from one trigger 
   the rest)
 - Perform multiple type of pings
