@@ -28,7 +28,9 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 - Include build details in every file (HTML, JS, ...)
 - For HTTP and HTTPS pings, support more than 6 open connections (e.g. use 
   multiple hostnames)
-- Use http://recharts.org/#/en-US/api/BarChart?
+- Use an existing chart library?
+  - http://formidable.com/open-source/victory/
+  - http://recharts.org/#/en-US/api/BarChart
 - Fix chart memory leak
 - Chart to not consume energy when not visible. See https://news.ycombinator.com/item?id=13473859.
 - webpack, eslint and mocha watchers to not conflict (changes from one trigger 
