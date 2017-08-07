@@ -15,6 +15,8 @@ const Title = require('./title');
 const User = require('./user');
 const Audio_ = require('./audio');
 const Controls = require('./controls');
+const eventLoopLag = require('../event-loop-lag');
+const IntervalAverage = require('../interval-average');
 
 const user = new User();
 const pings = new Pings();
@@ -32,3 +34,14 @@ try {
 }
 
 if (navigator.serviceWorker) navigator.serviceWorker.register('/service-worker.js');
+
+(() => {
+  const DISPLAY_INTERVAL = 1000;
+  const averageLagPerSecond = new IntervalAverage({interval: DISPLAY_INTERVAL});
+  eventLoopLag.monitor({
+    sampleInterval: 10 /* ms */,
+    callback: lag => averageLagPerSecond.add(lag),
+  });
+  // eslint-disable-next-line no-console
+  setInterval(() => console.log(`Lag: ${averageLagPerSecond}`), DISPLAY_INTERVAL);
+})();
