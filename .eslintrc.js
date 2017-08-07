@@ -2,7 +2,7 @@
 module.exports = {
     env: {es6: true, commonjs: true},
     parserOptions: {
-        ecmaVersion: 6,
+        ecmaVersion: 2017,
         ecmaFeatures: {jsx: true}
     },
     extends: ['eslint:recommended', 'google'],
