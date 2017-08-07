@@ -4,8 +4,9 @@ const util = module.exports;
 
 util.timeout = (duration, promise) => Promise.race([
   promise,
-  new Promise((resolve, reject) => setTimeout(
-    () => reject(new Error(`Timed out after ${duration} ms`)),
-    duration
-  )),
+  util.delay(duration).then(() => {
+    throw new Error(`Timed out after ${duration} ms`);
+  }),
 ]);
+
+util.delay = duration => new Promise(resolve => setTimeout(resolve, duration));
