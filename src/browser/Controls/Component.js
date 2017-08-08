@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const ControlsComponent = module.exports = class extends React.Component {
   constructor(props) {
@@ -27,6 +28,6 @@ const ControlsComponent = module.exports = class extends React.Component {
 };
 
 ControlsComponent.propTypes = {
-  initialVolume: React.PropTypes.number,
-  onChangeVolume: React.PropTypes.func,
+  initialVolume: PropTypes.number,
+  onChangeVolume: PropTypes.func,
 };
