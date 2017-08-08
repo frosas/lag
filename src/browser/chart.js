@@ -73,11 +73,10 @@ module.exports = class {
         .attr('fill-opacity', 0.7)
         .attr('fill', '#474739');
 
-      selections.exited().each(datum => {
-        const element = this;
+      selections.exited().each(function(datum) {
         if (datum.exiting) return;
         datum.exiting = true; // eslint-disable-line no-param-reassign
-        d3.select(element).transition().duration(pings.interval * 2).remove();
+        d3.select(this).transition().duration(pings.interval * 2).remove();
       });
     });
   }
