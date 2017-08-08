@@ -21,7 +21,7 @@ module.exports = () => {
     requestAnimationFrame(_userViewTimer);
     user.events.emit('view');
     triggerReadIfNeeded();
-  }());
+  })();
 
   // requestanimationframe() is not always triggered when the tab is not
   // active. Here we ensure it is called often enough
