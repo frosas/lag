@@ -25,7 +25,7 @@ module.exports = () => {
   }());
 
   // requestanimationframe() is not always triggered when the tab is not
-  // active. Here we ensure it is called at least once every second
+  // active. Here we ensure it is called often enough
   setInterval(triggerReadIfNeeded, MAX_READ_INTERVAL);
 
   setInterval(() => user.events.emit('hear'), 250);
