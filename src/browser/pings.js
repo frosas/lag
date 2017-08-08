@@ -17,7 +17,7 @@ const PINGS_CONCURRENCY_LIMIT = 6;
 module.exports = class Pings {
   constructor() {
     this.events = new Events();
-    this.interval = 1000;/* msecs */ // How often pings are created
+    this.interval = 1000; /* ms */ // How often pings are created
     this._list = [];
     this._max = 100;
     this._ping(); // Start pinging ASAP
