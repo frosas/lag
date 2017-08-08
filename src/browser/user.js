@@ -18,7 +18,6 @@ module.exports = () => {
   })();
 
   (function _userViewTimer() {
-    // requestAnimationFrame() consumes less CPU than d3.timer()
     requestAnimationFrame(_userViewTimer);
     user.events.emit('view');
     triggerReadIfNeeded();
