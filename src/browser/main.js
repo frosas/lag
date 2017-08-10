@@ -1,12 +1,3 @@
-(function _setupErrorHandling() {
-  const originalOnError = window.onerror || (() => {});
-  onerror = (...args) => {
-    originalOnError.apply(this, args);
-    const [message, , , , error] = args;
-    alert((error && error.message) || error || message); // eslint-disable-line no-alert
-  };
-}());
-
 const Chart = require('./chart');
 const PageTitle = require('./page-title');
 const PageIcon = require('./page-icon');
