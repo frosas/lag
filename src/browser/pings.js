@@ -20,8 +20,7 @@ module.exports = class Pings {
     this.interval = 1000; /* ms */ // How often pings are created
     this._list = [];
     this._max = 100;
-    this._ping(); // Start pinging ASAP
-    setInterval(this._ping.bind(this), this.interval);
+    this._pingRepeatedly();
   }
 
   get all() {
@@ -64,6 +63,11 @@ module.exports = class Pings {
     this._removePingsOverLimit();
     this._abortOldestPingsOverConcurrencyLimit();
     this._addPing();
+  }
+
+  _pingRepeatedly() {
+    this._ping();
+    setTimeout(this._pingRepeatedly.bind(this), this.interval);
   }
 
   _removePingsOverLimit() {
