@@ -9,14 +9,14 @@ trap on_sigint SIGINT
     
 if [[ $is_dev ]]; then
     webpack --watch &
-    nodemon --exec 'eslint .' &
+    nodemon --watch src --exec 'eslint .' &
     mocha -w &
 fi
 
 forever \
     --minUptime 1000 \
     --spinSleepTime 1000 \
-    $([[ $is_dev ]] && echo '-w') \
+    $([[ $is_dev ]] && echo '--watch --watchDirectory src') \
     src/server/http.js &
 
 wait
