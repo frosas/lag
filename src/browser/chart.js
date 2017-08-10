@@ -22,7 +22,7 @@ module.exports = class {
     const yScale = lag => {
       // 0 -> 0, normalLag -> .1, ∞ -> 1
       const normalLag = 200;
-      const normalizedLag = (Math.atan(lag / normalLag / 10) * 2) / Math.PI;
+      const normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI;
       return normalizedLag * d3SvgHeight;
     };
 
@@ -38,8 +38,14 @@ module.exports = class {
         updated: () => updated,
         exited: () => updated.exit(),
         update: () => {
-          const data = pings.all.map(ping => ({ping, exiting: false, done: false}));
-          updated = d3Svg.selectAll('rect').data(data, datum => datum.ping.start);
+          const data = pings.all.map(ping => ({
+            ping,
+            exiting: false,
+            done: false,
+          }));
+          updated = d3Svg
+            .selectAll('rect')
+            .data(data, datum => datum.ping.start);
         },
       };
     })();
@@ -48,11 +54,11 @@ module.exports = class {
 
     user.events.on('view', () => {
       [selections.updated(), selections.exited()].forEach(selection => {
-        selection.each(function(datum) { // eslint-disable-line func-names
-          const element =
-            d3.select(this)
-              .attr('y', d3SvgHeight - yScale(datum.ping.lag))
-              .attr('height', yScale(datum.ping.lag));
+        selection.each(function(datum) {
+          const element = d3
+            .select(this)
+            .attr('y', d3SvgHeight - yScale(datum.ping.lag))
+            .attr('height', yScale(datum.ping.lag));
           if (!datum.done && datum.ping.done) {
             datum.done = true; // eslint-disable-line no-param-reassign
             onPingDone(element, datum);
@@ -68,7 +74,9 @@ module.exports = class {
     pings.events.on('add', () => {
       selections.update();
 
-      selections.entered().append('svg:rect')
+      selections
+        .entered()
+        .append('svg:rect')
         .attr('width', barWidth)
         .attr('fill-opacity', 0.7)
         .attr('fill', '#474739');

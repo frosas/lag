@@ -4,9 +4,13 @@ const math = require('./math');
 
 function Noise(context) {
   const lengthInSeconds = 5;
-  const buffer = context.createBuffer(1, context.sampleRate * lengthInSeconds, context.sampleRate);
+  const buffer = context.createBuffer(
+    1,
+    context.sampleRate * lengthInSeconds,
+    context.sampleRate
+  );
   const data = buffer.getChannelData(0);
-  for (let i = data.length; i; i -= 1) data[i] = (Math.random() * 2) - 1;
+  for (let i = data.length; i; i -= 1) data[i] = Math.random() * 2 - 1;
 
   const source = context.createBufferSource();
   source.buffer = buffer;
@@ -15,7 +19,7 @@ function Noise(context) {
   return source;
 }
 
-const Audio = module.exports = class {
+const Audio = (module.exports = class {
   constructor(context, user, pings) {
     const gain = context.createGain();
     gain.connect(context.destination);
@@ -36,17 +40,17 @@ const Audio = module.exports = class {
       to = Math.min(to, maxFrequency);
       let increment = to - from;
       increment =
-      Math.min(Math.abs(increment), maxFrequencyIncrement)
-      * math.polarity(increment);
+        Math.min(Math.abs(increment), maxFrequencyIncrement) *
+        math.polarity(increment);
       filter.frequency.value += increment;
     });
 
     return {
-      setVolume: volume => gain.gain.value = volume,
+      setVolume: volume => (gain.gain.value = volume),
       getVolume: () => gain.gain.value,
     };
   }
-};
+});
 
 Audio.create = (user, pings) => {
   const AudioContext = window.AudioContext || window.webkitAudioContext;

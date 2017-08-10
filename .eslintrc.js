@@ -5,14 +5,15 @@ module.exports = {
         ecmaVersion: 2017,
         ecmaFeatures: {jsx: true}
     },
-    extends: ['eslint:recommended', 'google'],
-    plugins: ['react'],
+    extends: ['eslint:recommended'],
+    plugins: ['prettier', 'react'],
     rules: {
-        'max-len': ['error', 100],
-        'require-jsdoc': 'off',
+        'prettier/prettier': ['error', {
+            singleQuote: true, 
+            bracketSpacing: false,
+            trailingComma: 'es5'
+        }],
         'react/jsx-uses-react': 'error',
-        'react/jsx-uses-vars': 'error',
-        'no-invalid-this': 'off', // It's buggy
-        'arrow-parens': ['error', 'as-needed']
+        'react/jsx-uses-vars': 'error'
     }
 }

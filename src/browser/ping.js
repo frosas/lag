@@ -31,7 +31,10 @@ class Script {
 class Request {
   constructor() {
     this._script = new Script(`${URL_}&v=${Date.now()}`);
-    this._script.loaded.then(() => this._script.remove(), () => this._script.remove());
+    this._script.loaded.then(
+      () => this._script.remove(),
+      () => this._script.remove()
+    );
   }
 
   abort() {

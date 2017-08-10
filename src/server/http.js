@@ -13,9 +13,9 @@ app.use((req, res, next) => {
   }
   next();
 });
-app.use(express.static(__dirname + '/../../public')); // eslint-disable-line
+app.use(express.static(__dirname + '/../../public'));
 // Ugly hack to expose /service-worker.js
-app.use(express.static(__dirname + '/../../public/compiled/scripts')); // eslint-disable-line
+app.use(express.static(__dirname + '/../../public/compiled/scripts'));
 
 const httpPort = process.env.PORT || 5000;
 app.listen(httpPort);

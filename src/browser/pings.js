@@ -37,7 +37,9 @@ module.exports = class Pings {
   }
 
   get currentLag() {
-    const lastRespondedPingLag = this._lastRespondedPing ? this._lastRespondedPing.lag : 0;
+    const lastRespondedPingLag = this._lastRespondedPing
+      ? this._lastRespondedPing.lag
+      : 0;
     const firstOfTheLastUnrespondedPingsLag = (() => {
       const ping = this._getFirstOfTheLastUnrespondedPings();
       return ping ? ping.lag : 0;
@@ -72,11 +74,14 @@ module.exports = class Pings {
       const ping = this._list.shift();
       if (ping !== firstOfTheLastUnrespondedPings) ping.abort();
     }
-    if (firstOfTheLastUnrespondedPings) this._list.unshift(firstOfTheLastUnrespondedPings);
+    if (firstOfTheLastUnrespondedPings)
+      this._list.unshift(firstOfTheLastUnrespondedPings);
   }
 
   _abortOldestPingsOverConcurrencyLimit() {
-    _.chain(this._getRunningPings()).initial(PINGS_CONCURRENCY_LIMIT).invoke('abort');
+    _.chain(this._getRunningPings())
+      .initial(PINGS_CONCURRENCY_LIMIT)
+      .invoke('abort');
   }
 
   _addPing() {
@@ -89,6 +94,8 @@ module.exports = class Pings {
   }
 
   _isLastRespondedPing(ping) {
-    return !this._lastRespondedPing || this._lastRespondedPing.start < ping.start;
+    return (
+      !this._lastRespondedPing || this._lastRespondedPing.start < ping.start
+    );
   }
 };

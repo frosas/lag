@@ -30,7 +30,7 @@ const MAX_ACCEPTABLE_RESPONSE_TIME = 1000; // ms
 let nextFetchId = 1;
 
 self.addEventListener('fetch', event => {
-  const fetchId = nextFetchId += 1;
+  const fetchId = (nextFetchId += 1);
   const fetchDebug = (...args) => debug(`[Fetch #${fetchId}]`, ...args);
 
   fetchDebug(event.request);
@@ -47,10 +47,11 @@ self.addEventListener('fetch', event => {
   responsePromise.then(response => {
     fetchDebug(response);
     const responseClone = response.clone();
-    caches.open('v1').then(cache =>
-      cache.put(event.request, responseClone)
-        .then(() => fetchDebug('Cached'))
-    );
+    caches
+      .open('v1')
+      .then(cache =>
+        cache.put(event.request, responseClone).then(() => fetchDebug('Cached'))
+      );
   });
 
   // Caching strategy: use the network response unless it's taking too long
@@ -68,7 +69,10 @@ self.addEventListener('fetch', event => {
 
 self.addEventListener('message', event => {
   switch (event.data) {
-    case 'toggleDebugging': isDebugEnabled = !isDebugEnabled; break;
-    default: throw new Error('Unknown message');
+    case 'toggleDebugging':
+      isDebugEnabled = !isDebugEnabled;
+      break;
+    default:
+      throw new Error('Unknown message');
   }
 });

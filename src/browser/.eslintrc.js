@@ -1,1 +1,1 @@
-module.exports = {env: {browser: true}};
+module.exports = { env: { browser: true } };

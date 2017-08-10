@@ -1,7 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 
-const ControlsComponent = module.exports = class extends React.Component {
+const ControlsComponent = (module.exports = class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {volume: props.initialVolume};
@@ -12,7 +12,10 @@ const ControlsComponent = module.exports = class extends React.Component {
       <form id="controls">
         Volume {' '}
         <input
-          type="range" min="0" max="1" step="0.05"
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
           value={this.state.volume}
           onChange={event => this._onChange(event)}
         />
@@ -25,7 +28,7 @@ const ControlsComponent = module.exports = class extends React.Component {
     this.setState({volume});
     this.props.onChangeVolume(volume);
   }
-};
+});
 
 ControlsComponent.propTypes = {
   initialVolume: PropTypes.number,

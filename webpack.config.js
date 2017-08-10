@@ -5,11 +5,11 @@ const webpack = require('webpack');
 const debug = require('debug')('app:webpack');
 
 const isDev = process.env.NODE_ENV !== 'production';
-debug(`Running in ${(isDev ? 'development' : 'production')} mode`);
+debug(`Running in ${isDev ? 'development' : 'production'} mode`);
 
 module.exports = {
   entry: {
-    'main': './src/browser/main',
+    main: './src/browser/main',
     'service-worker': './src/browser/service-worker.js',
   },
   output: {
@@ -17,9 +17,7 @@ module.exports = {
     filename: '[name].js',
   },
   module: {
-    rules: [
-      {test: /\.js$/, exclude: /node_modules/, use: ['babel-loader']},
-    ],
+    rules: [{test: /\.js$/, exclude: /node_modules/, use: ['babel-loader']}],
   },
   plugins: [].concat(
     isDev ? [] : new webpack.optimize.UglifyJsPlugin({sourceMap: true}),
