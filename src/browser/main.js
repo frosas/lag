@@ -9,7 +9,8 @@ const Controls = require('./controls');
 
 const user = new User();
 const pings = new Pings();
-new Chart(user, pings);
+const chartEl = document.querySelector('#chart');
+new Chart(user, pings, chartEl);
 new PageTitle(user, pings);
 new PageIcon(user, pings);
 new Title(user, pings);

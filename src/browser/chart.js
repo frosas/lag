@@ -1,91 +1,64 @@
 const d3 = require('d3');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-module.exports = class {
-  constructor(user, pings) {
-    const chartEl = document.querySelector('#chart');
-    const d3Svg = d3.select(chartEl).append('svg:svg');
+class ChartComponent extends React.Component {
+  constructor(...args) {
+    super(...args);
+    this._barWidth = 8; // px
+    this._xScale = d3.scaleLinear();
+  }
+
+  render() {
+    this.props.pings.max = this._width / this._barWidth; // Yes, this is a float
+    this._xScale.range([0, this._width]);
+    const pings = this.props.pings;
+    const now = Date.now();
+    this._xScale.domain([now - pings.max * pings.interval, now]);
+    return (
+      <svg>
+        {pings.all.map(ping => {
+          return (
+            <rect
+              key={ping.start}
+              fill={ping.failed ? '#ae3f24' : '#474739'}
+              fillOpacity={ping.done ? 1 : 0.7}
+              width={this._barWidth}
+              height={this._yScale(ping.lag)}
+              x={this._xScale(ping.start)}
+              y={this._height - this._yScale(ping.lag)}
+            />
+          );
+        })}
+      </svg>
+    );
+  }
+
+  _yScale(lag) {
+    // 0 -> 0, normalLag -> .1, ∞ -> 1
+    const normalLag = 200;
+    const normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI;
+    return normalizedLag * this._height;
+  }
+
+  get _width() {
     // [1] Use the parent node dimensions as Firefox doesn't seem to work with
     // the svg element ones
-    const d3SvgHeight = chartEl.offsetHeight;
-    const barWidth = 8; // px
+    return this.props.chartEl.offsetWidth;
+  }
 
-    const xScale = d3.scaleLinear();
+  get _height() {
+    return this.props.chartEl.offsetHeight; // See [1]
+  }
+}
 
-    const onResize = () => {
-      const d3SvgWidth = chartEl.offsetWidth; // See [1]
-      pings.max = d3SvgWidth / barWidth; // Yes, this is a float
-      xScale.range([0, d3SvgWidth]);
-    };
-    addEventListener('resize', onResize);
-    onResize();
-
-    const yScale = lag => {
-      // 0 -> 0, normalLag -> .1, ∞ -> 1
-      const normalLag = 200;
-      const normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI;
-      return normalizedLag * d3SvgHeight;
-    };
-
-    const onPingDone = (element, datum) => {
-      element.attr('fill-opacity', 1);
-      if (datum.ping.failed) element.attr('fill', '#ae3f24');
-    };
-
-    const selections = (() => {
-      let updated;
-      return {
-        entered: () => updated.enter(),
-        updated: () => updated,
-        exited: () => updated.exit(),
-        update: () => {
-          const data = pings.all.map(ping => ({
-            ping,
-            exiting: false,
-            done: false,
-          }));
-          updated = d3Svg
-            .selectAll('rect')
-            .data(data, datum => datum.ping.start);
-        },
-      };
-    })();
-
-    selections.update();
-
+module.exports = class {
+  constructor(user, pings, chartEl) {
     user.events.on('view', () => {
-      [selections.updated(), selections.exited()].forEach(selection => {
-        selection.each(function(datum) {
-          const element = d3
-            .select(this)
-            .attr('y', d3SvgHeight - yScale(datum.ping.lag))
-            .attr('height', yScale(datum.ping.lag));
-          if (!datum.done && datum.ping.done) {
-            datum.done = true;
-            onPingDone(element, datum);
-          }
-        });
-
-        const now = Date.now();
-        xScale.domain([now - pings.max * pings.interval, now]);
-        selection.attr('x', datum => xScale(datum.ping.start));
-      });
-    });
-
-    pings.events.on('add', () => {
-      selections.update();
-
-      selections
-        .entered()
-        .append('svg:rect')
-        .attr('width', barWidth)
-        .attr('fill-opacity', 0.7)
-        .attr('fill', '#474739');
-
-      selections.exited().each(function(datum) {
-        if (datum.exiting) return;
-        datum.exiting = true;
-        d3.select(this).transition().duration(pings.interval).remove();
-      });
+      ReactDOM.render(
+        <ChartComponent pings={pings} chartEl={chartEl} />,
+        chartEl
+      );
     });
   }
 };
