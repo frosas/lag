@@ -1,5 +1,4 @@
 /* eslint-env node */
-/* eslint-disable no-console */
 
 const webpack = require('webpack');
 const debug = require('debug')('app:webpack');

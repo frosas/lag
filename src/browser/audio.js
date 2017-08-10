@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const math = require('./math');
 
 function Noise(context) {

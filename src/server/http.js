@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const express = require('express');
 const compression = require('compression');
 const debug = require('debug')('app:http');

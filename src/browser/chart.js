@@ -60,7 +60,7 @@ module.exports = class {
             .attr('y', d3SvgHeight - yScale(datum.ping.lag))
             .attr('height', yScale(datum.ping.lag));
           if (!datum.done && datum.ping.done) {
-            datum.done = true; // eslint-disable-line no-param-reassign
+            datum.done = true;
             onPingDone(element, datum);
           }
         });
@@ -83,7 +83,7 @@ module.exports = class {
 
       selections.exited().each(function(datum) {
         if (datum.exiting) return;
-        datum.exiting = true; // eslint-disable-line no-param-reassign
+        datum.exiting = true;
         d3.select(this).transition().duration(pings.interval).remove();
       });
     });
