@@ -10,11 +10,11 @@ class ChartComponent extends React.Component {
   }
 
   render() {
-    this.props.pings.max = this._width / this._barWidth; // Yes, this is a float
+    this.props.pings.max = this._width / this._barWidth + 1;
     this._xScale.range([0, this._width]);
     const pings = this.props.pings;
     const now = Date.now();
-    this._xScale.domain([now - pings.max * pings.interval, now]);
+    this._xScale.domain([now - (pings.max - 1) * pings.interval, now]);
     return (
       <svg>
         {pings.all.map(ping => {
