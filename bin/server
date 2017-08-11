@@ -9,8 +9,8 @@ trap on_sigint SIGINT
     
 if [[ $is_dev ]]; then
     webpack --watch &
-    nodemon --watch src --exec 'eslint .' &
-    mocha -w &
+    onchange 'src' 'test' --initial --wait -- eslint . &
+    onchange 'src' 'test' --initial --wait -- mocha &
 fi
 
 forever \
