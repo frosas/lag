@@ -20,21 +20,15 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 # TODO
 
 - Testing
-- Ping from another thread (use a Web Worker) to reduce the chances of bad 
-  measurements because blockings in the main thread.
+- Ping from another worker to reduce the chances of measurements being tampered 
+  with potential blockings in the main thread event loop.
 - Never cancel the first unpongued ping so that we can report the real lag 
 - Inform the user about the offline support. "Offline support: (Not supported | 
   Enabling... | Enabled)"
-- Include build details in every file (HTML, JS, ...)
+- Include build details in every file (HTML, JS, ...). Publish it it in the page 
+  footer.
 - For HTTP and HTTPS pings, support more than 6 open connections (e.g. use 
   multiple hostnames)
-- Use an existing chart library?
-  - http://formidable.com/open-source/victory/
-  - http://recharts.org/#/en-US/api/BarChart
-- Fix chart memory leak
-- Chart to not consume energy when not visible. See https://news.ycombinator.com/item?id=13473859.
-- webpack, eslint and mocha watchers to not conflict (changes from one trigger 
-  the rest)
 - Perform multiple type of pings
   - HTTP — Note this may fail on wifis with captive portals
   - HTTPS — Is this any slower than an HTTP ping?
@@ -42,3 +36,7 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
   - WebSocket — Probably not needed if HTTP/2 is implemented
 - Pre-cache all resources to not fail loading them when offline. Anything else 
   apart from the favicons?
+- Lint dotfiles (e.g. .eslintrc.js)
+- `reset` has to be executed after running `bin/server`
+- Generate paths to watch for every tool (ESLint, Mocha, ...) from a single source
+  of truth.
