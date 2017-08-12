@@ -1,3 +1,5 @@
+require('../../styles/main.css');
+
 const Chart = require('./chart');
 const PageTitle = require('./page-title');
 const PageIcon = require('./page-icon');
