@@ -9,6 +9,8 @@ app.use((req, res, next) => {
     const aLongTime = 1 /* year */ * 365 * 24 * 60 * 60;
     res.append('Cache-Control', `max-age=${aLongTime}, 1`);
   }
+  if (req.path == '/scripts/service-worker.js')
+    res.append('Service-Worker-Allowed', '/');
   next();
 });
 app.use(express.static(__dirname + '/../../dist'));
