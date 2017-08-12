@@ -14,15 +14,15 @@ module.exports = {
     'service-worker': './src/browser/service-worker.js',
   },
   output: {
-    path: `${__dirname}/dist/scripts`,
-    filename: '[name].js',
+    path: `${__dirname}/dist`,
+    filename: 'scripts/[name].js',
   },
   module: {
     rules: [{test: /\.js$/, exclude: /node_modules/, use: ['babel-loader']}],
   },
   plugins: [].concat(
     new CleanWebpackPlugin('dist'),
-    new CopyWebpackPlugin([{from: 'static', to: `${__dirname}/dist`}]),
+    new CopyWebpackPlugin([{from: 'static'}]),
     isDev ? [] : new webpack.optimize.UglifyJsPlugin({sourceMap: true}),
     new webpack.DefinePlugin({BUILD_ID: Date.now()}),
     new webpack.BannerPlugin({banner: `Build date: ${new Date()}`})
