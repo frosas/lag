@@ -31,6 +31,7 @@ module.exports = {
       template: 'html/index.ejs',
       filename: 'index.html',
       chunks: ['main'],
+      hash: true,
       minify: {
         collapseWhitespace: true,
         collapseInlineTagWhitespace: true,
