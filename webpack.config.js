@@ -31,6 +31,15 @@ module.exports = {
       template: 'html/index.ejs',
       filename: 'index.html',
       chunks: ['main'],
+      minify: {
+        collapseWhitespace: true,
+        collapseInlineTagWhitespace: true,
+        conservativeCollapse: true,
+        removeAttributeQuotes: true,
+        removeComments: true,
+        minifyJS: true,
+        minifyCSS: true,
+      },
     })
   ),
   devtool: 'source-map',
