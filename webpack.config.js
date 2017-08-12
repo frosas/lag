@@ -2,9 +2,9 @@
 
 const webpack = require('webpack');
 const debug = require('debug')('app:webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
 
 const isDev = process.env.NODE_ENV !== 'production';
 debug(`Running in ${isDev ? 'development' : 'production'} mode`);
@@ -22,12 +22,12 @@ module.exports = {
     rules: [{test: /\.js$/, exclude: /node_modules/, use: ['babel-loader']}],
   },
   plugins: [].concat(
-    new CleanWebpackPlugin('dist'),
-    new CopyWebpackPlugin([{from: 'static'}]),
     isDev ? [] : new webpack.optimize.UglifyJsPlugin({sourceMap: true}),
+    new CleanPlugin('dist'),
+    new CopyPlugin([{from: 'static'}]),
     new webpack.DefinePlugin({BUILD_ID: Date.now()}),
     new webpack.BannerPlugin({banner: `Build date: ${new Date()}`}),
-    new HtmlWebpackPlugin({
+    new HtmlPlugin({
       template: 'html/index.ejs',
       filename: 'index.html',
       chunks: ['main'],
