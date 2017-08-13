@@ -1,13 +1,13 @@
-require('../../styles/main.css');
+import '../../styles/main.css';
 
-const Chart = require('./chart');
-const PageTitle = require('./page-title');
-const PageIcon = require('./page-icon');
-const Pings = require('./pings');
-const Title = require('./title');
-const User = require('./user');
-const Audio_ = require('./audio');
-const Controls = require('./controls');
+import Chart from './chart';
+import PageTitle from './page-title';
+import PageIcon from './page-icon';
+import Pings from './pings';
+import Title from './title';
+import User from './user';
+import Audio_ from './audio';
+import Controls from './controls';
 
 const user = new User();
 const pings = new Pings();

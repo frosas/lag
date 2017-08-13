@@ -1,4 +1,4 @@
-const Events = require('events');
+import Events from 'events';
 
 // User won't notice lower intervals than these
 const MAX_READ_INTERVAL = 250; // msecs

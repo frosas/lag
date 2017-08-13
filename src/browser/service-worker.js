@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const util = require('../util');
+import util from '../util';
 
 let isDebugEnabled;
 

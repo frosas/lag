@@ -1,6 +1,6 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const ControlsComponent = require('./Controls/Component');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ControlsComponent from './Controls/Component';
 
 module.exports = class {
   constructor(audio) {

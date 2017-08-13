@@ -1,4 +1,4 @@
-const Events = require('events');
+import Events from 'events';
 
 // Here we have a copy of the site in a CDN close to the user.
 //

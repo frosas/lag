@@ -1,4 +1,4 @@
-const lag = require('./lag');
+import lag from './lag';
 
 module.exports = (user, pings) => {
   const original = document.title;

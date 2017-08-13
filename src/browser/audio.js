@@ -1,4 +1,4 @@
-const math = require('./math');
+import math from './math';
 
 function Noise(context) {
   const lengthInSeconds = 5;

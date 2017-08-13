@@ -1,6 +1,6 @@
-const Ping = require('./ping');
-const _ = require('underscore');
-const Events = require('events');
+import Ping from './ping';
+import _ from 'underscore';
+import Events from 'events';
 
 /**
 * The amount of active pings (i.e. connections) that can run concurrently.
