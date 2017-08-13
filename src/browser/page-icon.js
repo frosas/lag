@@ -22,7 +22,7 @@ const getIconLinkElement = () => {
   return icon;
 };
 
-module.exports = (user, pings) => {
+export default (user, pings) => {
   const iconElement = getIconLinkElement();
   user.events.on(
     'read',

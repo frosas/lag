@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ControlsComponent from './Controls/Component';
 
-module.exports = class {
+export default class {
   constructor(audio) {
     this._audio = audio;
 
@@ -22,4 +22,4 @@ module.exports = class {
     this._audio.setVolume(volume);
     if (localStorage) localStorage.setItem('volume', volume);
   }
-};
+}

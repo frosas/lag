@@ -52,7 +52,7 @@ class ChartComponent extends React.Component {
   }
 }
 
-module.exports = class {
+export default class {
   constructor(user, pings, chartEl) {
     user.events.on('view', () => {
       ReactDOM.render(
@@ -61,4 +61,4 @@ module.exports = class {
       );
     });
   }
-};
+}

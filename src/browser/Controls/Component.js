@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ControlsComponent = (module.exports = class extends React.Component {
+export default class ControlsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {volume: props.initialVolume};
@@ -28,7 +28,7 @@ const ControlsComponent = (module.exports = class extends React.Component {
     this.setState({volume});
     this.props.onChangeVolume(volume);
   }
-});
+}
 
 ControlsComponent.propTypes = {
   initialVolume: PropTypes.number,

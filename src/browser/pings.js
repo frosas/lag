@@ -14,7 +14,7 @@ import Events from 'events';
 */
 const PINGS_CONCURRENCY_LIMIT = 6;
 
-module.exports = class Pings {
+export default class Pings {
   constructor() {
     this.events = new Events();
     this.interval = 1000; /* ms */ // How often pings are created
@@ -102,4 +102,4 @@ module.exports = class Pings {
       !this._lastRespondedPing || this._lastRespondedPing.start < ping.start
     );
   }
-};
+}

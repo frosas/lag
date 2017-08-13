@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-const math = require('../src/browser/math');
+const math = require('../src/math');
 const expect = require('chai').expect;
 
 describe('math', () => {

@@ -46,7 +46,7 @@ class Request {
   }
 }
 
-module.exports = class Ping {
+export default class Ping {
   constructor() {
     this.events = new Events();
     this.done = false; // Whether it has finished (whether succesfully or not)
@@ -83,4 +83,4 @@ module.exports = class Ping {
     this.end = Date.now();
     this.events.emit('pong');
   }
-};
+}

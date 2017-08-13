@@ -3,7 +3,7 @@ import Events from 'events';
 // User won't notice lower intervals than these
 const MAX_READ_INTERVAL = 250; // msecs
 
-module.exports = () => {
+export default () => {
   const user = {events: new Events()};
 
   const triggerReadIfNeeded = (() => {

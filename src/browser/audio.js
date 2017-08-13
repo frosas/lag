@@ -1,4 +1,4 @@
-import math from './math';
+import math from '../math';
 
 function Noise(context) {
   const lengthInSeconds = 5;
@@ -17,7 +17,7 @@ function Noise(context) {
   return source;
 }
 
-const Audio = (module.exports = class {
+export default class Audio {
   constructor(context, user, pings) {
     const gain = context.createGain();
     gain.connect(context.destination);
@@ -48,7 +48,7 @@ const Audio = (module.exports = class {
       getVolume: () => gain.gain.value,
     };
   }
-});
+}
 
 Audio.create = (user, pings) => {
   const AudioContext = window.AudioContext || window.webkitAudioContext;

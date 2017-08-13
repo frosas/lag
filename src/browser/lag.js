@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   /**
    * @param {number} amount
    * @return {string} An easy to read lag
