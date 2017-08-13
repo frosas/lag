@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import {scaleLinear} from 'd3-scale';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -6,7 +6,7 @@ class ChartComponent extends React.Component {
   constructor(...args) {
     super(...args);
     this._barWidth = 8; // px
-    this._xScale = d3.scaleLinear();
+    this._xScale = scaleLinear();
   }
 
   render() {
