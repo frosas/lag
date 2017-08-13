@@ -13,7 +13,7 @@ app.use((req, res, next) => {
     res.append('Service-Worker-Allowed', '/');
   next();
 });
-app.use(express.static(__dirname + '/../../dist'));
+app.use(express.static(`${__dirname}/../../dist`));
 
 const httpPort = process.env.PORT || 5000;
 app.listen(httpPort);
