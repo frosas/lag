@@ -7,6 +7,8 @@ const CleanPlugin = require('clean-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const buildDate = new Date();
+
 const isDev = process.env.NODE_ENV !== 'production';
 debug(`Running in ${isDev ? 'development' : 'production'} mode`);
 
@@ -30,9 +32,10 @@ module.exports = {
     new CleanPlugin('dist'),
     new CopyPlugin([{from: 'static'}]),
     new webpack.DefinePlugin({BUILD_ID: Date.now()}),
-    new webpack.BannerPlugin({banner: `Build date: ${new Date()}`}),
+    new webpack.BannerPlugin({banner: `Build date: ${buildDate}`}),
     new HtmlPlugin({
       template: 'html/index.ejs',
+      templateData: {buildDate},
       filename: 'index.html',
       chunks: ['main'],
       hash: true,

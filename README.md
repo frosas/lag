@@ -25,8 +25,6 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 - Never cancel the first unpongued ping so that we can report the real lag 
 - Inform the user about the offline support. "Offline support: (Not supported | 
   Enabling... | Enabled)"
-- Include build details in every file (HTML, JS, ...). Publish it it in the page 
-  footer.
 - For HTTP and HTTPS pings, support more than 6 open connections (e.g. use 
   multiple hostnames)
 - Perform multiple type of pings
