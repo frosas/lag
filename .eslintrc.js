@@ -5,15 +5,15 @@ module.exports = {
         ecmaVersion: 2017,
         ecmaFeatures: {jsx: true}
     },
-    extends: ['eslint:recommended'],
-    plugins: ['prettier', 'react'],
+    extends: ['eslint:recommended', 'plugin:inferno/recommended'],
+    plugins: ['prettier', 'inferno'],
     rules: {
         'prettier/prettier': ['error', {
             singleQuote: true, 
             bracketSpacing: false,
             trailingComma: 'es5'
         }],
-        'react/jsx-uses-react': 'error',
-        'react/jsx-uses-vars': 'error'
+        'inferno/jsx-uses-inferno': 'error',
+        'inferno/jsx-uses-vars': 'error'
     }
 }

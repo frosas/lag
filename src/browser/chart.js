@@ -1,8 +1,8 @@
 import {scaleLinear} from 'd3-scale';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import Inferno from 'inferno';
+import InfernoComponent from 'inferno-component';
 
-class ChartComponent extends React.Component {
+class ChartComponent extends InfernoComponent {
   constructor(...args) {
     super(...args);
     this._barWidth = 8; // px
@@ -55,7 +55,7 @@ class ChartComponent extends React.Component {
 export default class {
   constructor(user, pings, chartEl) {
     user.events.on('view', () => {
-      ReactDOM.render(
+      Inferno.render(
         <ChartComponent pings={pings} chartEl={chartEl} />,
         chartEl
       );
