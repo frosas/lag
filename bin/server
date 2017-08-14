@@ -10,7 +10,7 @@ trap on_sigint SIGINT
 if [[ $is_dev ]]; then
     webpack --watch &
     onchange 'src' 'test' --initial --wait -- eslint . --fix &
-    onchange 'src' 'test' --initial --wait -- mocha &
+    onchange 'src' 'test' --initial --wait -- mocha 'test/**/*.js' &
 fi
 
 forever \

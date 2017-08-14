@@ -1,4 +1,4 @@
-import math from '../math';
+import math from '../universal/math';
 
 function Noise(context) {
   const lengthInSeconds = 5;

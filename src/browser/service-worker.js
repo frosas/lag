@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import util from '../util';
+import util from '../universal/util';
 
 let isDebugEnabled;
 
