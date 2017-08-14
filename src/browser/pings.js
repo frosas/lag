@@ -1,5 +1,4 @@
 import Ping from './ping';
-import _ from 'underscore';
 import Events from 'events';
 
 /**
@@ -83,9 +82,9 @@ export default class Pings {
   }
 
   _abortOldestPingsOverConcurrencyLimit() {
-    _.chain(this._getRunningPings())
-      .initial(PINGS_CONCURRENCY_LIMIT)
-      .invoke('abort');
+    this._getRunningPings()
+      .slice(0, -PINGS_CONCURRENCY_LIMIT)
+      .forEach(ping => ping.abort());
   }
 
   _addPing() {
