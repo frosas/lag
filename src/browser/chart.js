@@ -1,4 +1,4 @@
-import {scaleLinear} from 'd3-scale';
+import scaleLinear from 'd3-scale/src/linear';
 import Inferno from 'inferno';
 import InfernoComponent from 'inferno-component';
 
