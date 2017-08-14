@@ -37,9 +37,5 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 - Pre-cache all resources to not fail loading them when offline. Anything else 
   apart from the favicons?
 - Lint all project *.js
-- `reset` has to be executed after running `bin/server`
-- Generate paths to watch for every tool (ESLint, Mocha, ...) from a single source
-  of truth.
-- https://github.com/th0r/webpack-bundle-analyzer
 - Use build hash or ID when referring to local resources (e.g. /images/foo.png?123)
 - Inline styles. WIP at https://github.com/frosas/lag/compare/inline-styles
