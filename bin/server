@@ -4,19 +4,18 @@ set -ex
 
 source $(dirname $0)/common
 
-on_sigint() { kill 0; }
-trap on_sigint SIGINT
+trap "exit" SIGINT
+trap "kill 0" EXIT
+
+web_server="forever src/server/http.js"
     
 if [[ $is_dev ]]; then
-    webpack --watch &
-    onchange 'src' 'test' --initial --wait -- eslint . --fix &
-    onchange 'src' 'test' --initial --wait -- mocha 'test/**/*.js' &
+  webpack --watch &
+  nodemon --watch "src" --watch "test" --exec "eslint . --fix" &
+  nodemon --watch "src" --watch "test" --exec "mocha 'test/**/*.js'" &
+  nodemon --watch "src/server" --watch "src/universal" --exec "$web_server" &
+else
+  $web_server &
 fi
-
-forever \
-    --minUptime 1000 \
-    --spinSleepTime 1000 \
-    $([[ $is_dev ]] && echo '--watch --watchDirectory src') \
-    src/server/http.js &
 
 wait
