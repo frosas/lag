@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import '../../styles/main.css';
 
 import Chart from './chart';
