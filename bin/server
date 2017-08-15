@@ -11,9 +11,9 @@ web_server="forever src/server/http.js"
     
 if [[ $is_dev ]]; then
   webpack --watch &
-  nodemon --watch "src" --watch "test" --exec "eslint . --fix" &
-  nodemon --watch "src" --watch "test" --exec "mocha 'test/**/*.js'" &
-  nodemon --watch "src/server" --watch "src/universal" --exec "$web_server" &
+  nodemon -w "src" -w "test" -x "eslint . --fix" &
+  nodemon -w "src" -w "test" -x "mocha 'test/**/*.js'" &
+  nodemon -w "src/server" -w "src/universal" -x "$web_server" &
 else
   $web_server &
 fi
