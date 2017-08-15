@@ -34,7 +34,9 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
   apart from the favicons?
 - Lint all project *.js
 - Use build hash or ID when referring to local resources (e.g. /images/foo.png?123)
-- Inline styles. WIP at https://github.com/frosas/lag/compare/inline-styles
+- Inline styles. See branch `inline-styles`.
 - Ditch D3 scale module? It weights a lot for what I use it for.
 - With `webpack --watch`, build ID and date are not updated between builds.
 - `ag ' TODO '`
+- Ditch browsers not supporting ES6. See branch `ditch-non-es6-browsers`. Waiting
+  for webpack's UglifyJS plugin to support ES6 (see https://webpack.js.org/plugins/uglifyjs-webpack-plugin/).
