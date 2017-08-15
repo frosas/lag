@@ -18,3 +18,4 @@ footer { font-size: 90%; opacity: 0.5 }
 footer ul { padding: 0; margin: 0; list-style: none }
 footer ul li { display: inline }
 footer ul li:not(:last-child):after { content: " - " }
+footer #offline-support .enabled { vertical-align: middle }

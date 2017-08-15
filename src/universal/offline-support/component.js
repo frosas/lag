@@ -5,12 +5,16 @@ const h = require('inferno-create-element');
 class Component extends InfernoComponent {
   render() {
     const {enabled, status} = this.props.offlineSupport;
-    const content = `Offline support: ${enabled
-      ? 'Enabled'
-      : 'Disabled'} ${status ? ` (${status})` : ''}`;
-    // RenderServer.renderToString() doesn't support render() returning a string
-    // TODO Fix it?
-    return h('span', null, content);
+    return h('span', null, [
+      'Offline support:',
+      h('img', {
+        class: 'enabled',
+        // TODO Use build ID in the URL
+        src: `images/bullet_${enabled ? 'green' : 'red'}.png`,
+        alt: enabled ? 'Enabled' : 'Disabled',
+      }),
+      status && ` (${status})`,
+    ]);
   }
 }
 
