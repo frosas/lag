@@ -6,6 +6,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const offlineSupport = require('./src/build/offline-support');
 
 const buildDate = new Date();
 
@@ -35,7 +36,7 @@ module.exports = {
     new webpack.BannerPlugin({banner: `Build date: ${buildDate}`}),
     new HtmlPlugin({
       template: 'html/index.ejs',
-      templateData: {buildDate},
+      templateData: {buildDate, offlineSupportHtml: offlineSupport.render()},
       filename: 'index.html',
       chunks: ['main'],
       hash: true,

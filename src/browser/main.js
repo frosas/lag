@@ -9,7 +9,7 @@ import User from './user';
 import Audio_ from './audio';
 import Controls from './controls';
 import OfflineSupport from './offline-support';
-import OfflineSupportComponent from './offline-support/component';
+import OfflineSupportComponent from '../universal/offline-support/component';
 
 const user = new User();
 const pings = new Pings();

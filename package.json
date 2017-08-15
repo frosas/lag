@@ -32,6 +32,8 @@
     "html-webpack-plugin": "^2.30.1",
     "inferno": "^3.7.1",
     "inferno-component": "^3.7.1",
+    "inferno-create-element": "^3.7.1",
+    "inferno-server": "^3.7.1",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "prettier": "^1.5.3",
