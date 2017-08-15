@@ -23,8 +23,6 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 - Ping from another worker to reduce the chances of measurements being tampered 
   with potential blockings in the main thread event loop.
 - Never cancel the first unpongued ping so that we can report the real lag 
-- Inform the user about the offline support. "Offline support: (Not supported | 
-  Enabling... | Enabled)"
 - For HTTP and HTTPS pings, support more than 6 open connections (e.g. use 
   multiple hostnames)
 - Perform multiple type of pings

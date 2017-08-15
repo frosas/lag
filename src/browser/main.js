@@ -8,6 +8,8 @@ import Title from './title';
 import User from './user';
 import Audio_ from './audio';
 import Controls from './controls';
+import OfflineSupport from './offline-support';
+import OfflineSupportComponent from './offline-support/component';
 
 const user = new User();
 const pings = new Pings();
@@ -25,5 +27,7 @@ try {
   });
 }
 
-if (navigator.serviceWorker)
-  navigator.serviceWorker.register('/scripts/service-worker.js', {scope: '..'});
+OfflineSupportComponent.render(
+  new OfflineSupport(),
+  document.querySelector('#offline-support')
+);
