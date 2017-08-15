@@ -8,41 +8,28 @@ import Events from 'events';
 // with captive portals (e.g. in many Internet cafes).
 //
 // Ensure the CDN is configured to not forward query strings to reduce latency.
-const URL_ = 'https://d18ks85av1x0pi.cloudfront.net/scripts/blank.js?nocache';
-
-class Script {
-  constructor(url) {
-    this._element = document.createElement('script');
-    this._element.src = url;
-    this.loaded = new Promise((resolve, reject) => {
-      this._element.onload = resolve;
-      this._element.onerror = reject;
-    });
-    document.head.appendChild(this._element);
-  }
-
-  remove() {
-    if (!this._element) return;
-    this._element.parentNode.removeChild(this._element);
-    this._element = null;
-  }
-}
+const URL_ = 'https://d18ks85av1x0pi.cloudfront.net/pong?nocache';
 
 class Request {
   constructor() {
-    this._script = new Script(`${URL_}&v=${Date.now()}`);
-    this._script.loaded.then(
-      () => this._script.remove(),
-      () => this._script.remove()
-    );
+    // TODO Switch to fetch() once it allows cancelling (see
+    // https://developer.mozilla.org/en-US/docs/Web/API/FetchController)
+    this.loaded = new Promise((resolve, reject) => {
+      this._request = new XMLHttpRequest();
+      this._request.onreadystatechange = () => {
+        if (this._request.readyState == XMLHttpRequest.HEADERS_RECEIVED) {
+          // This should be the earliest we know the request succeeded
+          resolve();
+        }
+      };
+      this._request.onerror = this._request.onabort = this._request.ontimeout = reject;
+      this._request.open('GET', `${URL_}&v=${Date.now()}`, true);
+      this._request.send();
+    });
   }
 
   abort() {
-    this._script.remove();
-  }
-
-  get loaded() {
-    return this._script.loaded;
+    this._request.abort();
   }
 }
 
@@ -51,7 +38,9 @@ export default class Ping {
     this.events = new Events();
     this.done = false; // Whether it has finished (whether succesfully or not)
     this.failed = false; // Whether it finished failing
-    this._send();
+    this.start = Date.now();
+    this._request = new Request();
+    this._request.loaded.then(() => this._onPong(), () => this.abort());
   }
 
   get lag() {
@@ -70,12 +59,6 @@ export default class Ping {
 
   toString() {
     return `Ping started at ${new Date(this.start)}`;
-  }
-
-  _send() {
-    this.start = Date.now();
-    this._request = new Request();
-    this._request.loaded.then(() => this._onPong(), () => this.abort());
   }
 
   _onPong() {
