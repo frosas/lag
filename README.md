@@ -36,3 +36,4 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 - Use build hash or ID when referring to local resources (e.g. /images/foo.png?123)
 - Inline styles. WIP at https://github.com/frosas/lag/compare/inline-styles
 - Ditch D3 scale module? It weights a lot for what I use it for.
+- With `webpack --watch`, build ID and date are not updated between builds.
