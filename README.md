@@ -40,3 +40,4 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 - `ag ' TODO '`
 - Ditch browsers not supporting ES6. See branch `ditch-non-es6-browsers`. Waiting
   for webpack's UglifyJS plugin to support ES6 (see https://webpack.js.org/plugins/uglifyjs-webpack-plugin/).
+- Use https://babeljs.io/docs/plugins/preset-env/?
