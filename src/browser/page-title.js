@@ -1,8 +1,8 @@
-import lag from './lag';
+import util from './util';
 
 export default (user, pings) => {
   const original = document.title;
   user.events.on('read', () => {
-    document.title = `${lag.humanize(pings.currentLag)} - ${original}`;
+    document.title = `${util.humanizeLag(pings.currentLag)} - ${original}`;
   });
 };
