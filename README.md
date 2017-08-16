@@ -42,6 +42,8 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
   two children with same key, all keys must be unique within its siblings.")
 - Display a "Loading..." while loading the JS (use Inferno on the server side).
 - Inform the user when the service worker is update (and suggest reload).
+- `_abortOldestPingsOverConcurrencyLimit()` to not abort "the first of the last
+  unresponded pings".
 
 ## Development
 
@@ -55,3 +57,4 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
   not intertwined
 - Watched build process notifications. E.g. inform of webpack being done bundling
   or about failed tests.
+- Use TypeScript
