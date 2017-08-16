@@ -44,6 +44,7 @@ navigator.serviceWorker.controller.postMessage('toggleDebugging')
 - Inform the user when the service worker is update (and suggest reload).
 - `_abortOldestPingsOverConcurrencyLimit()` to not abort "the first of the last
   unresponded pings".
+- Distinguish, in the chart, between failed and aborted pings?
 
 ## Development
 
