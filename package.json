@@ -43,6 +43,7 @@
     "inferno-component": "^3.7.1",
     "inferno-create-element": "^3.7.1",
     "inferno-server": "^3.7.1",
+    "lodash-es": "^4.17.4",
     "webpack": "^3.5.1"
   },
   "devDependencies": {
