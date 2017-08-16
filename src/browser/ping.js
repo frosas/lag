@@ -58,7 +58,11 @@ export default class Ping {
   }
 
   toString() {
-    return `Ping started at ${new Date(this.start)}`;
+    const start = new Date(this.start).toLocaleTimeString();
+    const status = this.done
+      ? this.failed ? 'failed' : 'succeeded'
+      : 'running';
+    return `Ping started at ${start} (${status})`;
   }
 
   _onPong() {
