@@ -2,6 +2,7 @@
   "name": "lag",
   "version": "0.0.0",
   "private": true,
+  "main": "src/server/http",
   "scripts": {
     "#": "Following scripts are used by Dokku",
     "postinstall": "bin/npm-postinstall",
@@ -37,7 +38,6 @@
     "debug": "^2.6.1",
     "express": "^4.15.0",
     "extract-text-webpack-plugin": "^3.0.0",
-    "forever": "^0.15.3",
     "html-webpack-plugin": "^2.30.1",
     "inferno": "^3.7.1",
     "inferno-component": "^3.7.1",
