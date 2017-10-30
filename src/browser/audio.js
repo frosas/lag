@@ -1,4 +1,4 @@
-import math from '../universal/math';
+import math from "../universal/math";
 
 function Noise(context) {
   const lengthInSeconds = 5;
@@ -32,7 +32,7 @@ export default class Audio {
 
     const maxFrequency = 800;
     const maxFrequencyIncrement = 30;
-    user.events.on('hear', () => {
+    user.events.on("hear", () => {
       const from = filter.frequency.value;
       let to = pings.currentLag;
       to = Math.min(to, maxFrequency);
@@ -45,13 +45,13 @@ export default class Audio {
 
     return {
       setVolume: volume => (gain.gain.value = volume),
-      getVolume: () => gain.gain.value,
+      getVolume: () => gain.gain.value
     };
   }
 }
 
 Audio.create = (user, pings) => {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContext) throw new Error('Web Audio API not available');
+  if (!AudioContext) throw new Error("Web Audio API not available");
   return new Audio(new AudioContext(), user, pings);
 };

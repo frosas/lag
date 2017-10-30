@@ -7,7 +7,7 @@ util.timeout = (duration, promise) =>
     promise,
     util.delay(duration).then(() => {
       throw new Error(`Timed out after ${duration} ms`);
-    }),
+    })
   ]);
 
 util.delay = duration => new Promise(resolve => setTimeout(resolve, duration));

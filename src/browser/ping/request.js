@@ -6,7 +6,7 @@
 // with captive portals (e.g. in many Internet cafes).
 //
 // Ensure the CDN is configured to not forward query strings to reduce latency.
-const URL_ = 'https://d18ks85av1x0pi.cloudfront.net/pong?nocache';
+const URL_ = "https://d18ks85av1x0pi.cloudfront.net/pong?nocache";
 
 export default class {
   constructor() {
@@ -21,7 +21,7 @@ export default class {
         }
       };
       this._request.onerror = this._request.onabort = this._request.ontimeout = reject;
-      this._request.open('GET', `${URL_}&v=${Date.now()}`, true);
+      this._request.open("GET", `${URL_}&v=${Date.now()}`, true);
       this._request.send();
     });
   }

@@ -1,6 +1,6 @@
-import Ping from './ping';
-import Events from 'events';
-import get from 'lodash-es/get';
+import Ping from "./ping";
+import Events from "events";
+import get from "lodash-es/get";
 
 /**
 * The amount of active pings (i.e. connections) that can run concurrently.
@@ -36,10 +36,10 @@ export default class Pings {
   }
 
   get currentLag() {
-    const lastRespondedPingLag = get(this, '_lastRespondedPing.lag', 0);
+    const lastRespondedPingLag = get(this, "_lastRespondedPing.lag", 0);
     const firstOfTheLastUnrespondedPingsLag = get(
       this._getFirstOfTheLastUnrespondedPings(),
-      'lag',
+      "lag",
       0
     );
     return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
@@ -89,11 +89,11 @@ export default class Pings {
 
   _addPing() {
     const ping = new Ping();
-    ping.events.on('pong', () => {
+    ping.events.on("pong", () => {
       if (this._isLastRespondedPing(ping)) this._lastRespondedPing = ping;
     });
     this._list.push(ping);
-    this.events.emit('add', ping);
+    this.events.emit("add", ping);
   }
 
   _isLastRespondedPing(ping) {

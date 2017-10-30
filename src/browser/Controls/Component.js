@@ -1,16 +1,16 @@
-import Inferno from 'inferno';
-import InfernoComponent from 'inferno-component';
+import Inferno from "inferno";
+import InfernoComponent from "inferno-component";
 
 export default class ControlsComponent extends InfernoComponent {
   constructor(props) {
     super(props);
-    this.state = {volume: props.initialVolume};
+    this.state = { volume: props.initialVolume };
   }
 
   render() {
     return (
       <form id="controls">
-        Volume {' '}
+        Volume {" "}
         <input
           type="range"
           min="0"
@@ -25,7 +25,7 @@ export default class ControlsComponent extends InfernoComponent {
 
   _onChange(event) {
     const volume = event.target.value;
-    this.setState({volume});
+    this.setState({ volume });
     this.props.onChangeVolume(volume);
   }
 }

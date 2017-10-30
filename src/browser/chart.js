@@ -1,6 +1,6 @@
-import scaleLinear from 'd3-scale/src/linear';
-import Inferno from 'inferno';
-import InfernoComponent from 'inferno-component';
+import scaleLinear from "d3-scale/src/linear";
+import Inferno from "inferno";
+import InfernoComponent from "inferno-component";
 
 class ChartComponent extends InfernoComponent {
   constructor(...args) {
@@ -21,7 +21,7 @@ class ChartComponent extends InfernoComponent {
           return (
             <rect
               key={ping.start}
-              fill={ping.failed ? '#ae3f24' : '#474739'}
+              fill={ping.failed ? "#ae3f24" : "#474739"}
               fillOpacity={ping.done ? 1 : 0.7}
               width={this._barWidth}
               height={this._yScale(ping.lag)}
@@ -54,7 +54,7 @@ class ChartComponent extends InfernoComponent {
 
 export default class {
   constructor(user, pings, chartEl) {
-    user.events.on('view', () => {
+    user.events.on("view", () => {
       Inferno.render(
         <ChartComponent pings={pings} chartEl={chartEl} />,
         chartEl

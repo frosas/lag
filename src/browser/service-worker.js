@@ -1,25 +1,25 @@
 /* eslint-disable no-console */
 
-import util from '../universal/util';
+import util from "../universal/util";
 
 let isDebugEnabled;
 
 const debug = (...args) => {
-  if (isDebugEnabled) console.log('[Service Worker]', ...args);
+  if (isDebugEnabled) console.log("[Service Worker]", ...args);
 };
 
 const isCacheableRequest = request =>
-  request.method === 'GET' &&
+  request.method === "GET" &&
   !new URL(request.url).search.match(/[?&]nocache[&$]/);
 
-self.addEventListener('install', event => {
-  debug('Installing...');
-  event.waitUntil(self.skipWaiting().then(() => debug('Installed')));
+self.addEventListener("install", event => {
+  debug("Installing...");
+  event.waitUntil(self.skipWaiting().then(() => debug("Installed")));
 });
 
-self.addEventListener('activate', event => {
-  debug('Activating...');
-  event.waitUntil(self.clients.claim().then(() => debug('Activated')));
+self.addEventListener("activate", event => {
+  debug("Activating...");
+  event.waitUntil(self.clients.claim().then(() => debug("Activated")));
 });
 
 // From http://www.nngroup.com/articles/response-times-3-important-limits/: "1.0
@@ -29,14 +29,14 @@ const MAX_ACCEPTABLE_RESPONSE_TIME = 1000; // ms
 
 let nextFetchId = 1;
 
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", event => {
   const fetchId = (nextFetchId += 1);
   const fetchDebug = (...args) => debug(`[Fetch #${fetchId}]`, ...args);
 
   fetchDebug(event.request);
 
   if (!isCacheableRequest(event.request)) {
-    fetchDebug('Ignored (marked as not cacheable)');
+    fetchDebug("Ignored (marked as not cacheable)");
     return;
   }
 
@@ -48,9 +48,9 @@ self.addEventListener('fetch', event => {
     fetchDebug(response);
     const responseClone = response.clone();
     caches
-      .open('v1')
+      .open("v1")
       .then(cache =>
-        cache.put(event.request, responseClone).then(() => fetchDebug('Cached'))
+        cache.put(event.request, responseClone).then(() => fetchDebug("Cached"))
       );
   });
 
@@ -60,19 +60,19 @@ self.addEventListener('fetch', event => {
     util.timeout(MAX_ACCEPTABLE_RESPONSE_TIME, responsePromise).catch(error => {
       fetchDebug(error);
       return caches.match(event.request).then(cachedResponse => {
-        fetchDebug('Cached response', cachedResponse);
+        fetchDebug("Cached response", cachedResponse);
         return cachedResponse || responsePromise;
       });
     })
   );
 });
 
-self.addEventListener('message', event => {
+self.addEventListener("message", event => {
   switch (event.data) {
-    case 'toggleDebugging':
+    case "toggleDebugging":
       isDebugEnabled = !isDebugEnabled;
       break;
     default:
-      throw new Error('Unknown message');
+      throw new Error("Unknown message");
   }
 });

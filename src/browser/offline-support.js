@@ -1,36 +1,36 @@
-import Events from 'events';
+import Events from "events";
 
 export default class {
   constructor() {
     this.events = new Events();
     this.enabled = false;
-    this.status = '';
+    this.status = "";
 
     if (!navigator.serviceWorker) {
-      this.status = 'not supported';
+      this.status = "not supported";
       return;
     }
 
     if (navigator.serviceWorker.controller) {
       this.enabled = true;
     } else {
-      this.status = 'enabling...';
+      this.status = "enabling...";
     }
 
     (async () => {
       try {
-        await navigator.serviceWorker.register('/scripts/service-worker.js', {
-          scope: '..',
+        await navigator.serviceWorker.register("/scripts/service-worker.js", {
+          scope: ".."
         });
       } catch (error) {
-        this._setState({status: `${error}`});
+        this._setState({ status: `${error}` });
       } finally {
         if (navigator.serviceWorker.controller) {
-          this._setState({status: ''});
+          this._setState({ status: "" });
         } else {
           // With a reload the service worker will take control of the page and
           // it will cache the page resources.
-          this._setState({status: 'reload to cache content'});
+          this._setState({ status: "reload to cache content" });
         }
       }
     })();
@@ -38,6 +38,6 @@ export default class {
 
   _setState(state) {
     Object.assign(this, state);
-    this.events.emit('change');
+    this.events.emit("change");
   }
 }
