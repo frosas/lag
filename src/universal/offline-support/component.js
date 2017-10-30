@@ -9,6 +9,7 @@ class Component extends React.Component {
     return e("span", null, [
       "Offline support:",
       e("img", {
+        key: "image",
         className: "enabled",
         // TODO Use build ID in the URL
         src: `images/bullet_${enabled ? "green" : "red"}.png`,
