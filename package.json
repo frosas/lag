@@ -38,8 +38,8 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.30.1",
     "lodash-es": "^4.17.4",
-    "react": "^15.6.1",
-    "react-dom": "^15.4.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "webpack": "^3.5.1"
   },
   "devDependencies": {
