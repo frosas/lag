@@ -1,4 +1,5 @@
-import Inferno from "inferno";
+import React from "react";
+import ReactDOM from "react-dom";
 import ControlsComponent from "./Controls/Component";
 
 export default class {
@@ -8,7 +9,7 @@ export default class {
     const savedVolume = localStorage && localStorage.getItem("volume");
     if (savedVolume) audio.setVolume(savedVolume);
 
-    Inferno.render(
+    ReactDOM.render(
       <ControlsComponent
         initialVolume={audio.getVolume()}
         onChangeVolume={this._onChangeVolume.bind(this)}

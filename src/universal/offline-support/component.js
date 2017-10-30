@@ -1,14 +1,16 @@
-const Inferno = require("inferno");
-const InfernoComponent = require("inferno-component");
-const h = require("inferno-create-element");
+const React = require("react");
+const ReactDOM = require("react-dom");
 
-class Component extends InfernoComponent {
+const e = React.createElement;
+
+class Component extends React.Component {
   render() {
     const { enabled, status } = this.props.offlineSupport;
-    return h("span", null, [
+    return e("span", null, [
       "Offline support:",
-      h("img", {
-        class: "enabled",
+      e("img", {
+        key: "image",
+        className: "enabled",
         // TODO Use build ID in the URL
         src: `images/bullet_${enabled ? "green" : "red"}.png`,
         alt: enabled ? "Enabled" : "Disabled"
@@ -31,5 +33,5 @@ Component.render = (offlineSupport, domElement) => {
 };
 
 const render = (offlineSupport, domElement) => {
-  Inferno.render(h(Component, { offlineSupport }), domElement);
+  ReactDOM.render(e(Component, { offlineSupport }), domElement);
 };

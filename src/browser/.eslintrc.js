@@ -1,13 +1,12 @@
 module.exports = {
-  env: {browser: true},
+  env: { browser: true },
   parserOptions: {
-    sourceType: 'module',
-    ecmaFeatures: {jsx: true}
+    sourceType: "module",
+    ecmaFeatures: { jsx: true }
   },
-  extends: ['plugin:inferno/recommended'],
-  plugins: ['inferno'],
+  plugins: ["react"],
   rules: {
-    'inferno/jsx-uses-inferno': 'error',
-    'inferno/jsx-uses-vars': 'error'
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   }
 };

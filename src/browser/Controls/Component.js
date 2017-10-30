@@ -1,7 +1,6 @@
-import Inferno from "inferno";
-import InfernoComponent from "inferno-component";
+import React from "react";
 
-export default class ControlsComponent extends InfernoComponent {
+export default class ControlsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = { volume: props.initialVolume };
