@@ -6,7 +6,7 @@ const e = React.createElement;
 class Component extends React.Component {
   render() {
     const { enabled, status } = this.props.offlineSupport;
-    return e("span", null, [
+    return [
       "Offline support:",
       e("img", {
         key: "image",
@@ -15,8 +15,8 @@ class Component extends React.Component {
         src: `images/bullet_${enabled ? "green" : "red"}.png`,
         alt: enabled ? "Enabled" : "Disabled"
       }),
-      status && ` (${status})`
-    ]);
+      status && `(${status})`
+    ];
   }
 }
 
