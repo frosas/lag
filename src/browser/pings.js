@@ -73,12 +73,18 @@ export default class Pings {
     // Don't remove the first of the last unresponded ping, otherwise the lag
     // won't be bigger than the one for the first ping in the list!
     const firstOfTheLastUnrespondedPings = this._getFirstOfTheLastUnrespondedPings();
+    let firstOfTheLastUnrespondedPingsWasRemoved; // TODO Clean up this cruft
     while (this._list.length > this._max) {
       const ping = this._list.shift();
-      if (ping !== firstOfTheLastUnrespondedPings) ping.abort();
+      if (ping === firstOfTheLastUnrespondedPings) {
+        firstOfTheLastUnrespondedPingsWasRemoved = true;
+      } else {
+        ping.abort();
+      }
     }
-    if (firstOfTheLastUnrespondedPings)
+    if (firstOfTheLastUnrespondedPingsWasRemoved) {
       this._list.unshift(firstOfTheLastUnrespondedPings);
+    }
   }
 
   _abortOldestPingsOverConcurrencyLimit() {
