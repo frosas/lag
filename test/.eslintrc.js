@@ -1,1 +1,1 @@
-module.exports = {env: {mocha: true}};
+module.exports = { env: { mocha: true } };
