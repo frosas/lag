@@ -6,7 +6,7 @@ const getColor = lag =>
   (lag < 50 && "green") ||
   (lag < 100 && "yellow") ||
   (lag < 500 && "orange") ||
-  (lag < 1000 && "red") ||
+  (lag < 5000 && "red") ||
   "black";
 
 const getIconUrl = lag => getBulletUrl(getColor(lag));
