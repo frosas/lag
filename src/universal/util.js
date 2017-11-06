@@ -9,3 +9,16 @@ util.timeout = (duration, promise) =>
   ]);
 
 util.delay = duration => new Promise(resolve => setTimeout(resolve, duration));
+
+/**
+ * Resume execution flow on exception throwing
+ */
+util.resumeOnThrow = callback => {
+  try {
+    callback();
+  } catch (error) {
+    setTimeout(() => {
+      throw error;
+    });
+  }
+};

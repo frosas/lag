@@ -12,6 +12,7 @@ import Audio_ from "./audio";
 import Controls from "./controls";
 import OfflineSupport from "./offline-support";
 import OfflineSupportComponent from "../universal/offline-support/component";
+import util from "../universal/util";
 
 const user = new User();
 const pings = new Pings();
@@ -21,13 +22,7 @@ new PageTitle(user, pings);
 new PageIcon(user, pings);
 new Title(user, pings);
 
-try {
-  new Controls(Audio_.create(user, pings));
-} catch (error) {
-  setTimeout(() => {
-    throw error;
-  });
-}
+util.resumeOnThrow(() => new Controls(Audio_.create(user, pings)));
 
 OfflineSupportComponent.render(
   new OfflineSupport(),
