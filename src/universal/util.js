@@ -1,5 +1,3 @@
-/* eslint-env browser, node */
-
 const util = module.exports;
 
 util.timeout = (duration, promise) =>
