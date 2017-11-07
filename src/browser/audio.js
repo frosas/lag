@@ -28,7 +28,11 @@ export default class Audio {
     });
 
     return {
-      setVolume: volume => (gain.gain.value = volume),
+      setVolume: volume => {
+        gain.gain.value = volume;
+        // Save processor/battery when possible
+        parseFloat(volume) ? context.resume() : context.suspend();
+      },
       getVolume: () => gain.gain.value
     };
   }
