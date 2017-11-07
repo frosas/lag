@@ -28,8 +28,7 @@ export default class Audio {
     filter.Q.value = 0;
     filter.connect(gain);
 
-    const noise = new Noise(context);
-    noise.connect(filter);
+    new Noise(context).connect(filter);
 
     const maxFrequency = 800;
     const maxFrequencyIncrement = 30;
