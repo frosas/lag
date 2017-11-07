@@ -8,7 +8,7 @@ import PageIcon from "./page-icon";
 import Pings from "./pings";
 import Title from "./title";
 import User from "./user";
-import Audio_ from "./audio";
+import Audio from "./audio";
 import Controls from "./controls";
 import OfflineSupport from "./offline-support";
 import OfflineSupportComponent from "../universal/offline-support/component";
@@ -22,7 +22,7 @@ new PageTitle(user, pings);
 new PageIcon(user, pings);
 new Title(user, pings);
 
-util.resumeOnThrow(() => new Controls(Audio_.create(user, pings)));
+util.resumeOnThrow(() => new Controls(new Audio(user, pings)));
 
 OfflineSupportComponent.render(
   new OfflineSupport(),

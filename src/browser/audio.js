@@ -18,7 +18,8 @@ function Noise(context) {
 }
 
 export default class Audio {
-  constructor(context, user, pings) {
+  constructor(user, pings) {
+    const context = new AudioContext();
     const gain = context.createGain();
     gain.connect(context.destination);
 
@@ -49,9 +50,3 @@ export default class Audio {
     };
   }
 }
-
-Audio.create = (user, pings) => {
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContext) throw new Error("Web Audio API not available");
-  return new Audio(new AudioContext(), user, pings);
-};
