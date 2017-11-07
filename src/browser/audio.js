@@ -1,5 +1,5 @@
 import math from "../universal/math";
-import Noise from "./audio/Noise";
+import createNoise from "./audio/createNoise";
 
 export default class Audio {
   constructor(user, pings) {
@@ -12,7 +12,7 @@ export default class Audio {
     filter.Q.value = 0;
     filter.connect(gain);
 
-    new Noise(context).connect(filter);
+    createNoise(context).connect(filter);
 
     const maxFrequency = 800;
     const maxFrequencyIncrement = 30;
