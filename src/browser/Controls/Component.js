@@ -14,7 +14,7 @@ export default class ControlsComponent extends React.Component {
           type="range"
           min="0"
           max="1"
-          step="0.05"
+          step="0.01"
           value={this.state.volume}
           onChange={event => this._onChange(event)}
         />
