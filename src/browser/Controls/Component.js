@@ -9,7 +9,7 @@ export default class ControlsComponent extends React.Component {
   render() {
     return (
       <form id="controls">
-        Volume {" "}
+        Volume{" "}
         <input
           type="range"
           min="0"

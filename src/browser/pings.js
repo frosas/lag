@@ -3,15 +3,15 @@ import Events from "events";
 import get from "lodash-es/get";
 
 /**
-* The amount of active pings (i.e. connections) that can run concurrently.
-*
-* This should solve the problem of the connection being restored after
-* being offline for a while (thus, there being a lot of open connections),
-* and new pings not working as the browser already reached the limit
-* of open connections.
-*
-* @type {integer}
-*/
+ * The amount of active pings (i.e. connections) that can run concurrently.
+ *
+ * This should solve the problem of the connection being restored after
+ * being offline for a while (thus, there being a lot of open connections),
+ * and new pings not working as the browser already reached the limit
+ * of open connections.
+ *
+ * @type {integer}
+ */
 const PINGS_CONCURRENCY_LIMIT = 6;
 
 export default class Pings {
