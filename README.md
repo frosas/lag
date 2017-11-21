@@ -4,7 +4,7 @@
 
 ```bash
 $ npm i
-$ PORT=1234 npm run watch
+$ PORT=1234 [DEBUG=app:* DEBUG_COLORS=true DEBUG_HIDE_DATE=true] npm run watch
 ```
 
 Open http://localhost:1234
