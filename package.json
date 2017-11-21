@@ -9,8 +9,6 @@
     "watch-eslint": "nodemon -q -w \"src\" -w \"test\" -x \"eslint . --fix\"",
     "watch-mocha": "nodemon -q -w \"src\" -w \"test\" -x \"mocha 'test/**/*.js'\"",
     "watch-web-server": "nodemon -q -w \"src/server\" -w \"src/universal\" -x \"npm start\"",
-    "#": "Following scripts are used by Dokku",
-    "postinstall": "bin/npm-postinstall",
     "start": "node ."
   },
   "engines": {
