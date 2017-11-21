@@ -4,20 +4,16 @@ set -ex
 
 source $(dirname $0)/common
 
-trap "exit" SIGINT
-trap "kill 0" EXIT
-
 web_server="node ."
     
-if [[ $is_dev ]]; then
+if [[ $is_dev ]]; then  
   # TODO `webpack --watch` seems to trigger more often than needed when nodemon 
   # is watching it
-  nodemon -q -w "webpack.config.js" -w "src/build" -w "src/universal" -x "webpack --watch" &
-  nodemon -q -w "src" -w "test" -x "eslint . --fix" &
-  nodemon -q -w "src" -w "test" -x "mocha 'test/**/*.js'" &
-  nodemon -q -w "src/server" -w "src/universal" -x "$web_server" &
+  concurrently --kill-others --names "webpack,eslint,mocha,web-server" \
+    "nodemon -q -w \"webpack.config.js\" -w \"src/build\" -w \"src/universal\" -x \"webpack --watch\"" \
+    "nodemon -q -w \"src\" -w \"test\" -x \"eslint . --fix\"" \
+    "nodemon -q -w \"src\" -w \"test\" -x \"mocha 'test/**/*.js'\"" \
+    "nodemon -q -w \"src/server\" -w \"src/universal\" -x \"$web_server\""
 else
-  $web_server &
+  $web_server
 fi
-
-wait
