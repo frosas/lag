@@ -12,6 +12,7 @@ a:hover, a:active { text-decoration: underline }
     box-shadow: 0 0 10px #aaa }
 #controls-placeholder { position: absolute; top: 0; right: 0; padding: 10px;
     opacity: 0.2 }
+#controls-placeholder input { vertical-align: middle }
 #chart-area:hover #controls-placeholder { opacity: 1 }
 
 footer { font-size: 90%; opacity: 0.5 }
