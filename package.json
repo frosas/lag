@@ -4,9 +4,12 @@
   "private": true,
   "main": "src/server/http",
   "scripts": {
-    "#": "Following scripts are used by Dokku",
-    "postinstall": "bin/npm-postinstall",
-    "start": "bin/server"
+    "watch": "concurrently --kill-others --names \"webpack,eslint,mocha,web-server\" \"npm run watch-webpack\" \"npm run watch-eslint\" \"npm run watch-mocha\" \"npm run watch-web-server\"",
+    "watch-webpack": "nodemon -q -w \"webpack.config.js\" -w \"src/build\" -w \"src/universal\" -x \"webpack --watch\"",
+    "watch-eslint": "nodemon -q -w \"src\" -w \"test\" -x \"eslint . --fix\"",
+    "watch-mocha": "nodemon -q -w \"src\" -w \"test\" -x \"mocha 'test/**/*.js'\"",
+    "watch-web-server": "nodemon -q -w \"src/server\" -w \"src/universal\" -x \"npm start\"",
+    "start": "node ."
   },
   "engines": {
     "node": "^8.3.0"
@@ -44,6 +47,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.1",
+    "concurrently": "^3.5.1",
     "eslint": "^4.4.1",
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-react": "^7.1.0",
