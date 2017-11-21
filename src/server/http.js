@@ -23,6 +23,6 @@ app.get("/pong", (req, res) => {
   res.end();
 });
 
-const httpPort = process.env.PORT || 5000;
+const httpPort = process.env.PORT || 80;
 app.listen(httpPort);
 debug(`Listening on http://localhost:${httpPort}`);

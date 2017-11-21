@@ -4,10 +4,10 @@
 
 ```bash
 $ npm i
-$ npm run watch
+$ PORT=1234 npm run watch
 ```
 
-Open http://localhost:5000
+Open http://localhost:1234
 
 # Enabling debugging
 
