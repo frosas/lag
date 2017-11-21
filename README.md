@@ -4,7 +4,7 @@
 
 ```bash
 $ npm i
-$ bin/server
+$ npm run watch
 ```
 
 Open http://localhost:5000
