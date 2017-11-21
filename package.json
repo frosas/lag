@@ -9,7 +9,8 @@
     "watch-eslint": "nodemon -q -w \"src\" -w \"test\" -x \"eslint . --fix\"",
     "watch-mocha": "nodemon -q -w \"src\" -w \"test\" -x \"mocha 'test/**/*.js'\"",
     "watch-web-server": "nodemon -q -w \"src/server\" -w \"src/universal\" -x \"npm start\"",
-    "start": "node ."
+    "start": "node -r dotenv/config .",
+    "browser": "source .env && open http://localhost:$PORT"
   },
   "engines": {
     "node": "^8.3.0"
@@ -36,6 +37,7 @@
     "css-loader": "^0.28.7",
     "d3": "^4.11.0",
     "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-plugin": "^2.30.1",

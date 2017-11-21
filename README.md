@@ -2,12 +2,13 @@
 
 # Development
 
+Copy `.env-example` to `.env` and edit it as needed.
+
 ```bash
 $ npm i
-$ PORT=1234 [DEBUG=app:* DEBUG_COLORS=true DEBUG_HIDE_DATE=true] npm run watch
+$ npm run watch
+$ npm run browser
 ```
-
-Open http://localhost:1234
 
 # Enabling debugging
 
