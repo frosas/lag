@@ -4,7 +4,7 @@ import "../../styles/main.css";
 
 import Chart from "./chart";
 import DocumentTitle from "./DocumentTitle";
-import PageIcon from "./page-icon";
+import DocumentIcon from "./DocumentIcon";
 import Pings from "./pings";
 import Title from "./title";
 import User from "./user";
@@ -19,7 +19,7 @@ const pings = new Pings();
 const chartEl = document.querySelector("#chart");
 new Chart(user, pings, chartEl);
 new DocumentTitle(user, pings);
-new PageIcon(user, pings);
+new DocumentIcon(user, pings);
 new Title({ user, pings, domElement: document.querySelector("#title") });
 
 util.resumeOnThrow(() => new Controls(new Audio(user, pings)));
