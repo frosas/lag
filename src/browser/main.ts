@@ -12,7 +12,7 @@ import DocumentTitle from "./DocumentTitle";
 import OfflineSupport from "./OfflineSupport";
 import Pings from "./pings";
 import Title from "./Title";
-import User from "./user";
+import User from "./User";
 import { assertType } from "./util";
 
 const user = new User();
