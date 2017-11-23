@@ -6,7 +6,8 @@
   ],
   "rules": {
     "prettier": true,
-    "curly": false
+    "curly": false,
+    "no-unused-expression": false
   },
   "rulesDirectory": ["tslint-plugin-prettier"]
 }
