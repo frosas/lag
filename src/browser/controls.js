@@ -7,7 +7,7 @@ export default class {
     this._audio = audio;
 
     const savedVolume = localStorage && localStorage.getItem("volume");
-    if (savedVolume) audio.setVolume(savedVolume);
+    if (savedVolume) audio.setVolume(parseFloat(savedVolume));
 
     ReactDOM.render(
       <ControlsComponent
@@ -19,7 +19,7 @@ export default class {
   }
 
   _onChangeVolume(volume) {
-    this._audio.setVolume(volume);
+    this._audio.setVolume(parseFloat(volume));
     if (localStorage) localStorage.setItem("volume", volume);
   }
 }

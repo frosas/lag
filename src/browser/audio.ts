@@ -1,8 +1,10 @@
-import math from "../universal/math";
+import * as math from "../universal/math";
 import createNoiseBufferSource from "./audio/createNoiseBufferSource";
+import Pings from "./pings";
+import User from "./User";
 
 export default class Audio {
-  constructor(user, pings) {
+  constructor(user: User, pings: Pings) {
     const context = new AudioContext();
     const gain = context.createGain();
     gain.connect(context.destination);
@@ -28,12 +30,12 @@ export default class Audio {
     });
 
     return {
-      setVolume: volume => {
+      getVolume: () => gain.gain.value,
+      setVolume: (volume: number) => {
         gain.gain.value = volume;
         // Save processor/battery when possible
-        parseFloat(volume) ? context.resume() : context.suspend();
-      },
-      getVolume: () => gain.gain.value
+        volume ? context.resume() : context.suspend();
+      }
     };
   }
 }
