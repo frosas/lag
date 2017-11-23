@@ -1,8 +1,11 @@
-import Events from "events";
+import * as Events from "events";
 
 export default class {
+  public readonly events = new Events();
+  public enabled: boolean;
+  public status: string;
+
   constructor() {
-    this.events = new Events();
     this.enabled = false;
     this.status = "";
 
@@ -36,7 +39,7 @@ export default class {
     })();
   }
 
-  _setState(state) {
+  private _setState(state: { status: string }) {
     Object.assign(this, state);
     this.events.emit("change");
   }
