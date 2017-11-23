@@ -4,7 +4,7 @@ const Component = require("../universal/offline-support/component");
 
 const e = React.createElement;
 
-exports.render = () => {
+module.exports = () => {
   return ReactDOMServer.renderToString(
     e(Component, {
       offlineSupport: { enabled: false, status: "loading JS..." }
