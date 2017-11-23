@@ -2,7 +2,7 @@
   "name": "lag",
   "version": "0.0.0",
   "private": true,
-  "main": "src/server/http",
+  "main": "src/node/webServer",
   "scripts": {
     "watch": "concurrently --kill-others --names \"webpack,eslint,mocha,web-server\" \"npm run watch-webpack\" \"npm run watch-eslint\" \"npm run watch-mocha\" \"npm run watch-web-server\"",
     "watch-webpack": "nodemon -q -w \"webpack.config.js\" -w \"src/build\" -w \"src/universal\" -x \"webpack --watch\"",
