@@ -10,7 +10,7 @@ import Title from "./title";
 import User from "./user";
 import Audio from "./audio";
 import Controls from "./controls";
-import OfflineSupport from "./offline-support";
+import OfflineSupport from "./OfflineSupport";
 import OfflineSupportComponent from "../universal/OfflineSupportComponent";
 import util from "../universal/util";
 
