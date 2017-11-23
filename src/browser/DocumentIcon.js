@@ -22,10 +22,12 @@ const getIconLinkElement = () => {
   return icon;
 };
 
-export default (user, pings) => {
-  const iconElement = getIconLinkElement();
-  user.events.on(
-    "read",
-    () => (iconElement.href = getIconUrl(pings.currentLag))
-  );
-};
+export default class {
+  constructor(user, pings) {
+    const iconElement = getIconLinkElement();
+    user.events.on(
+      "read",
+      () => (iconElement.href = getIconUrl(pings.currentLag))
+    );
+  }
+}

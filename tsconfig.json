@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "allowJs": true,
+    "noUnusedLocals": true
+  }
+}
