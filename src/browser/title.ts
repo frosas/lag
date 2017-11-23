@@ -1,6 +1,6 @@
 import Pings from "./pings";
 import User from "./User";
-import util from "./util";
+import { humanizeLag } from "./util";
 
 interface IConstructorParams {
   user: User;
@@ -11,7 +11,7 @@ interface IConstructorParams {
 export default class {
   constructor({ user, pings, element }: IConstructorParams) {
     user.events.on("read", () => {
-      element.textContent = util.humanizeLag(pings.currentLag);
+      element.textContent = humanizeLag(pings.currentLag);
     });
   }
 }
