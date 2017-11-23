@@ -3,7 +3,7 @@ import * as Events from "events";
 export default class {
   public readonly events = new Events();
   public enabled: boolean;
-  public status: string;
+  private _status: string;
 
   constructor() {
     this.enabled = false;
@@ -26,21 +26,25 @@ export default class {
           scope: ".."
         });
       } catch (error) {
-        this._setState({ status: `${error}` });
+        this.status = `${error}`;
       } finally {
         if (navigator.serviceWorker.controller) {
-          this._setState({ status: "" });
+          this.status = "";
         } else {
           // With a reload the service worker will take control of the page and
           // it will cache the page resources.
-          this._setState({ status: "reload to cache content" });
+          this.status = "reload to cache content";
         }
       }
     })();
   }
 
-  private _setState(state: { status: string }) {
-    Object.assign(this, state);
+  set status(status) {
+    this._status = status;
     this.events.emit("change");
+  }
+
+  get status() {
+    return this._status;
   }
 }
