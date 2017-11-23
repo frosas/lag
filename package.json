@@ -4,9 +4,11 @@
   "private": true,
   "main": "src/node/webServer",
   "scripts": {
-    "watch": "concurrently --kill-others --names \"webpack,eslint,mocha,web-server\" \"npm run watch-webpack\" \"npm run watch-eslint\" \"npm run watch-mocha\" \"npm run watch-web-server\"",
+    "watch": "concurrently --kill-others --names \"webpack,lint,mocha,web-server\" \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run watch-web-server\"",
     "watch-webpack": "nodemon -q -e \"js,ts\" -w \"webpack.config.js\" -w \"src/build\" -w \"src/universal\" -x \"webpack --watch\"",
+    "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
     "watch-eslint": "nodemon -q -w \"src\" -w \"test\" -x \"eslint . --fix\"",
+    "watch-tslint": "nodemon -q -e ts -w src -x \"tslint 'src/**/*.ts' --fix\"",
     "watch-mocha": "nodemon -q -w \"src\" -w \"test\" -x \"mocha 'test/**/*.js'\"",
     "watch-web-server": "nodemon -q -w \"src/server\" -w \"src/universal\" -x \"npm start\"",
     "start": "node -r dotenv/config .",
@@ -53,6 +55,9 @@
     "nodemon": "^1.12.1",
     "prettier": "^1.8.2",
     "source-map-loader": "^0.2.3",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "tslint-plugin-prettier": "^1.3.0",
     "typescript": "^2.6.1"
   }
 }
