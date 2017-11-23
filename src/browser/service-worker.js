@@ -8,9 +8,14 @@ const debug = (...args) => {
   if (isDebugEnabled) console.log("[Service Worker]", ...args);
 };
 
-const isCacheableRequest = request =>
-  request.method === "GET" &&
-  !new URL(request.url).search.match(/[?&]nocache[&$]/);
+const isCacheableRequest = request => {
+  const url = new URL(request.url);
+  return (
+    request.method === "GET" &&
+    !url.search.match(/[?&]nocache[&$]/) &&
+    url.protocol.match(/^https?:/)
+  );
+};
 
 self.addEventListener("install", event => {
   debug("Installing...");
@@ -42,16 +47,13 @@ self.addEventListener("fetch", event => {
 
   const responsePromise = fetch(event.request);
 
-  // Cache the request/response even if we already responded to the fetch. This
-  // way, next time it will be readily available from the cache.
+  // Cache the request/response
   responsePromise.then(response => {
     fetchDebug(response);
     const responseClone = response.clone();
-    caches
-      .open("v1")
-      .then(cache =>
-        cache.put(event.request, responseClone).then(() => fetchDebug("Cached"))
-      );
+    caches.open("v1").then(cache => {
+      cache.put(event.request, responseClone).then(() => fetchDebug("Cached"));
+    });
   });
 
   // Caching strategy: use the network response unless it's taking too long
