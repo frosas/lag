@@ -1,8 +1,7 @@
 import util from "./util";
 
-export default (user, pings) => {
-  const titleEl = document.querySelector("#title");
+export default ({ user, pings, domElement }) => {
   user.events.on("read", () => {
-    titleEl.textContent = util.humanizeLag(pings.currentLag);
+    domElement.textContent = util.humanizeLag(pings.currentLag);
   });
 };
