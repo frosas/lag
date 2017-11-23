@@ -1,7 +1,7 @@
-import * as Events from "events";
+import { EventEmitter } from "events";
 
 export default class {
-  public readonly events = new Events();
+  public readonly events = new EventEmitter();
   public enabled: boolean;
   private _status: string;
 
