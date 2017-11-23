@@ -3,6 +3,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowJs": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "target": "esnext"
   }
 }
