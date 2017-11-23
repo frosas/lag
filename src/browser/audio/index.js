@@ -1,5 +1,5 @@
-import math from "../universal/math";
-import createNoiseBufferSource from "./audio/createNoiseBufferSource";
+import math from "../../universal/math";
+import createNoiseBufferSource from "./createNoiseBufferSource";
 
 export default class Audio {
   constructor(user, pings) {
