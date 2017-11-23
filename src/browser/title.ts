@@ -5,11 +5,11 @@ import util from "./util";
 interface IParams {
   user: User;
   pings: Pings;
-  domElement: Element;
+  element: Element;
 }
 
-export default ({ user, pings, domElement }: IParams) => {
+export default ({ user, pings, element }: IParams) => {
   user.events.on("read", () => {
-    domElement.textContent = util.humanizeLag(pings.currentLag);
+    element.textContent = util.humanizeLag(pings.currentLag);
   });
 };

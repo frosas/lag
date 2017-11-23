@@ -20,7 +20,7 @@ const chartEl = document.querySelector("#chart");
 new Chart(user, pings, chartEl);
 new DocumentTitle(user, pings);
 new DocumentIcon(user, pings);
-new Title({ user, pings, domElement: document.querySelector("#title") });
+new Title({ user, pings, element: document.querySelector("#title") });
 
 util.resumeOnThrow(() => new Controls(new Audio(user, pings)));
 
