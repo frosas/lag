@@ -25,7 +25,7 @@ new Title({
   element: assertType<Element>(document.querySelector("#title")),
   pings,
   user
-}); // tslint:disable-line no-unused-expression
+});
 
 resumeOnThrow(() => new Controls(new Audio(user, pings)));
 
