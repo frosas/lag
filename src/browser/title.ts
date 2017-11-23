@@ -1,5 +1,5 @@
 import Pings from "./pings";
-import User from "./user";
+import User from "./User";
 import util from "./util";
 
 interface IConstructorParams {
