@@ -45,10 +45,10 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  const responsePromise = fetch(event.request);
+  const whenResponse = fetch(event.request);
 
   // Cache the request/response
-  responsePromise.then(response => {
+  whenResponse.then(response => {
     fetchDebug(response);
     const responseClone = response.clone();
     caches.open("v1").then(cache => {
@@ -59,11 +59,11 @@ self.addEventListener("fetch", event => {
   // Caching strategy: use the network response unless it's taking too long
   // and there's a cached response available.
   event.respondWith(
-    util.timeout(MAX_ACCEPTABLE_RESPONSE_TIME, responsePromise).catch(error => {
+    util.timeout(MAX_ACCEPTABLE_RESPONSE_TIME, whenResponse).catch(error => {
       fetchDebug(error);
       return caches.match(event.request).then(cachedResponse => {
         fetchDebug("Cached response", cachedResponse);
-        return cachedResponse || responsePromise;
+        return cachedResponse || whenResponse;
       });
     })
   );
