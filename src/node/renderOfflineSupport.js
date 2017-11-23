@@ -1,6 +1,6 @@
 const ReactDOMServer = require("react-dom/server");
 const React = require("react");
-const Component = require("../universal/offline-support/component");
+const Component = require("../universal/OfflineSupportComponent");
 
 const e = React.createElement;
 

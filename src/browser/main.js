@@ -11,7 +11,7 @@ import User from "./user";
 import Audio from "./audio";
 import Controls from "./controls";
 import OfflineSupport from "./offline-support";
-import OfflineSupportComponent from "../universal/offline-support/component";
+import OfflineSupportComponent from "../universal/OfflineSupportComponent";
 import util from "../universal/util";
 
 const user = new User();
