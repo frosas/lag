@@ -6,7 +6,7 @@ import Chart from "./chart";
 import DocumentTitle from "./DocumentTitle";
 import DocumentIcon from "./DocumentIcon";
 import Pings from "./pings";
-import Title from "./title";
+import Title from "./Title";
 import User from "./user";
 import Audio from "./audio";
 import Controls from "./controls";
