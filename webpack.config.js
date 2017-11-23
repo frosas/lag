@@ -25,8 +25,8 @@ module.exports = {
   resolve: { extensions: [".ts", ".js"] },
   module: {
     rules: [
-      { test: /\.js$/, loader: ["source-map-loader"], enforce: "pre" },
-      { test: /\.ts$/, use: ["awesome-typescript-loader"] },
+      { test: /\.js$/, use: ["source-map-loader"], enforce: "pre" },
+      { test: /\.ts$/, use: ["babel-loader", "awesome-typescript-loader"] },
       { test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"] },
       {
         test: /\.css$/,
