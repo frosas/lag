@@ -35,7 +35,7 @@ export default class extends React.Component {
 
   _yScale(lag) {
     // 0 -> 0, normalLag -> .1, ∞ -> 1
-    const normalLag = 200;
+    const normalLag = 50;
     const normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI;
     return normalizedLag * this.props.height;
   }
