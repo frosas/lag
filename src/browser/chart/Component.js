@@ -9,8 +9,8 @@ export default class extends React.Component {
   }
 
   render() {
-    this.props.pings.max = this._width / this._barWidth + 1;
-    this._xScale.range([0, this._width]);
+    this.props.pings.max = this.props.width / this._barWidth + 1;
+    this._xScale.range([0, this.props.width]);
     const pings = this.props.pings;
     const now = Date.now();
     this._xScale.domain([now - (pings.max - 1) * pings.interval, now]);
@@ -25,7 +25,7 @@ export default class extends React.Component {
               width={this._barWidth}
               height={this._yScale(ping.lag)}
               x={this._xScale(ping.start)}
-              y={this._height - this._yScale(ping.lag)}
+              y={this.props.height - this._yScale(ping.lag)}
             />
           );
         })}
@@ -37,16 +37,6 @@ export default class extends React.Component {
     // 0 -> 0, normalLag -> .1, ∞ -> 1
     const normalLag = 200;
     const normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI;
-    return normalizedLag * this._height;
-  }
-
-  get _width() {
-    // [1] Use the parent node dimensions as Firefox doesn't seem to work with
-    // the svg element ones
-    return this.props.chartEl.offsetWidth;
-  }
-
-  get _height() {
-    return this.props.chartEl.offsetHeight; // See [1]
+    return normalizedLag * this.props.height;
   }
 }
