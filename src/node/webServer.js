@@ -10,7 +10,7 @@ app.use(compression());
 
 app.use((req, res, next) => {
   if (req.query.v) {
-    res.append("Cache-Control", `max-age=${A_LONG_TIME}, 1`);
+    res.append("Cache-Control", `max-age=${A_LONG_TIME}`);
   }
   if (req.path == "/scripts/service-worker.js")
     res.append("Service-Worker-Allowed", "/");
