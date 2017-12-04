@@ -5,7 +5,7 @@
 // to HTTP/2 which causes the requests to reuse the same connection (thus avoiding
 // the connection handshake at every ping). Also, HTTP caused problems on networks
 // with captive portals (e.g. in many Internet cafes).
-const URL_ = "https://lag.frosas.net/pong?nocache";
+const URL_ = "https://lag-cdn.frosas.net/pong?nocache";
 
 export default class {
   public readonly loaded: Promise<void>;
