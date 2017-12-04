@@ -12,7 +12,7 @@ const isCacheableRequest = request => {
   const url = new URL(request.url);
   return (
     request.method === "GET" &&
-    !url.search.match(/[?&]nocache[&$]/) &&
+    !url.search.match(/[?&]nocache(&|$)/) &&
     url.protocol.match(/^https?:/)
   );
 };
