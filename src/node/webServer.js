@@ -19,22 +19,6 @@ app.use((req, res, next) => {
 
 app.use(express.static(`${__dirname}/../../dist`));
 
-app.get("/pong", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  // Reference
-  // - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
-  // - https://support.cloudflare.com/hc/en-us/articles/202775670-How-Do-I-Tell-Cloudflare-What-to-Cache-
-  res.header(
-    "Cache-Control",
-    [
-      "max-age=0", // Clients to not cache
-      "public", // Ensure proxies cache
-      `s-maxage=${A_LONG_TIME}` // Proxies to cache forever
-    ].join(", ")
-  );
-  res.end();
-});
-
 const httpPort = process.env.PORT || 80;
 app.listen(httpPort);
 debug(`Listening on http://localhost:${httpPort}`);
