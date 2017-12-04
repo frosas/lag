@@ -1,12 +1,11 @@
-// Here we have a copy of the site in a CDN close to the user.
+// To reduce latency, the request should be sent to a service in the edge (e.g.
+// CloudFlare), and it shouldn't incur a round-trip to the origin server.
 //
-// Note we use HTTPS. On Cloudfront this causes the connection to be upgraded to
-// HTTP/2 which causes the requests to reuse the same connection (thus avoiding
+// Also note we use HTTPS. On Cloudfront this causes the connection to be upgraded
+// to HTTP/2 which causes the requests to reuse the same connection (thus avoiding
 // the connection handshake at every ping). Also, HTTP caused problems on networks
 // with captive portals (e.g. in many Internet cafes).
-//
-// Ensure the CDN is configured to not forward query strings to reduce latency.
-const URL_ = "https://d18ks85av1x0pi.cloudfront.net/pong?nocache";
+const URL_ = "https://lag.frosas.net/pong?nocache";
 
 export default class {
   public readonly loaded: Promise<void>;
@@ -24,7 +23,7 @@ export default class {
         }
       };
       this._request.onerror = this._request.onabort = this._request.ontimeout = reject;
-      this._request.open("GET", `${URL_}&v=${Date.now()}`, true);
+      this._request.open("GET", URL_, true);
       this._request.send();
     });
   }
