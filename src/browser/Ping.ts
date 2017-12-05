@@ -1,13 +1,15 @@
-import Events from "events";
+import { EventEmitter } from "events";
 import Request from "./ping/request";
 
 export default class {
+  public readonly events = new EventEmitter();
+  public done = false; // Whether it has finished (whether succesfully or not)
+  public failed = false; // Whether it finished failing
+  public start = Date.now();
+  public end?: number;
+  private _request = new Request();
+
   constructor() {
-    this.events = new Events();
-    this.done = false; // Whether it has finished (whether succesfully or not)
-    this.failed = false; // Whether it finished failing
-    this.start = Date.now();
-    this._request = new Request();
     this._request.loaded.then(() => this._onPong(), () => this.abort());
   }
 
@@ -18,14 +20,14 @@ export default class {
   /**
    * Cancels the ping
    */
-  abort() {
+  public abort() {
     if (this.done) return;
     this._request.abort();
     this.done = true;
     this.failed = true;
   }
 
-  toString() {
+  public toString() {
     const start = new Date(this.start).toLocaleTimeString();
     const status = this.done
       ? this.failed ? "failed" : "succeeded"
@@ -33,7 +35,7 @@ export default class {
     return `Ping started at ${start} (${status})`;
   }
 
-  _onPong() {
+  public _onPong() {
     this.done = true;
     this.end = Date.now();
     this.events.emit("pong");
