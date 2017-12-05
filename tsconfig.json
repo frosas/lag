@@ -4,6 +4,7 @@
     "strictNullChecks": true,
     "allowJs": true,
     "noUnusedLocals": true,
-    "target": "esnext"
+    "target": "esnext",
+    "jsx": "react"
   }
 }

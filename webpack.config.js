@@ -22,11 +22,11 @@ module.exports = {
     path: `${__dirname}/dist`,
     filename: "scripts/[name].js"
   },
-  resolve: { extensions: [".ts", ".js"] },
+  resolve: { extensions: [".ts", ".tsx", ".js"] },
   module: {
     rules: [
       { test: /\.js$/, use: ["source-map-loader"], enforce: "pre" },
-      { test: /\.ts$/, use: ["babel-loader", "awesome-typescript-loader"] },
+      { test: /\.tsx?$/, use: ["babel-loader", "awesome-typescript-loader"] },
       { test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"] },
       {
         test: /\.css$/,
