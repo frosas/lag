@@ -1,6 +1,6 @@
-import Ping from "./Ping";
-import Events from "events";
+import { EventEmitter } from "events";
 import get from "lodash-es/get";
+import Ping from "./Ping";
 
 /**
  * The amount of active pings (i.e. connections) that can run concurrently.
@@ -9,17 +9,17 @@ import get from "lodash-es/get";
  * being offline for a while (thus, there being a lot of open connections),
  * and new pings not working as the browser already reached the limit
  * of open connections.
- *
- * @type {integer}
  */
 const PINGS_CONCURRENCY_LIMIT = 6;
 
 export default class {
+  public readonly events = new EventEmitter();
+  public readonly interval = 1000; /* ms */ // How often pings are created
+  private readonly _list: Ping[] = [];
+  private _max = 100;
+  private _lastRespondedPing: Ping;
+
   constructor() {
-    this.events = new Events();
-    this.interval = 1000; /* ms */ // How often pings are created
-    this._list = [];
-    this._max = 100;
     this._pingRepeatedly();
   }
 
@@ -45,7 +45,7 @@ export default class {
     return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
   }
 
-  _getFirstOfTheLastUnrespondedPings() {
+  private _getFirstOfTheLastUnrespondedPings() {
     let first;
     for (let i = this._list.length - 1; i >= 0; i -= 1) {
       if (this._list[i].end) break;
@@ -54,46 +54,54 @@ export default class {
     return first;
   }
 
-  _getRunningPings() {
+  private _getRunningPings() {
     return this._list.filter(ping => !ping.done);
   }
 
-  _ping() {
+  private _ping() {
     this._removePingsOverLimit();
     this._abortOldestPingsOverConcurrencyLimit();
     this._addPing();
   }
 
-  _pingRepeatedly() {
+  private _pingRepeatedly() {
     this._ping();
     setTimeout(this._pingRepeatedly.bind(this), this.interval);
   }
 
-  _removePingsOverLimit() {
+  // TODO Clean up this cruft
+  private _removePingsOverLimit() {
     // Don't remove the first of the last unresponded ping, otherwise the lag
     // won't be bigger than the one for the first ping in the list!
     const firstOfTheLastUnrespondedPings = this._getFirstOfTheLastUnrespondedPings();
-    let firstOfTheLastUnrespondedPingsWasRemoved; // TODO Clean up this cruft
+    let firstOfTheLastUnrespondedPingsWasRemoved;
     while (this._list.length > this._max) {
       const ping = this._list.shift();
-      if (ping === firstOfTheLastUnrespondedPings) {
+      if (!ping) continue;
+      if (
+        firstOfTheLastUnrespondedPings &&
+        ping === firstOfTheLastUnrespondedPings
+      ) {
         firstOfTheLastUnrespondedPingsWasRemoved = true;
       } else {
         ping.abort();
       }
     }
-    if (firstOfTheLastUnrespondedPingsWasRemoved) {
+    if (
+      firstOfTheLastUnrespondedPings &&
+      firstOfTheLastUnrespondedPingsWasRemoved
+    ) {
       this._list.unshift(firstOfTheLastUnrespondedPings);
     }
   }
 
-  _abortOldestPingsOverConcurrencyLimit() {
+  private _abortOldestPingsOverConcurrencyLimit() {
     this._getRunningPings()
       .slice(0, -PINGS_CONCURRENCY_LIMIT)
       .forEach(ping => ping.abort());
   }
 
-  _addPing() {
+  private _addPing() {
     const ping = new Ping();
     ping.events.on("pong", () => {
       if (this._isLastRespondedPing(ping)) this._lastRespondedPing = ping;
@@ -102,7 +110,7 @@ export default class {
     this.events.emit("add", ping);
   }
 
-  _isLastRespondedPing(ping) {
+  private _isLastRespondedPing(ping: Ping) {
     return (
       !this._lastRespondedPing || this._lastRespondedPing.start < ping.start
     );

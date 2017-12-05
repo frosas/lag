@@ -45,6 +45,7 @@
     "webpack": "^3.8.1"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.0",
     "@types/node": "^8.0.53",
     "awesome-typescript-loader": "^3.4.0",
     "chai": "^4.1.2",
