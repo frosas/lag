@@ -12,10 +12,10 @@ import Ping from "./Ping";
  */
 const PINGS_CONCURRENCY_LIMIT = 6;
 
-export default class {
+export default class Pings {
   public readonly events = new EventEmitter();
   public readonly interval = 1000; /* ms */ // How often pings are created
-  private readonly _list: Ping[] = [];
+  private readonly _all: Ping[] = [];
   private _max = 100;
   private _lastRespondedPing: Ping;
 
@@ -24,7 +24,7 @@ export default class {
   }
 
   get all() {
-    return this._list;
+    return this._all;
   }
 
   set max(max) {
@@ -47,15 +47,15 @@ export default class {
 
   private _getFirstOfTheLastUnrespondedPings() {
     let first;
-    for (let i = this._list.length - 1; i >= 0; i -= 1) {
-      if (this._list[i].end) break;
-      first = this._list[i];
+    for (let i = this._all.length - 1; i >= 0; i -= 1) {
+      if (this._all[i].end) break;
+      first = this._all[i];
     }
     return first;
   }
 
   private _getRunningPings() {
-    return this._list.filter(ping => !ping.done);
+    return this._all.filter(ping => !ping.done);
   }
 
   private _ping() {
@@ -75,8 +75,8 @@ export default class {
     // won't be bigger than the one for the first ping in the list!
     const firstOfTheLastUnrespondedPings = this._getFirstOfTheLastUnrespondedPings();
     let firstOfTheLastUnrespondedPingsWasRemoved;
-    while (this._list.length > this._max) {
-      const ping = this._list.shift();
+    while (this._all.length > this._max) {
+      const ping = this._all.shift();
       if (!ping) continue;
       if (
         firstOfTheLastUnrespondedPings &&
@@ -91,7 +91,7 @@ export default class {
       firstOfTheLastUnrespondedPings &&
       firstOfTheLastUnrespondedPingsWasRemoved
     ) {
-      this._list.unshift(firstOfTheLastUnrespondedPings);
+      this._all.unshift(firstOfTheLastUnrespondedPings);
     }
   }
 
@@ -106,7 +106,7 @@ export default class {
     ping.events.on("pong", () => {
       if (this._isLastRespondedPing(ping)) this._lastRespondedPing = ping;
     });
-    this._list.push(ping);
+    this._all.push(ping);
     this.events.emit("add", ping);
   }
 
