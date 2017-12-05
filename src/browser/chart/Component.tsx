@@ -1,14 +1,18 @@
 import { scaleLinear } from "d3-scale";
-import React from "react";
+import * as React from "react";
+import Pings from "../pings";
 
-export default class extends React.Component {
-  constructor(...args) {
-    super(...args);
-    this._barWidth = 8; // px
-    this._xScale = scaleLinear();
-  }
+interface IProps {
+  pings: Pings;
+  width: number;
+  height: number;
+}
 
-  render() {
+export default class extends React.Component<IProps> {
+  private _barWidth = 8; // px
+  private _xScale = scaleLinear();
+
+  public render() {
     const now = Date.now();
     const pings = this.props.pings;
     pings.max = this.props.width / this._barWidth + 1;
@@ -33,7 +37,7 @@ export default class extends React.Component {
     );
   }
 
-  _yScale(lag) {
+  public _yScale(lag: number) {
     // 0 -> 0, normalLag -> .1, ∞ -> 1
     const normalLag = 50;
     const normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI;

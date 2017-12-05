@@ -45,8 +45,10 @@
     "webpack": "^3.8.1"
   },
   "devDependencies": {
+    "@types/d3-scale": "^1.0.10",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^8.0.53",
+    "@types/react": "^16.0.27",
     "awesome-typescript-loader": "^3.4.0",
     "chai": "^4.1.2",
     "concurrently": "^3.5.1",
