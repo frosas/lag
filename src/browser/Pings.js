@@ -14,7 +14,7 @@ import get from "lodash-es/get";
  */
 const PINGS_CONCURRENCY_LIMIT = 6;
 
-export default class Pings {
+export default class {
   constructor() {
     this.events = new Events();
     this.interval = 1000; /* ms */ // How often pings are created

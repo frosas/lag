@@ -1,6 +1,6 @@
 import * as math from "../universal/math";
 import createNoiseBufferSource from "./audio/createNoiseBufferSource";
-import Pings from "./pings";
+import Pings from "./Pings";
 import User from "./User";
 
 export default class Audio {

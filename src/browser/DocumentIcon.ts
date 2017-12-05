@@ -1,6 +1,6 @@
 declare var BUILD_ID: any;
 
-import Pings from "./pings";
+import Pings from "./Pings";
 import User from "./User";
 
 const getBulletUrl = (color: string) => {

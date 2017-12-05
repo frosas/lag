@@ -10,7 +10,7 @@ import Controls from "./controls";
 import DocumentIcon from "./DocumentIcon";
 import DocumentTitle from "./DocumentTitle";
 import OfflineSupport from "./OfflineSupport";
-import Pings from "./pings";
+import Pings from "./Pings";
 import Title from "./Title";
 import User from "./User";
 import { assertType } from "./util";
