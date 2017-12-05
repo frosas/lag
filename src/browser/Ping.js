@@ -1,7 +1,7 @@
 import Events from "events";
 import Request from "./ping/request";
 
-export default class Ping {
+export default class {
   constructor() {
     this.events = new Events();
     this.done = false; // Whether it has finished (whether succesfully or not)

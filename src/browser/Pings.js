@@ -1,4 +1,4 @@
-import Ping from "./ping";
+import Ping from "./Ping";
 import Events from "events";
 import get from "lodash-es/get";
 
