@@ -14,7 +14,7 @@ export default class extends React.Component<IProps> {
 
   public render() {
     const now = Date.now();
-    const pings = this.props.pings;
+    const { pings } = this.props;
     pings.max = this.props.width / this._barWidth + 1;
     this._xScale.range([0, this.props.width]);
     this._xScale.domain([now - (pings.max - 1) * pings.interval, now]);
