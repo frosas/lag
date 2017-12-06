@@ -5,7 +5,7 @@ import "../../styles/main.css";
 import * as OfflineSupportComponent from "../universal/OfflineSupportComponent";
 import { resumeOnThrow } from "../universal/util";
 import Audio from "./audio";
-import Chart from "./chart";
+import Chart from "./Chart";
 import Controls from "./controls";
 import DocumentIcon from "./DocumentIcon";
 import DocumentTitle from "./DocumentTitle";
