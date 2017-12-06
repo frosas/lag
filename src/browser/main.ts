@@ -17,8 +17,11 @@ import { assertType } from "./util";
 
 const user = new User();
 const pings = new Pings();
-const chartEl = document.querySelector("#chart");
-new Chart(user, pings, chartEl);
+new Chart(
+  user,
+  pings,
+  assertType<HTMLElement>(document.querySelector("#chart"))
+);
 new DocumentTitle(user, pings);
 new DocumentIcon(user, pings);
 new Title({

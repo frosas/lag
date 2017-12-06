@@ -1,9 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import ChartComponent from "./chart/Component";
+import Pings from "./Pings";
+import User from "./User";
 
 export default class {
-  constructor(user, pings, chartEl) {
+  constructor(user: User, pings: Pings, chartEl: HTMLElement) {
     user.events.on("view", () => {
       ReactDOM.render(
         <ChartComponent
