@@ -4,8 +4,14 @@ import ChartComponent from "./chart/Component";
 import Pings from "./Pings";
 import User from "./User";
 
+interface IConstructorParams {
+  user: User;
+  pings: Pings;
+  element: HTMLElement;
+}
+
 export default class {
-  constructor(user: User, pings: Pings, element: HTMLElement) {
+  constructor({ user, pings, element }: IConstructorParams) {
     user.events.on("view", () => {
       ReactDOM.render(
         <ChartComponent
