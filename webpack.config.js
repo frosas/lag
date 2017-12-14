@@ -6,7 +6,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const CleanPlugin = require("clean-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const renderOfflineSupport = require("./src/node/renderOfflineSupport");
+const renderOfflineSupport = require("./src/server/renderOfflineSupport");
 
 const buildDate = new Date();
 
