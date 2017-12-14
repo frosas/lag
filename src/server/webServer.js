@@ -17,7 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(`${__dirname}/../../dist`));
+app.use(express.static(`${__dirname}/../../dist/browser`));
 
 const httpPort = process.env.PORT || 80;
 app.listen(httpPort);

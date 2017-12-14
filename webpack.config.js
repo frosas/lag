@@ -19,7 +19,7 @@ module.exports = {
     "service-worker": "./src/browser/service-worker.js"
   },
   output: {
-    path: `${__dirname}/dist`,
+    path: `${__dirname}/dist/browser`,
     filename: "scripts/[name].js"
   },
   resolve: { extensions: [".ts", ".tsx", ".js"] },
@@ -36,7 +36,7 @@ module.exports = {
   },
   plugins: [].concat(
     isDev ? [] : new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-    new CleanPlugin("dist"),
+    new CleanPlugin("dist/browser"),
     new CopyPlugin([{ from: "static" }]),
     new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
     new webpack.BannerPlugin({ banner: `Build date: ${buildDate}` }),
