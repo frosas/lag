@@ -1,1 +1,3 @@
-module.exports = { globals: { setTimeout: false } };
+/* eslint-env node */
+
+module.exports = { env: { commonjs: true }, globals: { setTimeout: false } };
