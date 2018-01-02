@@ -24,7 +24,7 @@
     ]
   },
   "dependencies": {
-    "@frosas/eslint-config": "^0.3.0",
+    "@frosas/eslint-config": "^0.3.1",
     "@types/d3-scale": "^1.0.11",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^8.5.2",
