@@ -26,13 +26,10 @@ export default class Pings {
   }
 
   get currentLag() {
-    const lastRespondedPingLag = get(this, "_lastRespondedPing.lag", 0);
-    const firstOfTheLastUnrespondedPingsLag = get(
-      this._getFirstOfTheLastUnrespondedPings(),
-      "lag",
-      0
+    return Math.max(
+      get(this._lastRespondedPing, "lag", 0),
+      get(this._getFirstOfTheLastUnrespondedPings(), "lag", 0)
     );
-    return Math.max(lastRespondedPingLag, firstOfTheLastUnrespondedPingsLag);
   }
 
   private _getFirstOfTheLastUnrespondedPings() {
