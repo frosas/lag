@@ -2,16 +2,6 @@ import { EventEmitter } from "events";
 import get from "lodash-es/get";
 import Ping from "./Ping";
 
-/**
- * The amount of active pings (i.e. connections) that can run concurrently.
- *
- * This should solve the problem of the connection being restored after
- * being offline for a while (thus, there being a lot of open connections),
- * and new pings not working as the browser already reached the limit
- * of open connections.
- */
-const PINGS_CONCURRENCY_LIMIT = 6;
-
 export default class Pings {
   public readonly events = new EventEmitter();
   public readonly interval = 1000; /* ms */ // How often pings are created
@@ -54,13 +44,8 @@ export default class Pings {
     return first;
   }
 
-  private _getRunningPings() {
-    return this._all.filter(ping => !ping.done);
-  }
-
   private _ping() {
     this._removePingsOverLimit();
-    this._abortOldestPingsOverConcurrencyLimit();
     this._addPing();
   }
 
@@ -93,12 +78,6 @@ export default class Pings {
     ) {
       this._all.unshift(firstOfTheLastUnrespondedPings);
     }
-  }
-
-  private _abortOldestPingsOverConcurrencyLimit() {
-    this._getRunningPings()
-      .slice(0, -PINGS_CONCURRENCY_LIMIT)
-      .forEach(ping => ping.abort());
   }
 
   private _addPing() {
