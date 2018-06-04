@@ -1,4 +1,4 @@
-FROM node:9.2
+FROM node:10
 EXPOSE 80
 
 WORKDIR /app

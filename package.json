@@ -15,9 +15,6 @@
     "start": "node -r dotenv/config .",
     "browser": "source .env && open http://localhost:$PORT"
   },
-  "engines": {
-    "node": "^8.3.0"
-  },
   "babel": {
     "presets": [
       "env",
