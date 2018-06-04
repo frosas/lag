@@ -12,8 +12,10 @@ app.use((req, res, next) => {
   if (req.query.v) {
     res.append("Cache-Control", `max-age=${A_LONG_TIME}`);
   }
-  if (req.path == "/scripts/service-worker.js")
+  if (req.path == "/scripts/service-worker.js") {
     res.append("Service-Worker-Allowed", "/");
+    res.append("Cache-Control", "max-age=0"); // See https://developers.google.com/web/updates/2018/06/fresher-sw
+  }
   next();
 });
 
