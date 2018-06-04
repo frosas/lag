@@ -30,7 +30,9 @@ export default class {
   public toString() {
     const start = new Date(this.start).toLocaleTimeString();
     const status = this.done
-      ? this.failed ? "failed" : "succeeded"
+      ? this.failed
+        ? "failed"
+        : "succeeded"
       : "running";
     return `Ping started at ${start} (${status})`;
   }
