@@ -5,12 +5,13 @@
   "main": "src/server/webServer",
   "scripts": {
     "build": "webpack -p",
+    "test": "mocha 'test/**/*.js'",
     "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run watch-web-server\"",
     "watch-webpack": "onchange -i webpack.config.js 'src/{server,universal}/**/*.{js,ts}' -- webpack --watch",
     "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
     "watch-eslint": "onchange -i '{src,test}/**/*.js' -- eslint . --fix",
     "watch-tslint": "onchange -i 'src/**/*.ts' -- tslint 'src/**/*.ts' --fix",
-    "watch-mocha": "onchange -i '{src,test}/**/*.js' -- mocha 'test/**/*.js'",
+    "watch-mocha": "onchange -i '{src,test}/**/*.js' -- npm t",
     "watch-web-server": "onchange -i 'src/{server,universal}/**/*.js' -- npm start",
     "start": "node -r dotenv/config .",
     "browser": "source .env && open http://localhost:$PORT"
@@ -50,7 +51,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-plugin": "^2.30.1",
     "lodash-es": "^4.17.10",
-    "mocha": "^3.5.3",
+    "mocha": "^5.2.0",
     "onchange": "^3.3.0",
     "prettier": "^1.13.4",
     "react": "^16.4.0",
