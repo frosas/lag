@@ -6,5 +6,5 @@ WORKDIR /app
 COPY package.json .
 RUN npm i -q
 COPY . .
-RUN node_modules/.bin/webpack -p
+RUN npm run build
 CMD ["npm", "start"]

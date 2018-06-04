@@ -4,6 +4,7 @@
   "private": true,
   "main": "src/server/webServer",
   "scripts": {
+    "build": "webpack -p",
     "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run watch-web-server\"",
     "watch-webpack": "onchange -i webpack.config.js 'src/{server,universal}/**/*.{js,ts}' -- webpack --watch",
     "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
