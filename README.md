@@ -7,8 +7,9 @@ Copy `.env-example` to `.env` and edit it as needed.
 ```bash
 $ npm i
 $ npm run watch
-$ npm run browser
 ```
+
+Open http://localhost:8080
 
 # Enabling debugging
 

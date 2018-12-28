@@ -1,0 +1,5 @@
+[[headers]]
+  for = "/scripts/service-worker.js"
+  [headers.values]
+    Cache-Control = "max-age=0"
+    Service-Worker-Allowed = "/" # See https://developers.google.com/web/updates/2018/06/fresher-sw
