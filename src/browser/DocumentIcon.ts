@@ -1,10 +1,8 @@
-declare var BUILD_ID: any;
-
 import Pings from "./Pings";
 import User from "./User";
 
 const getBulletUrl = (color: string) => {
-  return `images/bullet_${color}.png?v=${BUILD_ID}`;
+  return `images/bullet_${color}.png`;
 };
 
 const getColor = (lag: number) => {

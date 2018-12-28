@@ -2,19 +2,16 @@
   "name": "lag",
   "version": "0.0.0",
   "private": true,
-  "main": "src/server/webServer",
   "scripts": {
     "build": "webpack -p",
     "test": "mocha 'test/**/*.js'",
-    "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run watch-web-server\"",
-    "watch-webpack": "onchange -i webpack.config.js 'src/{server,universal}/**/*.{js,ts}' -- webpack --watch",
+    "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run web-server\"",
+    "watch-webpack": "onchange -i webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --watch",
     "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
     "watch-eslint": "onchange -i '{src,test}/**/*.js' -- eslint . --fix",
     "watch-tslint": "onchange -i 'src/**/*.ts' -- tslint 'src/**/*.ts' --fix",
     "watch-mocha": "onchange -i '{src,test}/**/*.js' -- npm t",
-    "watch-web-server": "onchange -i 'src/{server,universal}/**/*.js' -- npm start",
-    "start": "node -r dotenv/config .",
-    "browser": "source .env && open http://localhost:$PORT"
+    "web-server": "http-server dist/browser"
   },
   "babel": {
     "presets": [
@@ -43,13 +40,13 @@
     "css-loader": "^0.28.11",
     "d3": "^4.12.2",
     "debug": "^3.1.0",
-    "dotenv": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
+    "http-server": "^0.11.1",
     "lodash-es": "^4.17.10",
     "mocha": "^5.2.0",
     "onchange": "^4.0.0",
