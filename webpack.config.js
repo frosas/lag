@@ -1,7 +1,6 @@
 /* eslint-env node */
 
 const webpack = require("webpack");
-const debug = require("debug")("app:webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 const CleanPlugin = require("clean-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
@@ -9,9 +8,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const renderOfflineSupport = require("./src/build/renderOfflineSupport");
 
 const buildDate = new Date();
-
-const isDev = process.env.NODE_ENV !== "production";
-debug(`Running in ${isDev ? "development" : "production"} mode`);
 
 module.exports = {
   entry: {
@@ -22,7 +18,6 @@ module.exports = {
     path: `${__dirname}/dist/browser`,
     filename: "scripts/[name].js"
   },
-  mode: isDev ? "development" : "production",
   resolve: { extensions: [".ts", ".tsx", ".js"] },
   module: {
     rules: [
@@ -36,7 +31,6 @@ module.exports = {
     ]
   },
   plugins: [].concat(
-    isDev ? [] : new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
     new CleanPlugin("dist/browser"),
     new CopyPlugin([{ from: "static" }]),
     new webpack.DefinePlugin({ BUILD_ID: Date.now() }),

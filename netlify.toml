@@ -1,6 +1,3 @@
-[build]
-  NODE_ENV = "production"
-
 [[headers]]
   for = "/scripts/service-worker.js"
   [headers.values]
