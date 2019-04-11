@@ -22,6 +22,7 @@ module.exports = {
     path: `${__dirname}/dist/browser`,
     filename: "scripts/[name].js"
   },
+  mode: isDev ? "development" : "production",
   resolve: { extensions: [".ts", ".tsx", ".js"] },
   module: {
     rules: [
