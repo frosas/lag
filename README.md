@@ -2,8 +2,6 @@
 
 # Development
 
-Copy `.env-example` to `.env` and edit it as needed.
-
 ```bash
 $ npm i
 $ npm run watch
