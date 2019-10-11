@@ -1,7 +1,5 @@
-/* eslint-env node */
-
 module.exports = {
   extends: ["@frosas/eslint-config"],
-  parserOptions: { ecmaVersion: 8 },
-  env: { es6: true }
+  parserOptions: { ecmaVersion: 2020 },
+  env: { es6: true, node: true }
 };
