@@ -9,7 +9,7 @@
     "watch-webpack": "onchange -i webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --mode development --watch",
     "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
     "watch-eslint": "onchange -i '{src,test}/**/*.js' -- eslint . --fix",
-    "watch-tslint": "onchange -i 'src/**/*.ts' -- tslint 'src/**/*.ts' --fix",
+    "watch-tslint": "onchange -i 'src/**/*.ts' -- tslint 'src/**/*.{ts,tsx}' --fix",
     "watch-mocha": "onchange -i '{src,test}/**/*.js' -- npm t",
     "web-server": "http-server dist/browser"
   },

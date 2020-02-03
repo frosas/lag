@@ -40,7 +40,7 @@ export default class extends React.Component<IProps> {
   public _yScale(lag: number) {
     // 0 -> 0, normalLag -> .1, ∞ -> 1
     const normalLag = 50;
-    const normalizedLag = Math.atan(lag / normalLag / 10) * 2 / Math.PI;
+    const normalizedLag = (Math.atan(lag / normalLag / 10) * 2) / Math.PI;
     return normalizedLag * this.props.height;
   }
 }
