@@ -16,6 +16,11 @@
     "watch-mocha": "onchange -i '{src,test}/**/*.js' -- npm t",
     "web-server": "http-server dist/browser"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "concurrently -n lint,test \"npm run lint\" \"npm t\""
+    }
+  },
   "babel": {
     "presets": [
       "env",
@@ -46,6 +51,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.12.1",
+    "husky": "^4.2.1",
     "lodash-es": "^4.17.11",
     "mocha": "^5.2.0",
     "onchange": "^4.0.0",
