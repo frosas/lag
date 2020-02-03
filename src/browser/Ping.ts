@@ -10,7 +10,10 @@ export default class {
   private _request = new Request();
 
   constructor() {
-    this._request.loaded.then(() => this._onPong(), () => this.abort());
+    this._request.loaded.then(
+      () => this._onPong(),
+      () => this.abort()
+    );
   }
 
   get lag() {

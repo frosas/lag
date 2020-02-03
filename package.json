@@ -9,7 +9,7 @@
     "watch-webpack": "onchange -i webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --mode development --watch",
     "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
     "watch-eslint": "onchange -i '{src,test}/**/*.js' -- eslint . --fix",
-    "watch-tslint": "onchange -i 'src/**/*.ts' -- tslint 'src/**/*.ts' --fix",
+    "watch-tslint": "onchange -i 'src/**/*.ts' -- tslint 'src/**/*.{ts,tsx}' --fix",
     "watch-mocha": "onchange -i '{src,test}/**/*.js' -- npm t",
     "web-server": "http-server dist/browser"
   },
@@ -60,7 +60,7 @@
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "webpack-command": "^0.2.0"
   }
 }
