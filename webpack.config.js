@@ -2,7 +2,7 @@
 
 const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
-const CleanPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const renderOfflineSupport = require("./src/build/renderOfflineSupport");
@@ -31,7 +31,7 @@ module.exports = {
     ]
   },
   plugins: [].concat(
-    new CleanPlugin("dist/browser"),
+    new CleanWebpackPlugin(),
     new CopyPlugin([{ from: "static" }]),
     new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
     new webpack.BannerPlugin({ banner: `Build date: ${buildDate}` }),
