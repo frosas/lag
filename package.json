@@ -6,6 +6,7 @@
     "build": "webpack --mode production",
     "eslint": "eslint .",
     "lint": "concurrently -k -n eslint,tslint \"npm run eslint\" \"npm run tslint\"",
+    "test": "concurrently -n lint,unit-test \"npm run lint\" \"npm run test-unit\"",
     "test-unit": "mocha 'test/**/*.js'",
     "tslint": "tslint 'src/**/*.{ts,tsx}'",
     "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run web-server\"",
@@ -18,7 +19,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "concurrently -n lint,unit-test \"npm run lint\" \"npm run test-unit\""
+      "pre-push": "npm t"
     }
   },
   "babel": {
