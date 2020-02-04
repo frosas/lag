@@ -10,11 +10,11 @@
     "test-unit": "mocha 'test/**/*.js'",
     "tslint": "tslint 'src/**/*.{ts,tsx}'",
     "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run web-server\"",
-    "watch-webpack": "onchange -i webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --mode development --watch",
+    "watch-webpack": "onchange -ki webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --mode development --watch",
     "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
-    "watch-eslint": "onchange -i '{src,test}/**/*.js' -- npm run eslint -- --fix",
-    "watch-tslint": "onchange -i 'src/**/*.ts' -- npm run tslint -- --fix",
-    "watch-mocha": "onchange -i '{src,test}/**/*.js' -- npm t",
+    "watch-eslint": "onchange -ki '{src,test}/**/*.js' -- npm run eslint -- --fix",
+    "watch-tslint": "onchange -ki 'src/**/*.ts' -- npm run tslint -- --fix",
+    "watch-mocha": "onchange -ki '{src,test}/**/*.js' -- npm t",
     "web-server": "http-server dist/browser"
   },
   "husky": {
