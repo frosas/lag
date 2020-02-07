@@ -4,16 +4,12 @@
   "private": true,
   "scripts": {
     "build": "webpack --mode production",
-    "eslint": "eslint .",
-    "lint": "concurrently -n eslint,tslint \"npm run eslint\" \"npm run tslint\"",
+    "lint": "eslint .",
     "test": "concurrently -n lint,unit-test,build \"npm run lint\" \"npm run test-unit\" \"npm run build\"",
     "test-unit": "mocha 'test/**/*.js'",
-    "tslint": "tslint 'src/**/*.{ts,tsx}'",
     "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run web-server\"",
     "watch-webpack": "onchange -ki webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --mode development --watch",
-    "watch-lint": "concurrently -k -n eslint,tslint \"npm run watch-eslint\" \"npm run watch-tslint\"",
-    "watch-eslint": "onchange -ki '{src,test}/**/*.js' -- npm run eslint -- --fix",
-    "watch-tslint": "onchange -ki 'src/**/*.ts' -- npm run tslint -- --fix",
+    "watch-lint": "onchange -ki '{src,test}/**/*.js' -- npm run lint -- --fix",
     "watch-mocha": "onchange -ki '{src,test}/**/*.js' -- npm t",
     "web-server": "http-server dist/browser"
   },
@@ -58,9 +54,6 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "source-map-loader": "^0.2.3",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.13.0",
-    "tslint-plugin-prettier": "^2.1.0",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5"
   },
