@@ -30,7 +30,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [].concat(
+  plugins: [
     new CleanWebpackPlugin(),
     new CopyPlugin([{ from: "static" }]),
     new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
@@ -52,6 +52,6 @@ module.exports = {
       }
     }),
     new ExtractTextPlugin("styles/[name].css")
-  ),
+  ],
   devtool: "source-map"
 };
