@@ -3,14 +3,8 @@ import "regenerator-runtime/runtime";
 
 import "../../styles/main.css";
 
-import * as OfflineSupportComponent from "../universal/OfflineSupportComponent";
-import { resumeOnThrow } from "../universal/util";
-import Audio from "./audio";
-import Chart from "./Chart";
-import Controls from "./controls";
 import DocumentIcon from "./DocumentIcon";
 import DocumentTitle from "./DocumentTitle";
-import OfflineSupport from "./OfflineSupport";
 import Pings from "./Pings";
 import Title from "./Title";
 import User from "./User";
@@ -18,11 +12,6 @@ import { assertType } from "./util";
 
 const user = new User();
 const pings = new Pings();
-new Chart({
-  element: assertType<HTMLElement>(document.querySelector("#chart")),
-  pings,
-  user
-});
 new DocumentTitle(user, pings);
 new DocumentIcon(user, pings);
 new Title({
@@ -31,9 +20,41 @@ new Title({
   user
 });
 
-resumeOnThrow(() => new Controls(new Audio(user, pings)));
+(async () => {
+  const { default: Chart } = await import(
+    /* webpackChunkName: "chart" */
+    "./Chart"
+  );
+  new Chart({
+    element: assertType<HTMLElement>(document.querySelector("#chart")),
+    pings,
+    user
+  });
+})();
 
-OfflineSupportComponent.render(
-  new OfflineSupport(),
-  document.querySelector("#offline-support")
-);
+(async () => {
+  const { default: Controls } = await import(
+    /* webpackChunkName: "controls" */
+    "./controls"
+  );
+  const { default: Audio } = await import(
+    /* webpackChunkName: "audio" */
+    "./audio"
+  );
+  new Controls(new Audio(user, pings));
+})();
+
+(async () => {
+  const OfflineSupportComponent = await import(
+    /* webpackChunkName: "offline-support-component" */
+    "../universal/OfflineSupportComponent"
+  );
+  const { default: OfflineSupport } = await import(
+    /* webpackChunkName: "offline-support" */
+    "./OfflineSupport"
+  );
+  OfflineSupportComponent.render(
+    new OfflineSupport(),
+    document.querySelector("#offline-support")
+  );
+})();

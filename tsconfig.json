@@ -5,6 +5,7 @@
     "allowJs": true,
     "noUnusedLocals": true,
     "target": "esnext",
+    "module": "ESNext",
     "jsx": "react",
     "moduleResolution": "node"
   }
