@@ -24,12 +24,15 @@
       "react"
     ]
   },
-  "dependencies": {
+  "devDependencies": {
+    "@frosas/eslint-config": "^1.1.0",
     "@types/d3-scale": "^2.0.1",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^13.7.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
@@ -42,6 +45,9 @@
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
     "d3-scale": "^3.2.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -51,21 +57,13 @@
     "lodash-es": "^4.17.11",
     "mocha": "^7.0.1",
     "onchange": "^6.1.0",
+    "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "source-map-loader": "^0.2.3",
-    "typescript": "^3.7.5",
-    "webpack": "^4.41.5"
-  },
-  "devDependencies": {
-    "@frosas/eslint-config": "^1.1.0",
-    "@typescript-eslint/eslint-plugin": "^2.19.0",
-    "@typescript-eslint/parser": "^2.19.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^1.19.1",
     "ts-loader": "^6.2.1",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   }
 }
