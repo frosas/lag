@@ -1,10 +1,5 @@
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-
 import "../../styles/main.css";
 
-import * as OfflineSupportComponent from "../universal/OfflineSupportComponent";
-import { resumeOnThrow } from "../universal/util";
 import Audio from "./audio";
 import Chart from "./Chart";
 import Controls from "./controls";
@@ -15,6 +10,9 @@ import Pings from "./Pings";
 import Title from "./Title";
 import User from "./User";
 import { assertType } from "./util";
+
+const OfflineSupportComponent = require("../universal/OfflineSupportComponent");
+const { resumeOnThrow } = require("../universal/util");
 
 const user = new User();
 const pings = new Pings();

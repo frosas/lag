@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import util from "../universal/util";
+const { timeout } = require("../universal/util");
 
 let isDebugEnabled;
 
@@ -59,7 +59,7 @@ self.addEventListener("fetch", event => {
   // Caching strategy: use the network response unless it's taking too long
   // and there's a cached response available.
   event.respondWith(
-    util.timeout(MAX_ACCEPTABLE_RESPONSE_TIME, whenResponse).catch(error => {
+    timeout(MAX_ACCEPTABLE_RESPONSE_TIME, whenResponse).catch(error => {
       fetchDebug(error);
       return caches.match(event.request).then(cachedResponse => {
         fetchDebug("Cached response", cachedResponse);

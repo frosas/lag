@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 module.exports = {
-  env: { node: false, browser: true },
+  env: { node: false, commonjs: true, browser: true },
   parserOptions: {
     sourceType: "module",
     ecmaFeatures: { jsx: true }
