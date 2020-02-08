@@ -2,13 +2,13 @@ import { scaleLinear } from "d3-scale";
 import * as React from "react";
 import Pings from "../Pings";
 
-interface IProps {
+interface Props {
   pings: Pings;
   width: number;
   height: number;
 }
 
-export default class extends React.Component<IProps> {
+export default class extends React.Component<Props> {
   private _barWidth = 8; // px
   private _xScale = scaleLinear();
 
