@@ -6,10 +6,10 @@
     "build": "webpack --mode production",
     "lint": "eslint '**/*.{js,ts,tsx}'",
     "test": "concurrently -n lint,unit-test,build \"npm run lint\" \"npm run test-unit\" \"npm run build\"",
-    "test-unit": "mocha 'test/**/*.js'",
+    "test-unit": "mocha 'src/**/*.test.js'",
     "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run web-server\"",
     "watch-lint": "onchange -ki --exclude-path .gitignore '**/*.{js,ts,tsx}' -- npm run lint -- --fix",
-    "watch-mocha": "onchange -ki '{src,test}/**/*.js' -- npm t",
+    "watch-mocha": "onchange -ki 'src/**/*.js' -- npm t",
     "watch-webpack": "onchange -ki webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --mode development --watch",
     "web-server": "http-server dist/browser"
   },
