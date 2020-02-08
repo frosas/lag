@@ -10,7 +10,7 @@
     "watch": "concurrently --kill-others --names webpack,lint,mocha,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-mocha\" \"npm run web-server\"",
     "watch-lint": "onchange -ki --exclude-path .gitignore '**/*.{js,ts,tsx}' -- npm run lint -- --fix",
     "watch-mocha": "onchange -ki 'src/**/*.js' -- npm t",
-    "watch-webpack": "onchange -ki webpack.config.js 'src/{build,universal}/**/*.{js,ts}' -- webpack --mode development --watch",
+    "watch-webpack": "webpack --mode development --watch",
     "web-server": "http-server dist/browser"
   },
   "husky": {
