@@ -22,10 +22,11 @@ module.exports = {
   module: {
     rules: [
       { test: /\.js$/, use: ["source-map-loader"], enforce: "pre" },
-      { test: /\.tsx?$/, use: ["babel-loader", "ts-loader"] },
-      { test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"] },
+      { test: /\.(js|tsx?)$/, exclude: /node_modules/, use: ["babel-loader"] },
+      { test: /\.tsx?$/, exclude: /node_modules/, use: ["ts-loader"] },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({ use: ["css-loader"] })
       }
     ]
