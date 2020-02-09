@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const renderOfflineSupport = require("./src/build/renderOfflineSupport");
 
 const buildDate = new Date();
@@ -27,7 +27,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({ use: ["css-loader"] })
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       }
     ]
   },
@@ -52,7 +52,7 @@ module.exports = {
         minifyCSS: true
       }
     }),
-    new ExtractTextPlugin("styles/[name].css")
+    new MiniCssExtractPlugin({ filename: "styles/[name].css" })
   ],
   devtool: "cheap-module-eval-source-map"
 };
