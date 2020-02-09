@@ -11,6 +11,7 @@ const buildDate = new Date();
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === "production";
+  const assetNameTemplate = `[name]${isProd ? ".[contenthash]" : ""}`;
 
   return {
     entry: {
@@ -19,7 +20,7 @@ module.exports = (env, argv) => {
     },
     output: {
       path: `${__dirname}/dist/browser`,
-      filename: "scripts/[name].js"
+      filename: `scripts/${assetNameTemplate}.js`
     },
     resolve: { extensions: [".ts", ".tsx", ".js"] },
     module: {
@@ -47,7 +48,6 @@ module.exports = (env, argv) => {
         template: "html/index.ejs",
         templateData: { buildDate, offlineSupportHtml: renderOfflineSupport() },
         chunks: ["main"],
-        hash: isProd,
         minify: isProd && {
           collapseWhitespace: true,
           collapseInlineTagWhitespace: true,
@@ -58,7 +58,7 @@ module.exports = (env, argv) => {
           minifyCSS: true
         }
       }),
-      new MiniCssExtractPlugin({ filename: "styles/[name].css" })
+      new MiniCssExtractPlugin({ filename: `styles/${assetNameTemplate}.css` })
     ],
     devtool: "cheap-module-eval-source-map"
   };
