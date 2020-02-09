@@ -54,5 +54,5 @@ module.exports = {
     }),
     new ExtractTextPlugin("styles/[name].css")
   ],
-  devtool: "source-map"
+  devtool: "cheap-module-eval-source-map"
 };
