@@ -21,7 +21,7 @@
         <li id="offline-support">
           <%= htmlWebpackPlugin.options.templateData.offlineSupportHtml %>
         </li>
-        <li>Built on <%- htmlWebpackPlugin.options.templateData.buildDate.toUTCString() %></li>
+        <li>Built on <%- htmlWebpackPlugin.options.templateData.getBuildDate() %></li>
         <li><a href="https://github.com/frosas/lag" target="_blank">Source code</a></li>
       </ul>
     </footer>

@@ -7,7 +7,7 @@ const HtmlPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const renderOfflineSupport = require("./src/build/renderOfflineSupport");
 
-const buildDate = new Date();
+const getBuildDate = () => new Date().toUTCString();
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === "production";
@@ -43,10 +43,15 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),
       new CopyPlugin([{ from: "static" }]),
       new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
-      new webpack.BannerPlugin({ banner: `Build date: ${buildDate}` }),
+      new webpack.BannerPlugin({
+        banner: () => `Build date: ${getBuildDate()}`
+      }),
       new HtmlPlugin({
         template: "html/index.ejs",
-        templateData: { buildDate, offlineSupportHtml: renderOfflineSupport() },
+        templateData: {
+          getBuildDate,
+          offlineSupportHtml: renderOfflineSupport()
+        },
         chunks: ["main"],
         minify: isProd && {
           collapseWhitespace: true,
