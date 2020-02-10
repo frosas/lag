@@ -29,9 +29,6 @@ export default class {
         await navigator.serviceWorker.register(url, {
           scope: ".."
         });
-      } catch (error) {
-        this.status = `${error}`;
-      } finally {
         if (navigator.serviceWorker.controller) {
           this.status = "";
         } else {
@@ -39,6 +36,8 @@ export default class {
           // it will cache the page resources.
           this.status = "reload to cache content";
         }
+      } catch (error) {
+        this.status = `${error}`;
       }
     })();
   }
