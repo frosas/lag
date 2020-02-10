@@ -5,13 +5,40 @@ import DocumentTitle from "./DocumentTitle";
 import Title from "./Title";
 import { assertType } from "./util";
 
-const whenUser = import(/* webpackChunkName: "user" */ "./User").then(
-  ({ default: User }) => new User()
+const whenPings = import(
+  /* webpackChunkName: "pings" */
+  "./Pings"
+).then(({ default: Pings }) => new Pings());
+
+const whenUser = import(
+  /* webpackChunkName: "user" */
+  "./User"
+).then(({ default: User }) => new User());
+
+const whenChart = import(
+  /* webpackChunkName: "chart" */
+  "./Chart"
+).then(({ default: Chart }) => Chart);
+
+const whenControls = import(
+  /* webpackChunkName: "controls" */
+  "./controls"
+).then(({ default: Controls }) => Controls);
+
+const whenAudio = import(
+  /* webpackChunkName: "audio" */
+  "./audio"
+).then(({ default: Audio }) => Audio);
+
+const whenOfflineSupportComponent = import(
+  /* webpackChunkName: "offline-support-component" */
+  "../universal/OfflineSupportComponent"
 );
 
-const whenPings = import(/* webpackChunkName: "pings" */ "./Pings").then(
-  ({ default: Pings }) => new Pings()
-);
+const whenOfflineSupport = import(
+  /* webpackChunkName: "offline-support" */
+  "./OfflineSupport"
+).then(({ default: OfflineSupport }) => OfflineSupport);
 
 Promise.all([whenUser, whenPings]).then(([user, pings]) => {
   new DocumentTitle(user, pings);
@@ -23,47 +50,28 @@ Promise.all([whenUser, whenPings]).then(([user, pings]) => {
   });
 });
 
-(async () => {
-  const user = await whenUser;
-  const pings = await whenPings;
-  const { default: Chart } = await import(
-    /* webpackChunkName: "chart" */
-    "./Chart"
-  );
-  new Chart({
-    element: assertType<HTMLElement>(document.querySelector("#chart")),
-    pings,
-    user
-  });
-})();
+Promise.all([whenUser, whenPings, whenChart]).then(
+  ([user, pings, Chart]) =>
+    new Chart({
+      element: assertType<HTMLElement>(document.querySelector("#chart")),
+      pings,
+      user
+    })
+);
 
-(async () => {
-  const user = await whenUser;
-  const pings = await whenPings;
-  const { default: Controls } = await import(
-    /* webpackChunkName: "controls" */
-    "./controls"
-  );
-  const { default: Audio } = await import(
-    /* webpackChunkName: "audio" */
-    "./audio"
-  );
-  new Controls(new Audio(user, pings));
-})();
+// Re that "as const", see https://github.com/microsoft/TypeScript/issues/34937
+Promise.all([whenUser, whenPings, whenControls, whenAudio] as const).then(
+  ([user, pings, Controls, Audio]) => new Controls(new Audio(user, pings))
+);
 
-(async () => {
-  const OfflineSupportComponent = await import(
-    /* webpackChunkName: "offline-support-component" */
-    "../universal/OfflineSupportComponent"
-  );
-  const { default: OfflineSupport } = await import(
-    /* webpackChunkName: "offline-support" */
-    "./OfflineSupport"
-  );
-  OfflineSupportComponent.render(
-    new OfflineSupport({
-      serviceWorkerUrl: assertType<string>((window as any).app.serviceWorkerUrl)
-    }),
-    document.querySelector("#offline-support")
-  );
-})();
+Promise.all([whenOfflineSupportComponent, whenOfflineSupport]).then(
+  ([OfflineSupportComponent, OfflineSupport]) =>
+    OfflineSupportComponent.render(
+      new OfflineSupport({
+        serviceWorkerUrl: assertType<string>(
+          (window as any).app.serviceWorkerUrl
+        )
+      }),
+      document.querySelector("#offline-support")
+    )
+);
