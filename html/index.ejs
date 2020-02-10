@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lag</title>
+    <meta name="description" content="A network latency monitor web app">
 
     <% htmlWebpackPlugin.files.css.forEach(url => { %>
       <style><%= compilation.assets[url.substr(htmlWebpackPlugin.files.publicPath.length)].source() %></style>
