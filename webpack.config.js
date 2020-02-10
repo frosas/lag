@@ -5,7 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const renderOfflineSupport = require("./src/build/renderOfflineSupport");
+const { render: renderOfflineSupport } = require("./src/build/offline-support");
 
 const getBuildDate = () => new Date().toUTCString();
 

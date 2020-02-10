@@ -30,14 +30,9 @@ const whenAudio = import(
   "./audio"
 ).then(({ default: Audio }) => Audio);
 
-const whenOfflineSupportComponent = import(
-  /* webpackChunkName: "offline-support-component" */
-  "../universal/OfflineSupportComponent"
-);
-
 const whenOfflineSupport = import(
   /* webpackChunkName: "offline-support" */
-  "./OfflineSupport"
+  "./offline-support"
 ).then(({ default: OfflineSupport }) => OfflineSupport);
 
 Promise.all([whenUser, whenPings]).then(([user, pings]) => {
@@ -64,14 +59,14 @@ Promise.all([whenUser, whenPings, whenControls, whenAudio] as const).then(
   ([user, pings, Controls, Audio]) => new Controls(new Audio(user, pings))
 );
 
-Promise.all([whenOfflineSupportComponent, whenOfflineSupport]).then(
-  ([OfflineSupportComponent, OfflineSupport]) =>
-    OfflineSupportComponent.render(
-      new OfflineSupport({
-        serviceWorkerUrl: assertType<string>(
-          (window as any).app.serviceWorkerUrl
-        )
-      }),
-      document.querySelector("#offline-support")
-    )
+whenOfflineSupport.then(
+  OfflineSupport =>
+    new OfflineSupport({
+      serviceWorkerUrl: assertType<string>(
+        (window as any).app.serviceWorkerUrl
+      ),
+      domElement: assertType<HTMLElement>(
+        document.querySelector("#offline-support")
+      )
+    })
 );

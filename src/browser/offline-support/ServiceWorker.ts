@@ -1,11 +1,15 @@
 import { EventEmitter } from "events";
 
+type ConstructorParams = {
+  url: string;
+};
+
 export default class {
   public readonly events = new EventEmitter();
   public enabled: boolean;
   private _status: string;
 
-  constructor({ serviceWorkerUrl }: { serviceWorkerUrl: string }) {
+  constructor({ url }: ConstructorParams) {
     this.enabled = false;
     this.status = "";
 
@@ -22,7 +26,7 @@ export default class {
 
     (async () => {
       try {
-        await navigator.serviceWorker.register(serviceWorkerUrl, {
+        await navigator.serviceWorker.register(url, {
           scope: ".."
         });
       } catch (error) {
