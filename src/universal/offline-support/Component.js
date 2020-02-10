@@ -1,9 +1,20 @@
-const React = require("react");
+const { useEffect } = require("react");
 const { useForceUpdate } = require("../util");
 
-const { useEffect } = React;
-
-const e = React.createElement;
+const getStatusCodeIcon = statusCode => {
+  switch (statusCode) {
+    case "INITIALIZING":
+      return "🟡";
+    case "WARNING":
+      return "🟠";
+    case "ERROR":
+      return "🔴";
+    case "READY":
+      return "🟢";
+    default:
+      throw new Error("Unknown status code");
+  }
+};
 
 module.exports = ({ serviceWorker }) => {
   const forceUpdate = useForceUpdate();
@@ -13,14 +24,8 @@ module.exports = ({ serviceWorker }) => {
   }, []);
 
   return [
-    "Offline support:",
-    e("img", {
-      key: "image",
-      className: "enabled",
-      // TODO Use build ID in the URL
-      src: `images/bullet_${serviceWorker.enabled ? "green" : "red"}.png`,
-      alt: serviceWorker.enabled ? "Enabled" : "Disabled"
-    }),
-    serviceWorker.status && `(${serviceWorker.status})`
+    "Offline support: ",
+    getStatusCodeIcon(serviceWorker.statusCode),
+    serviceWorker.statusMessage && `(${serviceWorker.statusMessage})`
   ];
 };

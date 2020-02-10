@@ -6,22 +6,19 @@ type ConstructorParams = {
 
 export default class {
   public readonly events = new EventEmitter();
-  public enabled: boolean;
-  private _status: string;
+  private _statusCode: string;
+  private _statusMessage: string;
 
   constructor({ url }: ConstructorParams) {
-    this.enabled = false;
-    this.status = "";
+    this.setStatus("INITIALIZING", "initializing...");
 
     if (!navigator.serviceWorker) {
-      this.status = "not supported";
+      this.setStatus("ERROR", "not supported");
       return;
     }
 
     if (navigator.serviceWorker.controller) {
-      this.enabled = true;
-    } else {
-      this.status = "enabling...";
+      this.setStatus("READY", "ready");
     }
 
     (async () => {
@@ -30,24 +27,29 @@ export default class {
           scope: ".."
         });
         if (navigator.serviceWorker.controller) {
-          this.status = "";
+          this.setStatus("READY", "ready");
         } else {
           // With a reload the service worker will take control of the page and
           // it will cache the page resources.
-          this.status = "reload to cache content";
+          this.setStatus("WARNING", "reload required");
         }
       } catch (error) {
-        this.status = `${error}`;
+        this.setStatus("ERROR", error);
       }
     })();
   }
 
-  set status(status) {
-    this._status = status;
+  setStatus(code: string, message: string) {
+    this._statusCode = code;
+    this._statusMessage = message;
     this.events.emit("change");
   }
 
-  get status() {
-    return this._status;
+  get statusCode() {
+    return this._statusCode;
+  }
+
+  get statusMessage() {
+    return this._statusMessage;
   }
 }

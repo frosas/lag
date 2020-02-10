@@ -6,6 +6,9 @@ const e = React.createElement;
 
 exports.render = () => {
   // TODO Combine this with src/browser/ServiceWorker
-  const serviceWorker = { enabled: false, status: "loading JS..." };
+  const serviceWorker = {
+    statusCode: "INITIALIZING",
+    statusMessage: "loading..."
+  };
   return ReactDOMServer.renderToString(e(Component, { serviceWorker }));
 };
