@@ -26,6 +26,6 @@ module.exports = ({ serviceWorker }) => {
   return [
     "Offline support: ",
     getStatusCodeIcon(serviceWorker.statusCode),
-    serviceWorker.statusMessage && `(${serviceWorker.statusMessage})`
+    serviceWorker.statusMessage && ` (${serviceWorker.statusMessage})`
   ];
 };
