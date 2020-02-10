@@ -4,10 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lag</title>
-    
+
     <% htmlWebpackPlugin.files.css.forEach(url => { %>
       <link href="<%= url %>" rel="stylesheet" />
     <% }) %>
+
+    <script>
+      var app = {
+        serviceWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["service-worker"].entry) %>
+      };
+    </script>
+
+    <script defer src="<%- htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-25757791-2"></script>
@@ -38,13 +46,5 @@
         <li><a href="https://github.com/frosas/lag" target="_blank">Source code</a></li>
       </ul>
     </footer>
-
-    <script>
-      var app = {
-        serviceWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["service-worker"].entry) %>
-      };
-    </script>
-
-    <script src="<%- htmlWebpackPlugin.files.chunks.main.entry %>"></script>
   </body>
 </html>
