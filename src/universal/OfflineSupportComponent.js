@@ -1,9 +1,18 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
+const { useForceUpdate } = require("./util");
+
+const { useEffect } = React;
 
 const e = React.createElement;
 
 const Component = ({ offlineSupport }) => {
+  const forceUpdate = useForceUpdate();
+
+  useEffect(() => {
+    offlineSupport.events.on("change", forceUpdate);
+  }, []);
+
   return [
     "Offline support:",
     e("img", {
@@ -20,12 +29,5 @@ const Component = ({ offlineSupport }) => {
 module.exports = Component;
 
 Component.render = (offlineSupport, domElement) => {
-  render(offlineSupport, domElement);
-  offlineSupport.events.on("change", () => {
-    render(offlineSupport, domElement);
-  });
-};
-
-const render = (offlineSupport, domElement) => {
   ReactDOM.render(e(Component, { offlineSupport }), domElement);
 };

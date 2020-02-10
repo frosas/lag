@@ -1,3 +1,5 @@
+const { useReducer } = require("react");
+
 const util = module.exports;
 
 util.timeout = (duration, promise) =>
@@ -22,3 +24,6 @@ util.resumeOnThrow = callback => {
     });
   }
 };
+
+// See https://reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
+util.useForceUpdate = () => useReducer(x => x + 1, 0)[1];
