@@ -3,22 +3,19 @@ const ReactDOM = require("react-dom");
 
 const e = React.createElement;
 
-class Component extends React.Component {
-  render() {
-    const { enabled, status } = this.props.offlineSupport;
-    return [
-      "Offline support:",
-      e("img", {
-        key: "image",
-        className: "enabled",
-        // TODO Use build ID in the URL
-        src: `images/bullet_${enabled ? "green" : "red"}.png`,
-        alt: enabled ? "Enabled" : "Disabled"
-      }),
-      status && `(${status})`
-    ];
-  }
-}
+const Component = ({ offlineSupport }) => {
+  return [
+    "Offline support:",
+    e("img", {
+      key: "image",
+      className: "enabled",
+      // TODO Use build ID in the URL
+      src: `images/bullet_${offlineSupport.enabled ? "green" : "red"}.png`,
+      alt: offlineSupport.enabled ? "Enabled" : "Disabled"
+    }),
+    offlineSupport.status && `(${offlineSupport.status})`
+  ];
+};
 
 module.exports = Component;
 
