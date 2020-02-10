@@ -65,6 +65,6 @@ module.exports = (env, argv) => {
       }),
       new MiniCssExtractPlugin({ filename: `styles/${assetNameTemplate}.css` })
     ],
-    devtool: "cheap-module-eval-source-map"
+    devtool: isProd ? "source-map" : "cheap-module-eval-source-map"
   };
 };
