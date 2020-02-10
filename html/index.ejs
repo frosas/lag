@@ -6,7 +6,7 @@
     <title>Lag</title>
 
     <% htmlWebpackPlugin.files.css.forEach(url => { %>
-      <link href="<%= url %>" rel="stylesheet" />
+      <style><%= compilation.assets[url.substr(htmlWebpackPlugin.files.publicPath.length)].source() %></style>
     <% }) %>
 
     <script>
