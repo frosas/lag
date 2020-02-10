@@ -1,5 +1,4 @@
 import { EventEmitter } from "events";
-import get from "lodash-es/get";
 import Ping from "./Ping";
 
 export default class Pings {
@@ -27,8 +26,8 @@ export default class Pings {
 
   get currentLag() {
     return Math.max(
-      get(this._lastRespondedPing, "lag", 0),
-      get(this._getFirstOfTheLastUnrespondedPings(), "lag", 0)
+      this._lastRespondedPing?.lag ?? 0,
+      this._getFirstOfTheLastUnrespondedPings()?.lag ?? 0
     );
   }
 
