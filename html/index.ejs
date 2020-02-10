@@ -15,7 +15,7 @@
       };
     </script>
 
-    <script defer src="<%- htmlWebpackPlugin.files.chunks.main.entry %>"></script>
+    <script><%= compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %></script>
 
     <!-- Google Analytics -->
     <script>
