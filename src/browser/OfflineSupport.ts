@@ -5,7 +5,7 @@ export default class {
   public enabled: boolean;
   private _status: string;
 
-  constructor() {
+  constructor({ serviceWorkerUrl }: { serviceWorkerUrl: string }) {
     this.enabled = false;
     this.status = "";
 
@@ -22,7 +22,7 @@ export default class {
 
     (async () => {
       try {
-        await navigator.serviceWorker.register("/scripts/service-worker.js", {
+        await navigator.serviceWorker.register(serviceWorkerUrl, {
           scope: ".."
         });
       } catch (error) {

@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
           getBuildDate,
           offlineSupportHtml: renderOfflineSupport()
         },
-        chunks: ["main"],
+        inject: false,
         minify: isProd && {
           collapseWhitespace: true,
           collapseInlineTagWhitespace: true,

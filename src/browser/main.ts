@@ -32,6 +32,8 @@ new Title({
 resumeOnThrow(() => new Controls(new Audio(user, pings)));
 
 OfflineSupportComponent.render(
-  new OfflineSupport(),
+  new OfflineSupport({
+    serviceWorkerUrl: assertType<string>((window as any).app.serviceWorkerUrl)
+  }),
   document.querySelector("#offline-support")
 );

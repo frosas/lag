@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lag</title>
+    <% htmlWebpackPlugin.files.css.forEach(url => { %>
+      <link href="<%= url %>" rel="stylesheet" />
+    <% }) %>
   </head>
   <body>
     <noscript>
@@ -36,5 +39,13 @@
       ga('create', 'UA-25757791-2', 'auto');
       ga('send', 'pageview');
     </script>
+
+    <script>
+      var app = {
+        serviceWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["service-worker"].entry) %>
+      };
+    </script>
+
+    <script src="<%- htmlWebpackPlugin.files.chunks.main.entry %>"></script>
   </body>
 </html>
