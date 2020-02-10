@@ -23,9 +23,6 @@ class Component extends React.Component {
 module.exports = Component;
 
 Component.render = (offlineSupport, domElement) => {
-  // Avoid the Inferno warning "(...) or Initial render target is not empty"
-  // TODO Is there simply a way to tell Inferno to not warn?
-  domElement.innerHTML = "";
   render(offlineSupport, domElement);
   offlineSupport.events.on("change", () => {
     render(offlineSupport, domElement);
