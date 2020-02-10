@@ -2,22 +2,30 @@ import "../../styles/main.css";
 
 import DocumentIcon from "./DocumentIcon";
 import DocumentTitle from "./DocumentTitle";
-import Pings from "./Pings";
 import Title from "./Title";
-import User from "./User";
 import { assertType } from "./util";
 
-const user = new User();
-const pings = new Pings();
-new DocumentTitle(user, pings);
-new DocumentIcon(user, pings);
-new Title({
-  element: assertType<Element>(document.querySelector("#title")),
-  pings,
-  user
+const whenUser = import(/* webpackChunkName: "user" */ "./User").then(
+  ({ default: User }) => new User()
+);
+
+const whenPings = import(/* webpackChunkName: "pings" */ "./Pings").then(
+  ({ default: Pings }) => new Pings()
+);
+
+Promise.all([whenUser, whenPings]).then(([user, pings]) => {
+  new DocumentTitle(user, pings);
+  new DocumentIcon(user, pings);
+  new Title({
+    element: assertType<Element>(document.querySelector("#title")),
+    pings,
+    user
+  });
 });
 
 (async () => {
+  const user = await whenUser;
+  const pings = await whenPings;
   const { default: Chart } = await import(
     /* webpackChunkName: "chart" */
     "./Chart"
@@ -30,6 +38,8 @@ new Title({
 })();
 
 (async () => {
+  const user = await whenUser;
+  const pings = await whenPings;
   const { default: Controls } = await import(
     /* webpackChunkName: "controls" */
     "./controls"
