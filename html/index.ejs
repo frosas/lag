@@ -9,22 +9,6 @@
     <% htmlWebpackPlugin.files.css.forEach(url => { %>
       <style><%= compilation.assets[url.substr(htmlWebpackPlugin.files.publicPath.length)].source() %></style>
     <% }) %>
-
-    <script>
-      var app = {
-        serviceWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["service-worker"].entry) %>
-      };
-    </script>
-
-    <script><%= compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %></script>
-
-    <!-- Google Analytics -->
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-25757791-2', 'auto');
-      ga('send', 'pageview');
-    </script>
-    <script defer src="https://www.google-analytics.com/analytics.js"></script>
   </head>
   <body>
     <noscript>
@@ -46,5 +30,21 @@
         <li><a href="https://github.com/frosas/lag" target="_blank">Source code</a></li>
       </ul>
     </footer>
+
+    <script>
+      var app = {
+        serviceWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["service-worker"].entry) %>
+      };
+    </script>
+
+    <script><%= compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %></script>
+
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-25757791-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script defer src="https://www.google-analytics.com/analytics.js"></script>
   </body>
 </html>
