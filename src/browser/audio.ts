@@ -1,4 +1,4 @@
-import * as math from "../universal/math";
+import { polarity } from "../universal/math";
 import createNoiseBufferSource from "./audio/createNoiseBufferSource";
 import Pings from "./Pings";
 import User from "./User";
@@ -25,7 +25,7 @@ export default class Audio {
       let increment = to - from;
       increment =
         Math.min(Math.abs(increment), maxFrequencyIncrement) *
-        math.polarity(increment);
+        polarity(increment);
       filter.frequency.value += increment;
     });
 

@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: ["@frosas/eslint-config"],
-  parserOptions: { ecmaVersion: 2020 },
+  parserOptions: { ecmaVersion: 2020, sourceType: "module" },
   env: { es6: true, node: true },
   overrides: [
     {

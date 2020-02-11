@@ -1,8 +1,7 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import ServiceWorker from "./ServiceWorker";
-
-const Component = require("../../universal/offline-support/Component");
+import Component from "../../universal/offline-support/Component";
 
 const e = React.createElement;
 

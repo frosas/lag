@@ -32,7 +32,7 @@ const whenAudio = import(
 
 const whenOfflineSupport = import(
   /* webpackChunkName: "offline-support" */
-  "./offline-support"
+  "./offline-support/OfflineSupport"
 ).then(({ default: OfflineSupport }) => OfflineSupport);
 
 Promise.all([whenUser, whenPings]).then(([user, pings]) => {
