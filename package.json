@@ -68,7 +68,7 @@
     "regenerator-runtime": "^0.13.3",
     "source-map-loader": "^0.2.3",
     "typescript": "^3.7.5",
-    "webpack": "^4.41.5",
+    "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   }
 }
