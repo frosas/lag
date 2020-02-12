@@ -3,20 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "babel-node": "babel-node -x '.js,.ts,.tsx'",
     "build": "npm run webpack -- --mode production",
     "lint": "concurrently -n typescript,eslint \"npm run lint-typescript\" \"npm run lint-eslint\"",
     "lint-eslint": "eslint '**/*.{js,ts,tsx}'",
     "lint-typescript": "tsc --noEmit",
     "test": "concurrently -n lint,unit-test,build \"npm run lint\" \"npm run test-unit\" \"npm run build\"",
-    "test-unit": "mocha 'src/**/*.test.js'",
     "watch": "concurrently -k -n webpack,lint,test-unit,web-server \"npm run watch-webpack\" \"npm run watch-lint\" \"npm run watch-test-unit\" \"npm run web-server\"",
+    "test-unit": "npm run babel-node -- node_modules/.bin/mocha 'src/**/*.test.js'",
     "watch-lint": "concurrently -k -n typescript,eslint \"npm run watch-lint-typescript\" \"npm run watch-lint-eslint\"",
     "watch-lint-eslint": "onchange -ki --exclude-path .gitignore '**/*.{js,ts,tsx}' -- npm run lint-eslint -- --fix",
     "watch-lint-typescript": "npm run lint-typescript -- --watch --preserveWatchOutput --pretty",
     "watch-test-unit": "onchange -ki 'src/**/*.js' -- npm run test-unit",
     "watch-webpack": "npm run webpack -- --mode development --watch",
     "web-server": "http-server dist/browser",
-    "webpack": "babel-node -x '.js,.ts,.tsx' node_modules/.bin/webpack"
+    "webpack": "npm run babel-node -- node_modules/.bin/webpack"
   },
   "husky": {
     "hooks": {

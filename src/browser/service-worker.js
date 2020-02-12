@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const { timeout } = require("../universal/util");
+import { timeout } from "../universal/util";
 
 let isDebugEnabled;
 
