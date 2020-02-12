@@ -1,19 +1,22 @@
 import Pings from "./Pings";
 import User from "./User";
 
-const getBulletUrl = (color: string) => {
-  return `images/bullet_${color}.png`;
-};
+enum BulletColors {
+  GREEN = "green",
+  YELLOW = "yellow",
+  ORANGE = "orange",
+  RED = "red",
+  BLACK = "black"
+}
 
-const getColor = (lag: number) => {
-  return (
-    (lag < 50 && "green") ||
-    (lag < 100 && "yellow") ||
-    (lag < 500 && "orange") ||
-    (lag < 5000 && "red") ||
-    "black"
-  );
-};
+const getBulletUrl = (color: string) => `images/bullet_${color}.png`;
+
+const getColor = (lag: number) =>
+  (lag < 50 && BulletColors.GREEN) ||
+  (lag < 100 && BulletColors.YELLOW) ||
+  (lag < 500 && BulletColors.ORANGE) ||
+  (lag < 5000 && BulletColors.RED) ||
+  BulletColors.BLACK;
 
 const getIconUrl = (lag: number) => getBulletUrl(getColor(lag));
 
@@ -37,3 +40,12 @@ export default class {
     );
   }
 }
+
+// Preload images so that they're cached before going offline
+Object.values(BulletColors).forEach(color => {
+  // We don't use fetch() to ensure request priority is low
+  // TODO Keep an eye on https://developers.google.com/web/updates/2019/02/priority-hints
+  const el = document.createElement("img");
+  el.src = getBulletUrl(color);
+  document.head.appendChild(el);
+});
