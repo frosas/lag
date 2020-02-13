@@ -1,15 +1,31 @@
+// See https://www.typescriptlang.org/v2/en/tsconfig
+
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "strictNullChecks": true,
     "allowJs": true,
-    "noUnusedLocals": true,
+
+    // Aim for the latest ES version. Babel will take care of transpiling to the
+    // final targets.
     "target": "esnext",
+
+    // Enables webpack tree-shaking (?) and code splitting
     "module": "esnext",
-    "jsx": "react",
+
+    // Let Babel do it
+    "jsx": "preserve",
+
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true
+
+    // Allow importing defaults from non-ES modules
+    "esModuleInterop": true,
+
+    "sourceMap": true,
+
+    // Disallow features that require cross-file information for emit
+    "isolatedModules": true,
+
+    "strict": true,
+    "strictPropertyInitialization": false // TODO Enable it
   },
   "exclude": ["node_modules", "dist"]
 }
