@@ -5,7 +5,7 @@ const MAX_READ_INTERVAL = 250; // msecs
 
 export default class {
   public readonly events = new EventEmitter();
-  private lastRead: number;
+  private lastRead?: number;
 
   constructor() {
     this._triggerViewEventPeriodically();

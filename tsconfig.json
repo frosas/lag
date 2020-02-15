@@ -24,8 +24,7 @@
     // Disallow features that require cross-file information for emit
     "isolatedModules": true,
 
-    "strict": true,
-    "strictPropertyInitialization": false // TODO Enable it
+    "strict": true
   },
   "exclude": ["node_modules", "dist"]
 }

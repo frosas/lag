@@ -6,7 +6,7 @@ export default class Pings {
   public readonly interval = 1000; /* ms */ // How often pings are created
   private readonly _all: Ping[] = [];
   private _max = 100;
-  private _lastRespondedPing: Ping;
+  private _lastRespondedPing?: Ping;
 
   constructor() {
     this._pingRepeatedly();

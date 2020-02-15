@@ -1,12 +1,11 @@
 export default class {
   public readonly loaded: Promise<void>;
-  private _request: XMLHttpRequest;
+  private _request = new XMLHttpRequest();
 
   constructor() {
     // TODO Switch to fetch() once it allows cancelling (see
     // https://developer.mozilla.org/en-US/docs/Web/API/FetchController)
     this.loaded = new Promise((resolve, reject) => {
-      this._request = new XMLHttpRequest();
       this._request.onreadystatechange = () => {
         if (this._request.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
           // This should be the earliest we know the request succeeded

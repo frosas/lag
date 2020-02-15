@@ -6,12 +6,10 @@ type ConstructorParams = {
 
 export default class {
   public readonly events = new EventEmitter();
-  private _statusCode: string;
-  private _statusMessage: string;
+  private _statusCode = "INITIALIZING";
+  private _statusMessage = "initializing...";
 
   constructor({ url }: ConstructorParams) {
-    this.setStatus("INITIALIZING", "initializing...");
-
     if (!navigator.serviceWorker) {
       this.setStatus("ERROR", "not supported");
       return;
