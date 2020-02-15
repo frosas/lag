@@ -9,7 +9,7 @@ enum BulletColors {
   BLACK = "black"
 }
 
-const getBulletUrl = (color: string) => `images/bullet_${color}.png`;
+const getBulletUrl = (color: BulletColors) => `images/bullet_${color}.png`;
 
 const getColor = (lag: number) =>
   (lag < 50 && BulletColors.GREEN) ||
