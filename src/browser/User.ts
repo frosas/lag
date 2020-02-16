@@ -3,7 +3,7 @@ import { EventEmitter } from "events";
 // User won't notice lower intervals than these
 const MAX_READ_INTERVAL = 250; // msecs
 
-export default class {
+export default class User {
   public readonly events = new EventEmitter();
   private lastRead?: number;
 
