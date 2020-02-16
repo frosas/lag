@@ -22,12 +22,12 @@ const whenChart = import(
 
 const whenControls = import(
   /* webpackChunkName: "controls" */
-  "./controls"
+  "./audio/Controls"
 ).then(({ default: Controls }) => Controls);
 
 const whenAudio = import(
   /* webpackChunkName: "audio" */
-  "./audio"
+  "./audio/Audio"
 ).then(({ default: Audio }) => Audio);
 
 const whenOfflineSupport = import(

@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ControlsComponent from "./Controls/Component";
+import ControlsComponent from "./Component";
+import Audio from "./Audio";
 
-export default class {
-  constructor(audio) {
+export default class Controls {
+  private _audio: Audio;
+
+  constructor(audio: Audio) {
     this._audio = audio;
 
     const savedVolume = localStorage && localStorage.getItem("volume");
@@ -12,14 +15,14 @@ export default class {
     ReactDOM.render(
       <ControlsComponent
         initialVolume={audio.getVolume()}
-        onChangeVolume={this._onChangeVolume.bind(this)}
+        onChangeVolume={this._onChangeVolume}
       />,
       document.querySelector("#controls-placeholder")
     );
   }
 
-  _onChangeVolume(volume) {
-    this._audio.setVolume(parseFloat(volume));
-    if (localStorage) localStorage.setItem("volume", volume);
-  }
+  private _onChangeVolume = (volume: number) => {
+    this._audio.setVolume(volume);
+    if (localStorage) localStorage.setItem("volume", volume.toString());
+  };
 }
