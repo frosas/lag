@@ -56,7 +56,13 @@ Promise.all([whenUser, whenPings, whenChart]).then(
 
 // Re that "as const", see https://github.com/microsoft/TypeScript/issues/34937
 Promise.all([whenUser, whenPings, whenControls, whenAudio] as const).then(
-  ([user, pings, Controls, Audio]) => new Controls(new Audio(user, pings))
+  ([user, pings, Controls, Audio]) =>
+    new Controls({
+      audio: new Audio(user, pings),
+      domElement: assertType<Element>(
+        document.querySelector("#controls-placeholder")
+      )
+    })
 );
 
 whenOfflineSupport.then(
