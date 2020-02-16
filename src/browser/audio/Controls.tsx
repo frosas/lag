@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ControlsComponent from "./Component";
 import Audio from "./Audio";
+import PersistedVolume from "./PersistedVolume";
 
 type ConstructorParams = {
   audio: Audio;
@@ -9,25 +10,20 @@ type ConstructorParams = {
 };
 
 export default class Controls {
-  private _audio: Audio;
-
   constructor({ audio, domElement }: ConstructorParams) {
-    this._audio = audio;
+    const persistedVolume = new PersistedVolume(audio);
 
-    const savedVolume = localStorage && localStorage.getItem("volume");
-    if (savedVolume) audio.setVolume(parseFloat(savedVolume));
+    const onChangeVolume = (volume: number) => {
+      audio.setVolume(volume);
+      persistedVolume.save(volume);
+    };
 
     ReactDOM.render(
       <ControlsComponent
         initialVolume={audio.getVolume()}
-        onChangeVolume={this._onChangeVolume}
+        onChangeVolume={onChangeVolume}
       />,
       domElement
     );
   }
-
-  private _onChangeVolume = (volume: number) => {
-    this._audio.setVolume(volume);
-    if (localStorage) localStorage.setItem("volume", volume.toString());
-  };
 }
