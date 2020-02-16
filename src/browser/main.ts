@@ -4,16 +4,11 @@ import DocumentIcon from "./DocumentIcon";
 import DocumentTitle from "./DocumentTitle";
 import Title from "./Title";
 import { assertType } from "./util";
+import Pings from "./Pings";
+import User from "./User";
 
-const whenPings = import(
-  /* webpackChunkName: "pings" */
-  "./Pings"
-).then(({ default: Pings }) => new Pings());
-
-const whenUser = import(
-  /* webpackChunkName: "user" */
-  "./User"
-).then(({ default: User }) => new User());
+const pings = new Pings();
+const user = new User();
 
 const whenChart = import(
   /* webpackChunkName: "chart" */
@@ -35,18 +30,18 @@ const whenOfflineSupport = import(
   "./offline-support/OfflineSupport"
 ).then(({ default: OfflineSupport }) => OfflineSupport);
 
-Promise.all([whenUser, whenPings]).then(([user, pings]) => {
-  new DocumentTitle(user, pings);
-  new DocumentIcon(user, pings);
-  new Title({
-    element: assertType<Element>(document.querySelector("#title")),
-    pings,
-    user
-  });
+new DocumentTitle(user, pings);
+
+new DocumentIcon(user, pings);
+
+new Title({
+  element: assertType<Element>(document.querySelector("#title")),
+  pings,
+  user
 });
 
-Promise.all([whenUser, whenPings, whenChart]).then(
-  ([user, pings, Chart]) =>
+whenChart.then(
+  Chart =>
     new Chart({
       element: assertType<HTMLElement>(document.querySelector("#chart")),
       pings,
@@ -54,9 +49,8 @@ Promise.all([whenUser, whenPings, whenChart]).then(
     })
 );
 
-// Re that "as const", see https://github.com/microsoft/TypeScript/issues/34937
-Promise.all([whenUser, whenPings, whenControls, whenAudio] as const).then(
-  ([user, pings, Controls, Audio]) =>
+Promise.all([whenControls, whenAudio]).then(
+  ([Controls, Audio]) =>
     new Controls({
       audio: new Audio(user, pings),
       domElement: assertType<Element>(
