@@ -17,7 +17,8 @@
     "watch-test-unit": "onchange -ki 'src/**/*.js' -- npm run test-unit",
     "watch-webpack": "npm run webpack -- --mode development --watch",
     "web-server": "http-server dist/browser",
-    "webpack": "npm run babel-node -- node_modules/.bin/webpack"
+    "webpack": "npm run babel-node -- node_modules/.bin/webpack",
+    "webpack-analyze": "FILE=`mktemp -t stats` && npm run -s webpack -- --mode production --profile --json > $FILE && npx webpack-bundle-analyzer $FILE dist/browser"
   },
   "husky": {
     "hooks": {
