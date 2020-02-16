@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
 
+// TODO Make worker a ServiceWorker after finding proper typings for ServiceWorker
+const worker = self as any;
+
 import { timeout } from "../universal/util";
 
-let isDebugEnabled;
+let isDebugEnabled = false;
 
-const debug = (...args) => {
+const debug = (...args: any[]) => {
   if (isDebugEnabled) console.log("[Service Worker]", ...args);
 };
 
-const isCacheableRequest = request => {
+const isCacheableRequest = (request: Request) => {
   const url = new URL(request.url);
   return (
     request.method === "GET" &&
@@ -17,14 +20,16 @@ const isCacheableRequest = request => {
   );
 };
 
-self.addEventListener("install", event => {
+// TODO Find the right event type
+worker.addEventListener("install", (event: any) => {
   debug("Installing...");
-  event.waitUntil(self.skipWaiting().then(() => debug("Installed")));
+  event.waitUntil(worker.skipWaiting().then(() => debug("Installed")));
 });
 
-self.addEventListener("activate", event => {
+// TODO Find the right event type
+worker.addEventListener("activate", (event: any) => {
   debug("Activating...");
-  event.waitUntil(self.clients.claim().then(() => debug("Activated")));
+  event.waitUntil(worker.clients.claim().then(() => debug("Activated")));
 });
 
 // From http://www.nngroup.com/articles/response-times-3-important-limits/: "1.0
@@ -34,9 +39,10 @@ const MAX_ACCEPTABLE_RESPONSE_TIME = 1000; // ms
 
 let nextFetchId = 1;
 
-self.addEventListener("fetch", event => {
+// TODO Find the right event type
+worker.addEventListener("fetch", (event: any) => {
   const fetchId = (nextFetchId += 1);
-  const fetchDebug = (...args) => debug(`[Fetch #${fetchId}]`, ...args);
+  const fetchDebug = (...args: any[]) => debug(`[Fetch #${fetchId}]`, ...args);
 
   fetchDebug(event.request);
 
@@ -69,7 +75,8 @@ self.addEventListener("fetch", event => {
   );
 });
 
-self.addEventListener("message", event => {
+// TODO Find the right event type
+worker.addEventListener("message", (event: any) => {
   switch (event.data) {
     case "toggleDebugging":
       isDebugEnabled = !isDebugEnabled;
