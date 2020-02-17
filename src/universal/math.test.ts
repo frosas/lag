@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { polarity } from "../../src/universal/math";
+import { polarity } from "./math";
 
 describe("math", () => {
   describe("polarity()", () => {
