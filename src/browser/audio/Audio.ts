@@ -29,6 +29,8 @@ export default class Audio {
         polarity(increment);
       filter.frequency.value += increment;
     });
+
+    this.setVolume(0);
   }
 
   getVolume = () => this._gain.gain.value;
