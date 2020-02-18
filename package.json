@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "babel-node": "babel-node -x '.js,.ts,.tsx'",
+    "babel-node": "BROWSERSLIST_ENV=node babel-node -x '.js,.ts,.tsx'",
     "build": "npm run webpack -- --mode production",
     "lint": "concurrently -n typescript,eslint \"npm run lint-typescript\" \"npm run lint-eslint\"",
     "lint-eslint": "eslint '**/*.{js,ts,tsx}'",
