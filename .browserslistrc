@@ -1,6 +1,0 @@
-# "production" is the default environment
-[production]
-defaults
-
-[node]
-current node

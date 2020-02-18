@@ -29,7 +29,7 @@ const configFactory: webpack.ConfigurationFactory = (_, args) => {
         {
           test: /\.(js|tsx?)$/,
           exclude: /node_modules/,
-          use: ["babel-loader"]
+          use: [{ loader: "babel-loader", options: { envName: "browser" } }]
         },
         {
           test: /\.css$/,
