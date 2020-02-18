@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "babel-node": "babel-node -x '.js,.ts,.tsx' --env-name node",
-    "build": "npm run webpack",
+    "build": "npm run webpack -- --mode production",
     "lint": "concurrently -n typescript,eslint \"npm run lint-typescript\" \"npm run lint-eslint\"",
     "lint-eslint": "eslint '**/*.{js,ts,tsx}'",
     "lint-typescript": "tsc --noEmit",
@@ -16,7 +16,7 @@
     "watch-lint-typescript": "npm run lint-typescript -- --watch --preserveWatchOutput --pretty",
     "watch-test-unit": "onchange -ki 'src/**/*.js' -- npm run test-unit",
     "webpack": "npm run babel-node -- node_modules/.bin/webpack",
-    "webpack-analyze": "FILE=`mktemp -t stats` && npm run -s webpack -- --profile --json > $FILE && npx webpack-bundle-analyzer $FILE dist/browser",
+    "webpack-analyze": "FILE=`mktemp -t stats` && npm run -s webpack -- --mode production --profile --json > $FILE && npx webpack-bundle-analyzer $FILE dist/browser",
     "webpack-dev-server": "npm run babel-node -- node_modules/.bin/webpack-dev-server --mode development"
   },
   "husky": {
