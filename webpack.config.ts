@@ -9,19 +9,8 @@ import { render as renderOfflineSupport } from "./src/build/offline-support";
 
 const getBuildDate = () => new Date().toUTCString();
 
-const buildIsProd = (args: { mode?: string }) => {
-  switch (args.mode) {
-    case "production":
-      return true;
-    case "development":
-      return false;
-    default:
-      throw new Error(`Unknown mode`);
-  }
-};
-
 const configFactory: webpack.ConfigurationFactory = (_, args) => {
-  const isProd = buildIsProd(args);
+  const isProd = args.mode === "production" || !args.mode;
   const assetNameTemplate = `[name]${isProd ? ".[contenthash]" : ""}`;
 
   return {
