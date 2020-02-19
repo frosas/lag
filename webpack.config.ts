@@ -23,6 +23,9 @@ const configFactory: webpack.ConfigurationFactory = (_, args) => {
       filename: `scripts/${assetNameTemplate}.js`
     },
     resolve: { extensions: [".ts", ".tsx", ".js"] },
+    devServer: {
+      stats: "minimal"
+    },
     module: {
       rules: [
         { test: /\.js$/, use: ["source-map-loader"], enforce: "pre" },
