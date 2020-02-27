@@ -20,19 +20,17 @@ export default class extends React.Component<Props> {
     this._xScale.domain([now - (pings.max - 1) * pings.interval, now]);
     return (
       <svg>
-        {pings.all.map(ping => {
-          return (
-            <rect
-              key={ping.start}
-              fill={ping.failed ? "#ae3f24" : "#474739"}
-              fillOpacity={ping.done ? 1 : 0.7}
-              width={this._barWidth}
-              height={this._yScale(ping.lag)}
-              x={this._xScale(ping.start)}
-              y={this.props.height - this._yScale(ping.lag)}
-            />
-          );
-        })}
+        {pings.all.map(ping => (
+          <rect
+            key={ping.start}
+            fill={ping.failed ? "#ae3f24" : "#474739"}
+            fillOpacity={ping.done ? 1 : 0.7}
+            width={this._barWidth}
+            height={this._yScale(ping.lag)}
+            x={this._xScale(ping.start)}
+            y={this.props.height - this._yScale(ping.lag)}
+          />
+        ))}
       </svg>
     );
   }
