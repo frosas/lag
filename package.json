@@ -65,7 +65,7 @@
     "onchange": "^6.1.0",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react-dom": "^16.13.0",
     "regenerator-runtime": "^0.13.3",
     "source-map-loader": "^0.2.3",
     "typescript": "^3.8.2",
