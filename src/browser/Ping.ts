@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import Request from "./ping/request";
 
-export default class {
+export default class Ping {
   public readonly events = new EventEmitter();
   public done = false; // Whether it has finished (whether succesfully or not)
   public failed = false; // Whether it finished failing
