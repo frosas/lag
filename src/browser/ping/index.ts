@@ -1,5 +1,4 @@
 import { EventEmitter } from "events";
-import Request from "./web-worker-request";
 import { assertType } from "../util";
 
 export type PingSent = Ping & {
@@ -22,20 +21,27 @@ export default class Ping {
   public end?: number;
 
   constructor({ webWorkerUrl }: ConstructorParams) {
-    const request = new Request({ workerUrl: webWorkerUrl });
-    request.events.on("requested", ({ time }) => {
-      this.start = time;
-      this.events.emit("requested");
+    // TODO Use a single worker
+    const worker = new Worker(webWorkerUrl);
+    worker.addEventListener("message", event => {
+      // TODO Constraint event.data type
+      switch (event.data.type) {
+        case "requested":
+          this.start = event.data.time;
+          this.events.emit("requested");
+          break;
+        case "responded":
+          this.done = true;
+          this.end = event.data.time;
+          this.events.emit("responded");
+          break;
+        case "failed":
+          this.done = true;
+          this.failed = true;
+          break;
+      }
     });
-    request.events.on("responded", ({ time }) => {
-      this.done = true;
-      this.end = time;
-      this.events.emit("responded");
-    });
-    request.events.on("failed", () => {
-      this.done = true;
-      this.failed = true;
-    });
+    worker.postMessage({ type: "requested" });
   }
 
   /** @returns The latest lag or null if the ping hasn't been sent yet */
