@@ -11,8 +11,11 @@ type ConstructorParams = {
   webWorkerUrl: string;
 };
 
+let nextId = 0;
+
 export default class Ping {
   public readonly events = new EventEmitter();
+  public readonly id = `${nextId++}`;
   public done = false; // Whether it has finished (whether succesfully or not)
   public failed = false; // Whether it finished failing
   public start?: number = Date.now();

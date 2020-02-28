@@ -22,7 +22,7 @@ export default class extends React.Component<Props> {
       <svg>
         {pings.all.map(ping => (
           <rect
-            key={ping.start}
+            key={ping.id}
             fill={ping.failed ? "#ae3f24" : "#474739"}
             fillOpacity={ping.done ? 1 : 0.7}
             width={this._barWidth}
