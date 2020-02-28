@@ -3,7 +3,7 @@ import "../../styles/main.css";
 import DocumentIcon from "./DocumentIcon";
 import DocumentTitle from "./DocumentTitle";
 import Title from "./Title";
-import { assertType } from "./util";
+import { assertNotNullable } from "./util";
 import Pings from "./Pings";
 import User from "./User";
 
@@ -35,7 +35,7 @@ new DocumentTitle(user, pings);
 new DocumentIcon(user, pings);
 
 new Title({
-  element: assertType<Element>(document.querySelector("#title")),
+  element: assertNotNullable(document.querySelector("#title")),
   pings,
   user
 });
@@ -43,7 +43,7 @@ new Title({
 whenChart.then(
   Chart =>
     new Chart({
-      element: assertType<HTMLElement>(document.querySelector("#chart")),
+      element: assertNotNullable(document.querySelector("#chart")),
       pings,
       user
     })
@@ -53,7 +53,7 @@ Promise.all([whenControls, whenAudio]).then(
   ([Controls, Audio]) =>
     new Controls({
       audio: new Audio(user, pings),
-      domElement: assertType<Element>(
+      domElement: assertNotNullable(
         document.querySelector("#controls-placeholder")
       )
     })
@@ -62,11 +62,8 @@ Promise.all([whenControls, whenAudio]).then(
 whenOfflineSupport.then(
   OfflineSupport =>
     new OfflineSupport({
-      serviceWorkerUrl: assertType<string>(
-        (window as any).app.serviceWorkerUrl
-      ),
-      domElement: assertType<HTMLElement>(
-        document.querySelector("#offline-support")
-      )
+      // TODO That any
+      serviceWorkerUrl: assertNotNullable((window as any).app.serviceWorkerUrl),
+      domElement: assertNotNullable(document.querySelector("#offline-support"))
     })
 );

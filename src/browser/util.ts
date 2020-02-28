@@ -9,9 +9,19 @@ export const humanizeLag = (amount: number): string => {
   return `${amount.toFixed(fractionDigits)} ${unit}`;
 };
 
-// TODO Is there a way to achieve the same without using any function?
-export const assertType = <T>(value: any): T => {
+// TODO If isType() is wrong, assertType() won't complain with invald values. Is
+// there any way to avoid this?
+export const assertType = <T>(
+  value: any,
+  isType: (isTypeValue: typeof value) => isTypeValue is T
+): T => {
+  if (isType(value)) return value as T;
   // TODO Is there a way to mention the type (T) we were expecting?
-  if (value == null) throw new Error(`Expected a type but got ${value}`);
-  return value;
+  throw new Error(`Couldn't assert type for value '${value}'`);
 };
+
+export const assertNotNullable = <T>(value: T | null | undefined): T =>
+  assertType(
+    value,
+    (isTypeValue: typeof value): isTypeValue is T => isTypeValue != null
+  );

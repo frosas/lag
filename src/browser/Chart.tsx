@@ -7,7 +7,7 @@ import User from "./User";
 interface ConstructorParams {
   user: User;
   pings: Pings;
-  element: HTMLElement;
+  element: Element;
 }
 
 export default class {
@@ -18,8 +18,8 @@ export default class {
           pings={pings}
           // We use the parent node dimensions as Firefox doesn't seem to work
           // with the svg element ones.
-          width={element.offsetWidth}
-          height={element.offsetHeight}
+          width={element.scrollWidth}
+          height={element.scrollHeight}
         />,
         element
       );

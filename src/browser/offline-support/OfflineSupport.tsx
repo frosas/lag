@@ -5,7 +5,7 @@ import Component from "../../universal/offline-support/Component";
 
 type ConstructorParams = {
   serviceWorkerUrl: string;
-  domElement: HTMLElement;
+  domElement: Element;
 };
 
 export default class {
