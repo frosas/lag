@@ -1,5 +1,9 @@
 import { EventEmitter } from "events";
-import Ping, { PingSent } from "./Ping";
+import Ping, { PingSent } from "./ping";
+
+type ConstructorParams = {
+  pingWebWorkerUrl: string;
+};
 
 export default class Pings {
   public readonly events = new EventEmitter();
@@ -7,8 +11,10 @@ export default class Pings {
   private readonly _all: PingSent[] = [];
   private _max = 100;
   private _lastRespondedPing?: PingSent;
+  private _pingWebWorkerUrl: string;
 
-  constructor() {
+  constructor({ pingWebWorkerUrl }: ConstructorParams) {
+    this._pingWebWorkerUrl = pingWebWorkerUrl;
     this._pingRepeatedly();
   }
 
@@ -64,8 +70,6 @@ export default class Pings {
         ping === firstOfTheLastUnrespondedPings
       ) {
         firstOfTheLastUnrespondedPingsWasRemoved = true;
-      } else {
-        ping.abort();
       }
     }
     if (
@@ -77,12 +81,12 @@ export default class Pings {
   }
 
   private _addPing() {
-    const ping = new Ping();
-    ping.events.on("sent", () => {
+    const ping = new Ping({ webWorkerUrl: this._pingWebWorkerUrl });
+    ping.events.on("requested", () => {
       this._all.push(ping.assertSent());
       this.events.emit("add", ping);
     });
-    ping.events.on("pong", () => {
+    ping.events.on("responded", () => {
       this._updateLastRespondedPing(ping.assertSent());
     });
   }

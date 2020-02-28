@@ -35,7 +35,8 @@
 
     <script>
       var app = {
-        serviceWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["service-worker"].entry) %>
+        serviceWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["service-worker"].entry) %>,
+        pingWebWorkerUrl: <%= JSON.stringify(htmlWebpackPlugin.files.chunks["ping-web-worker"].entry) %>
       };
     </script>
 

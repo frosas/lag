@@ -1,4 +1,4 @@
-export default class {
+export default class Request {
   public readonly loaded: Promise<void>;
   private _request = new XMLHttpRequest();
 

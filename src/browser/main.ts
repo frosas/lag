@@ -7,7 +7,10 @@ import { assertNotNullable } from "./util";
 import Pings from "./Pings";
 import User from "./User";
 
-const pings = new Pings();
+const pings = new Pings({
+  // TODO That any
+  pingWebWorkerUrl: assertNotNullable((window as any).app.pingWebWorkerUrl)
+});
 const user = new User();
 
 const whenChart = import(

@@ -1,10 +1,14 @@
 import { EventEmitter } from "events";
-import Request from "./ping/request";
-import { assertType } from "./util";
+import Request from "./web-worker-request";
+import { assertType } from "../util";
 
 export type PingSent = Ping & {
   start: number;
   lag: number;
+};
+
+type ConstructorParams = {
+  webWorkerUrl: string;
 };
 
 export default class Ping {
@@ -13,17 +17,21 @@ export default class Ping {
   public failed = false; // Whether it finished failing
   public start?: number = Date.now();
   public end?: number;
-  private _request?: Request;
 
-  constructor() {
-    // Send the ping asynchronously in preparation of pinging via a Web Worker
-    Promise.resolve().then(() => {
-      this._request = new Request();
-      this._request.loaded.then(
-        () => this._onPong(),
-        () => this.abort()
-      );
-      this.events.emit("sent");
+  constructor({ webWorkerUrl }: ConstructorParams) {
+    const request = new Request({ workerUrl: webWorkerUrl });
+    request.events.on("requested", ({ time }) => {
+      this.start = time;
+      this.events.emit("requested");
+    });
+    request.events.on("responded", ({ time }) => {
+      this.done = true;
+      this.end = time;
+      this.events.emit("responded");
+    });
+    request.events.on("failed", () => {
+      this.done = true;
+      this.failed = true;
     });
   }
 
@@ -38,21 +46,5 @@ export default class Ping {
 
   public assertSent(): PingSent {
     return assertType(this, (ping: Ping): ping is PingSent => ping.isSent());
-  }
-
-  /**
-   * Cancels the ping
-   */
-  public abort() {
-    if (this.done) return;
-    if (this._request) this._request.abort();
-    this.done = true;
-    this.failed = true;
-  }
-
-  public _onPong() {
-    this.done = true;
-    this.end = Date.now();
-    this.events.emit("pong");
   }
 }
