@@ -1,12 +1,12 @@
 import { EventEmitter } from "events";
-import Ping from "./Ping";
+import Ping, { PingSent } from "./Ping";
 
 export default class Pings {
   public readonly events = new EventEmitter();
   public readonly interval = 1000; /* ms */ // How often pings are created
-  private readonly _all: Ping[] = [];
+  private readonly _all: PingSent[] = [];
   private _max = 100;
-  private _lastRespondedPing?: Ping;
+  private _lastRespondedPing?: PingSent;
 
   constructor() {
     this._pingRepeatedly();
@@ -78,16 +78,21 @@ export default class Pings {
 
   private _addPing() {
     const ping = new Ping();
-    ping.events.on("pong", () => {
-      if (this._isLastRespondedPing(ping)) this._lastRespondedPing = ping;
+    ping.events.on("sent", () => {
+      this._all.push(ping.assertSent());
+      this.events.emit("add", ping);
     });
-    this._all.push(ping);
-    this.events.emit("add", ping);
+    ping.events.on("pong", () => {
+      this._updateLastRespondedPing(ping.assertSent());
+    });
   }
 
-  private _isLastRespondedPing(ping: Ping) {
-    return (
-      !this._lastRespondedPing || this._lastRespondedPing.start < ping.start
-    );
+  private _updateLastRespondedPing(ping: PingSent) {
+    if (
+      !this._lastRespondedPing ||
+      this._lastRespondedPing.start < ping.start
+    ) {
+      this._lastRespondedPing = ping;
+    }
   }
 }
