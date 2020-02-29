@@ -5,7 +5,7 @@ const MAX_READ_INTERVAL = 250; // msecs
 
 export default class User {
   public readonly events = new EventEmitter();
-  private lastRead?: number;
+  private _lastRead?: number;
 
   constructor() {
     this._triggerViewEventPeriodically();
@@ -23,11 +23,11 @@ export default class User {
     requestAnimationFrame(this._triggerViewEventPeriodically);
   };
 
-  private _triggerReadEventIfNeeded() {
+  private _triggerReadEventIfNeeded = () => {
     const now = Date.now();
-    if (!this.lastRead || now > this.lastRead + MAX_READ_INTERVAL) {
+    if (!this._lastRead || now > this._lastRead + MAX_READ_INTERVAL) {
       this.events.emit("read");
-      this.lastRead = now;
+      this._lastRead = now;
     }
-  }
+  };
 }
