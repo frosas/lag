@@ -2,7 +2,7 @@ import Pings from "./pings";
 import User from "./user";
 import { humanizeLag } from "./util";
 
-export default class {
+export default class PageTitle {
   constructor(user: User, pings: Pings) {
     const original = document.title;
     user.events.on("read", () => {

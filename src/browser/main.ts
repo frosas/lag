@@ -1,7 +1,7 @@
 import "../../styles/main.css";
 
 import PageIcon from "./page-icon";
-import DocumentTitle from "./document-title";
+import PageTitle from "./page-title";
 import Title from "./title";
 import { assertNotNullable } from "./util";
 import Pings from "./pings";
@@ -33,7 +33,7 @@ const whenOfflineSupport = import(
   "./offline-support"
 ).then(({ default: OfflineSupport }) => OfflineSupport);
 
-new DocumentTitle(user, pings);
+new PageTitle(user, pings);
 
 new PageIcon(user, pings);
 
