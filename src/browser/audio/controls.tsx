@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ControlsComponent from "./components/controls";
 import Audio from ".";
-import PersistedVolume from "./PersistedVolume";
+import PersistedVolume from "./persisted-volume";
 
 type ConstructorParams = {
   audio: Audio;
