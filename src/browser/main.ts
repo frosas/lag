@@ -1,6 +1,6 @@
 import "../../styles/main.css";
 
-import DocumentIcon from "./DocumentIcon";
+import DocumentIcon from "./document-icon";
 import DocumentTitle from "./DocumentTitle";
 import Title from "./Title";
 import { assertNotNullable } from "./util";
