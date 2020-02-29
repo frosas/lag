@@ -1,23 +1,83 @@
-body { font: 13px sans-serif; color: #474739; padding: 10px; margin: 0 }
-a { color: indigo; text-decoration: none }
-a:hover, a:active { text-decoration: underline }
+body {
+  font: 13px sans-serif;
+  color: #474739;
+  padding: 10px;
+  margin: 0;
+}
 
-#chart-area { position: relative; margin: -10px -10px 10px -10px }
-#title { font-size: 60px; position: absolute; top: 0; left: 0; padding: 10px }
-#chart { height: 300px }
-#chart > svg { width: 100%; height: 100%; font-size: 9px; 
-    background-image: linear-gradient(#fff 0, #F2F1D3 100%);
-    background-image: -webkit-linear-gradient(#fff 0, #F2F1D3 100%);
-    background-image: -moz-linear-gradient(#fff 0, #F2F1D3 100%);
-    background-image: -o-linear-gradient(#fff 0, #F2F1D3 100%);
-    box-shadow: 0 0 10px #aaa }
-#controls-placeholder { position: absolute; top: 0; right: 0; padding: 10px;
-    opacity: 0.2 }
-#controls-placeholder input { vertical-align: middle }
-#chart-area:hover #controls-placeholder { opacity: 1 }
+a {
+  color: indigo;
+  text-decoration: none;
+}
 
-footer { font-size: 90%; opacity: 0.5 }
-footer ul { padding: 0; margin: 0; list-style: none }
-footer ul li { display: inline }
-footer ul li:not(:last-child):after { content: " - " }
-footer #offline-support .enabled { vertical-align: middle }
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+
+#chart-area {
+  position: relative;
+  margin: -10px -10px 10px -10px;
+}
+
+#title {
+  font-size: 60px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+}
+
+#chart {
+  height: 300px;
+}
+
+#chart > svg {
+  width: 100%;
+  height: 100%;
+  font-size: 9px;
+  background-image: linear-gradient(#fff 0, #f2f1d3 100%);
+  background-image: -webkit-linear-gradient(#fff 0, #f2f1d3 100%);
+  background-image: -moz-linear-gradient(#fff 0, #f2f1d3 100%);
+  background-image: -o-linear-gradient(#fff 0, #f2f1d3 100%);
+  box-shadow: 0 0 10px #aaa;
+}
+
+#controls-placeholder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  opacity: 0.2;
+}
+
+#controls-placeholder input {
+  vertical-align: middle;
+}
+
+#chart-area:hover #controls-placeholder {
+  opacity: 1;
+}
+
+footer {
+  font-size: 90%;
+  opacity: 0.5;
+}
+
+footer ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+footer ul li {
+  display: inline;
+}
+
+footer ul li:not(:last-child):after {
+  content: " - ";
+}
+
+footer #offline-support .enabled {
+  vertical-align: middle;
+}
