@@ -1,6 +1,6 @@
 import { scaleLinear } from "d3-scale";
 import React from "react";
-import Pings from "../Pings";
+import Pings from "../../Pings";
 
 interface Props {
   pings: Pings;
@@ -8,7 +8,7 @@ interface Props {
   height: number;
 }
 
-export default class extends React.Component<Props> {
+export default class Chart extends React.Component<Props> {
   private _barWidth = 8; // px
   private _xScale = scaleLinear();
 
