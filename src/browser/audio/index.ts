@@ -1,5 +1,5 @@
 import { polarity } from "../../universal/math";
-import createNoiseBufferSource from "./createNoiseBufferSource";
+import createNoiseBufferSource from "./create-noise-buffer-source";
 import Pings from "../Pings";
 import User from "../User";
 
