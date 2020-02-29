@@ -1,6 +1,6 @@
 import { polarity } from "../../universal/math";
 import createNoiseBufferSource from "./create-noise-buffer-source";
-import Pings from "../Pings";
+import Pings from "../pings";
 import User from "../User";
 
 export default class Audio {

@@ -4,7 +4,7 @@ import DocumentIcon from "./document-icon";
 import DocumentTitle from "./document-title";
 import Title from "./Title";
 import { assertNotNullable } from "./util";
-import Pings from "./Pings";
+import Pings from "./pings";
 import User from "./User";
 
 const pings = new Pings({

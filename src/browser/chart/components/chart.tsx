@@ -1,6 +1,6 @@
 import { scaleLinear } from "d3-scale";
 import React from "react";
-import Pings from "../../Pings";
+import Pings from "../../pings";
 
 interface Props {
   pings: Pings;

@@ -1,4 +1,4 @@
-import Pings from "./Pings";
+import Pings from "./pings";
 import User from "./User";
 import { humanizeLag } from "./util";
 

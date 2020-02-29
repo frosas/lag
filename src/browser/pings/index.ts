@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import Ping, { PingSent } from "./ping";
+import Ping, { PingSent } from "../ping";
 
 type ConstructorParams = {
   pingWebWorkerUrl: string;
