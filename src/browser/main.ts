@@ -5,7 +5,7 @@ import DocumentTitle from "./document-title";
 import Title from "./title";
 import { assertNotNullable } from "./util";
 import Pings from "./pings";
-import User from "./User";
+import User from "./user";
 
 const pings = new Pings({
   // TODO That any

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ChartComponent from "./components/chart";
 import Pings from "../pings";
-import User from "../User";
+import User from "../user";
 
 interface ConstructorParams {
   user: User;

@@ -1,5 +1,5 @@
 import Pings from "./pings";
-import User from "./User";
+import User from "./user";
 
 enum BulletColor {
   GREEN = "green",
