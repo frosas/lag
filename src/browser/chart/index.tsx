@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ChartComponent from "./chart/Component";
-import Pings from "./Pings";
-import User from "./User";
+import ChartComponent from "./Component";
+import Pings from "../Pings";
+import User from "../User";
 
 interface ConstructorParams {
   user: User;
@@ -10,7 +10,7 @@ interface ConstructorParams {
   element: Element;
 }
 
-export default class {
+export default class Chart {
   constructor({ user, pings, element }: ConstructorParams) {
     user.events.on("view", () => {
       ReactDOM.render(

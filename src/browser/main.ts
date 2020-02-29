@@ -15,7 +15,7 @@ const user = new User();
 
 const whenChart = import(
   /* webpackChunkName: "chart" */
-  "./Chart"
+  "./chart"
 ).then(({ default: Chart }) => Chart);
 
 const whenControls = import(
