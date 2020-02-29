@@ -1,6 +1,6 @@
 import "../../styles/main.css";
 
-import DocumentIcon from "./document-icon";
+import PageIcon from "./page-icon";
 import DocumentTitle from "./document-title";
 import Title from "./title";
 import { assertNotNullable } from "./util";
@@ -35,7 +35,7 @@ const whenOfflineSupport = import(
 
 new DocumentTitle(user, pings);
 
-new DocumentIcon(user, pings);
+new PageIcon(user, pings);
 
 new Title({
   element: assertNotNullable(document.querySelector("#title")),

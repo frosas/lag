@@ -31,7 +31,7 @@ const getIconLinkElement = () => {
   return icon;
 };
 
-export default class {
+export default class PageIcon {
   constructor(user: User, pings: Pings) {
     const iconElement = getIconLinkElement();
     user.events.on(
