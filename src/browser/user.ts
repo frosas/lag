@@ -17,11 +17,11 @@ export default class User {
     setInterval(() => this.events.emit("hear"), 250);
   }
 
-  private _triggerViewEventPeriodically() {
-    requestAnimationFrame(() => this._triggerViewEventPeriodically());
+  private _triggerViewEventPeriodically = () => {
     this.events.emit("view");
     this._triggerReadEventIfNeeded();
-  }
+    requestAnimationFrame(this._triggerViewEventPeriodically);
+  };
 
   private _triggerReadEventIfNeeded() {
     const now = Date.now();
