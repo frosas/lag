@@ -6,13 +6,11 @@ import User from "../../user";
 interface Props {
   user: User;
   pings: Pings;
-  width: number;
-  height: number;
 }
 
 export default class Chart extends React.Component<Props> {
-  private _barWidth = 8; // px
-  private _xScale = scaleLinear();
+  private readonly _barWidth = 100 / this.props.pings.max; // %
+  private readonly _xScale = scaleLinear().range([0, 100]);
 
   componentDidMount() {
     // TODO Stop listening on unmount
@@ -22,20 +20,18 @@ export default class Chart extends React.Component<Props> {
   render() {
     const now = Date.now();
     const { pings } = this.props;
-    pings.max = this.props.width / this._barWidth + 1;
-    this._xScale.range([0, this.props.width]);
     this._xScale.domain([now - (pings.max - 1) * pings.interval, now]);
     return (
       <svg>
-        {pings.all.map(ping => (
+        {this.props.pings.all.map(ping => (
           <rect
             key={ping.id}
             fill={ping.failed ? "#ae3f24" : "#474739"}
             fillOpacity={ping.done ? 1 : 0.7}
-            width={this._barWidth}
-            height={this._yScale(ping.lag)}
-            x={this._xScale(ping.start)}
-            y={this.props.height - this._yScale(ping.lag)}
+            width={`${this._barWidth}%`}
+            height={`${this._yScale(ping.lag)}%`}
+            x={`${this._xScale(ping.start)}%`}
+            y={`${100 - this._yScale(ping.lag)}%`}
           />
         ))}
       </svg>
@@ -46,6 +42,6 @@ export default class Chart extends React.Component<Props> {
     // 0 -> 0, normalLag -> .1, ∞ -> 1
     const normalLag = 50;
     const normalizedLag = (Math.atan(lag / normalLag / 10) * 2) / Math.PI;
-    return normalizedLag * this.props.height;
+    return normalizedLag * 100;
   }
 }

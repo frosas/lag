@@ -7,9 +7,9 @@ type ConstructorParams = {
 
 export default class Pings {
   public readonly events = new EventEmitter();
-  public readonly interval = 1000; /* ms */ // How often pings are created
+  public readonly interval = 1000; /* ms */ // How often pings are sent
+  public readonly max = (2 /* minutes */ * 60 * 1000) / this.interval;
   private readonly _all: PingSent[] = [];
-  private _max = 100;
   private _lastRespondedPing?: PingSent;
   private _pingWebWorkerUrl: string;
 
@@ -20,14 +20,6 @@ export default class Pings {
 
   get all() {
     return this._all;
-  }
-
-  set max(max) {
-    this._max = max;
-  }
-
-  get max() {
-    return this._max;
   }
 
   get currentLag() {
@@ -62,7 +54,7 @@ export default class Pings {
     // won't be bigger than the one for the first ping in the list!
     const firstOfTheLastUnrespondedPings = this._getFirstOfTheLastUnrespondedPings();
     let firstOfTheLastUnrespondedPingsWasRemoved;
-    while (this._all.length > this._max) {
+    while (this._all.length > this.max) {
       const ping = this._all.shift();
       if (!ping) continue;
       if (
