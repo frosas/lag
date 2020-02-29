@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ChartComponent from "./components/chart";
+import ChartComponent from "./components";
 import Pings from "../pings";
 import User from "../user";
 
