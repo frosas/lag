@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ControlsComponent from "./Component";
+import ControlsComponent from "./components/controls";
 import Audio from ".";
 import PersistedVolume from "./PersistedVolume";
 
@@ -9,7 +9,7 @@ type ConstructorParams = {
   domElement: Element;
 };
 
-export default class Controls {
+export default class AudioControls {
   constructor({ audio, domElement }: ConstructorParams) {
     const persistedVolume = new PersistedVolume(audio);
 

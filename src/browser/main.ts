@@ -18,10 +18,10 @@ const whenChart = import(
   "./chart"
 ).then(({ default: Chart }) => Chart);
 
-const whenControls = import(
-  /* webpackChunkName: "controls" */
-  "./audio/Controls"
-).then(({ default: Controls }) => Controls);
+const whenAudioControls = import(
+  /* webpackChunkName: "audio-controls" */
+  "./audio/controls"
+).then(({ default: AudioControls }) => AudioControls);
 
 const whenAudio = import(
   /* webpackChunkName: "audio" */
@@ -52,9 +52,9 @@ whenChart.then(
     })
 );
 
-Promise.all([whenControls, whenAudio]).then(
-  ([Controls, Audio]) =>
-    new Controls({
+Promise.all([whenAudioControls, whenAudio]).then(
+  ([AudioControls, Audio]) =>
+    new AudioControls({
       audio: new Audio(user, pings),
       domElement: assertNotNullable(
         document.querySelector("#controls-placeholder")

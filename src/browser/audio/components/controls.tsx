@@ -5,7 +5,7 @@ type Props = {
   onChangeVolume: (volume: number) => void;
 };
 
-const Component: FunctionComponent<Props> = props => {
+const AudioControls: FunctionComponent<Props> = props => {
   const [volume, setVolume] = useState(props.initialVolume);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,4 +31,4 @@ const Component: FunctionComponent<Props> = props => {
   );
 };
 
-export default Component;
+export default AudioControls;
