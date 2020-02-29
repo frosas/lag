@@ -1,4 +1,4 @@
-import Audio from "./Audio";
+import Audio from ".";
 
 export default class PersistedVolume {
   constructor(audio: Audio) {

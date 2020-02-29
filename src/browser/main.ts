@@ -25,7 +25,7 @@ const whenControls = import(
 
 const whenAudio = import(
   /* webpackChunkName: "audio" */
-  "./audio/Audio"
+  "./audio"
 ).then(({ default: Audio }) => Audio);
 
 const whenOfflineSupport = import(
