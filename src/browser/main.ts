@@ -2,7 +2,7 @@ import "../../styles/main.css";
 
 import DocumentIcon from "./document-icon";
 import DocumentTitle from "./document-title";
-import Title from "./Title";
+import Title from "./title";
 import { assertNotNullable } from "./util";
 import Pings from "./pings";
 import User from "./User";
