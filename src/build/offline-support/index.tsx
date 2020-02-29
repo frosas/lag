@@ -1,6 +1,6 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
-import Component from "../../universal/offline-support/Component";
+import Component from "../../universal/offline-support/components";
 import ServiceWorker from "../../browser/offline-support/service-worker";
 
 export const render = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ServiceWorker from "./service-worker";
-import Component from "../../universal/offline-support/Component";
+import Component from "../../universal/offline-support/components";
 
 type ConstructorParams = {
   serviceWorkerUrl: string;
