@@ -1,8 +1,10 @@
 import { scaleLinear } from "d3-scale";
 import React from "react";
 import Pings from "../../pings";
+import User from "../../user";
 
 interface Props {
+  user: User;
   pings: Pings;
   width: number;
   height: number;
@@ -12,7 +14,12 @@ export default class Chart extends React.Component<Props> {
   private _barWidth = 8; // px
   private _xScale = scaleLinear();
 
-  public render() {
+  componentDidMount() {
+    // TODO Stop listening on unmount
+    this.props.user.events.on("view", () => this.forceUpdate());
+  }
+
+  render() {
     const now = Date.now();
     const { pings } = this.props;
     pings.max = this.props.width / this._barWidth + 1;
@@ -35,7 +42,7 @@ export default class Chart extends React.Component<Props> {
     );
   }
 
-  public _yScale(lag: number) {
+  _yScale(lag: number) {
     // 0 -> 0, normalLag -> .1, ∞ -> 1
     const normalLag = 50;
     const normalizedLag = (Math.atan(lag / normalLag / 10) * 2) / Math.PI;

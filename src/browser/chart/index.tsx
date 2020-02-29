@@ -12,17 +12,16 @@ interface ConstructorParams {
 
 export default class Chart {
   constructor({ user, pings, element }: ConstructorParams) {
-    user.events.on("view", () => {
-      ReactDOM.render(
-        <ChartComponent
-          pings={pings}
-          // We use the parent node dimensions as Firefox doesn't seem to work
-          // with the svg element ones.
-          width={element.scrollWidth}
-          height={element.scrollHeight}
-        />,
-        element
-      );
-    });
+    ReactDOM.render(
+      <ChartComponent
+        user={user}
+        pings={pings}
+        // We use the parent node dimensions as Firefox doesn't seem to work
+        // with the svg element ones.
+        width={element.scrollWidth}
+        height={element.scrollHeight}
+      />,
+      element
+    );
   }
 }
