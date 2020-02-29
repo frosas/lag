@@ -8,7 +8,7 @@ type ConstructorParams = {
   domElement: Element;
 };
 
-export default class {
+export default class OfflineSupport {
   constructor({ serviceWorkerUrl, domElement }: ConstructorParams) {
     const serviceWorker = new ServiceWorker({ url: serviceWorkerUrl });
     ReactDOM.render(

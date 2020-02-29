@@ -30,7 +30,7 @@ const whenAudio = import(
 
 const whenOfflineSupport = import(
   /* webpackChunkName: "offline-support" */
-  "./offline-support/OfflineSupport"
+  "./offline-support"
 ).then(({ default: OfflineSupport }) => OfflineSupport);
 
 new DocumentTitle(user, pings);
