@@ -1,6 +1,6 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import ServiceWorker from "../../browser/offline-support/ServiceWorker";
+import ServiceWorker from "../../browser/offline-support/service-worker";
 import { useForceUpdate } from "../util";
 
 const { useEffect } = React;
