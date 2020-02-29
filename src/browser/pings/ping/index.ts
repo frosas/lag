@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { assertType } from "../util";
+import { assertType } from "../../util";
 
 export type PingSent = Ping & {
   start: number;
