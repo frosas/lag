@@ -3,7 +3,7 @@
 // TODO Make worker a ServiceWorker after finding proper typings for ServiceWorker
 const worker = self as any;
 
-import { timeout } from "../universal/util";
+import { timeout } from "../../../universal/util";
 
 let isDebugEnabled = false;
 
