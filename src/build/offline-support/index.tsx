@@ -1,13 +1,15 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
-import Component from "../../universal/offline-support/components";
-import ServiceWorker from "../../browser/offline-support/service-worker";
+import OfflineSupport from "../../universal/offline-support/components";
+import ServiceWorkerLoader from "../../browser/offline-support/service-worker/loader";
 
 export const render = () => {
   // TODO Combine this with src/browser/offline-support/ServiceWorker
-  const serviceWorker = {
+  const serviceWorkerLoader = {
     statusCode: "INITIALIZING",
     statusMessage: "loading..."
-  } as ServiceWorker; // TODO
-  return renderToString(<Component serviceWorker={serviceWorker}></Component>);
+  } as ServiceWorkerLoader; // TODO
+  return renderToString(
+    <OfflineSupport serviceWorkerLoader={serviceWorkerLoader}></OfflineSupport>
+  );
 };

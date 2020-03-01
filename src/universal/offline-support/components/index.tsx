@@ -1,6 +1,6 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import ServiceWorker from "../../../browser/offline-support/service-worker";
+import ServiceWorkerLoader from "../../../browser/offline-support/service-worker/loader";
 import { useForceUpdate } from "../../util";
 
 const { useEffect } = React;
@@ -22,23 +22,24 @@ const getStatusCodeIcon = (statusCode: string) => {
 };
 
 type Props = {
-  serviceWorker: ServiceWorker;
+  serviceWorkerLoader: ServiceWorkerLoader;
 };
 
-const Component: FunctionComponent<Props> = ({ serviceWorker }) => {
+const OfflineSupport: FunctionComponent<Props> = ({ serviceWorkerLoader }) => {
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    serviceWorker.events.on("change", forceUpdate);
+    serviceWorkerLoader.events.on("change", forceUpdate);
   }, []);
 
   return (
     <>
       {"Offline support: "}
-      {getStatusCodeIcon(serviceWorker.statusCode)}
-      {serviceWorker.statusMessage && ` (${serviceWorker.statusMessage})`}
+      {getStatusCodeIcon(serviceWorkerLoader.statusCode)}
+      {serviceWorkerLoader.statusMessage &&
+        ` (${serviceWorkerLoader.statusMessage})`}
     </>
   );
 };
 
-export default Component;
+export default OfflineSupport;

@@ -4,7 +4,7 @@ type ConstructorParams = {
   url: string;
 };
 
-export default class {
+export default class ServiceWorkerLoader {
   public readonly events = new EventEmitter();
   private _statusCode = "INITIALIZING";
   private _statusMessage = "initializing...";

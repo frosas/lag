@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ServiceWorker from "./service-worker";
-import Component from "../../universal/offline-support/components";
+import ServiceWorkerLoader from "./service-worker/loader";
+import OfflineSupportComponent from "../../universal/offline-support/components";
 
 type ConstructorParams = {
   serviceWorkerUrl: string;
@@ -10,9 +10,13 @@ type ConstructorParams = {
 
 export default class OfflineSupport {
   constructor({ serviceWorkerUrl, domElement }: ConstructorParams) {
-    const serviceWorker = new ServiceWorker({ url: serviceWorkerUrl });
+    const serviceWorkerLoader = new ServiceWorkerLoader({
+      url: serviceWorkerUrl
+    });
     ReactDOM.render(
-      <Component serviceWorker={serviceWorker}></Component>,
+      <OfflineSupportComponent
+        serviceWorkerLoader={serviceWorkerLoader}
+      ></OfflineSupportComponent>,
       domElement
     );
   }
