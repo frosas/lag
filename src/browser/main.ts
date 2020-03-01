@@ -13,10 +13,33 @@ const pings = new Pings({
 });
 const user = new User();
 
-const whenChart = import(
-  /* webpackChunkName: "chart" */
-  "./chart"
-).then(({ default: Chart }) => Chart);
+new PageTitle(user, pings);
+
+new PageIcon(user, pings);
+
+new Title({
+  element: assertNotNullable(document.querySelector("#title")),
+  pings,
+  user
+});
+
+import(/* webpackChunkName: "chart" */ "./chart").then(
+  ({ default: Chart }) =>
+    new Chart({
+      element: assertNotNullable(document.querySelector("#chart")),
+      pings,
+      user
+    })
+);
+
+import(/* webpackChunkName: "offline-support" */ "./offline-support").then(
+  ({ default: OfflineSupport }) =>
+    new OfflineSupport({
+      // TODO That any
+      serviceWorkerUrl: assertNotNullable((window as any).app.serviceWorkerUrl),
+      domElement: assertNotNullable(document.querySelector("#offline-support"))
+    })
+);
 
 const whenAudioControls = import(
   /* webpackChunkName: "audio-controls" */
@@ -28,30 +51,6 @@ const whenAudio = import(
   "./audio"
 ).then(({ default: Audio }) => Audio);
 
-const whenOfflineSupport = import(
-  /* webpackChunkName: "offline-support" */
-  "./offline-support"
-).then(({ default: OfflineSupport }) => OfflineSupport);
-
-new PageTitle(user, pings);
-
-new PageIcon(user, pings);
-
-new Title({
-  element: assertNotNullable(document.querySelector("#title")),
-  pings,
-  user
-});
-
-whenChart.then(
-  Chart =>
-    new Chart({
-      element: assertNotNullable(document.querySelector("#chart")),
-      pings,
-      user
-    })
-);
-
 Promise.all([whenAudioControls, whenAudio]).then(
   ([AudioControls, Audio]) =>
     new AudioControls({
@@ -59,14 +58,5 @@ Promise.all([whenAudioControls, whenAudio]).then(
       domElement: assertNotNullable(
         document.querySelector("#controls-placeholder")
       )
-    })
-);
-
-whenOfflineSupport.then(
-  OfflineSupport =>
-    new OfflineSupport({
-      // TODO That any
-      serviceWorkerUrl: assertNotNullable((window as any).app.serviceWorkerUrl),
-      domElement: assertNotNullable(document.querySelector("#offline-support"))
     })
 );
