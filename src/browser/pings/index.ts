@@ -15,7 +15,7 @@ export default class Pings {
 
   constructor({ pingWebWorkerUrl }: ConstructorParams) {
     this._pingWebWorkerUrl = pingWebWorkerUrl;
-    this._pingRepeatedly();
+    setInterval(() => this._ping(), this.interval);
   }
 
   get all() {
@@ -41,11 +41,6 @@ export default class Pings {
   private _ping() {
     this._removePingsOverLimit();
     this._addPing();
-  }
-
-  private _pingRepeatedly() {
-    this._ping();
-    setTimeout(this._pingRepeatedly.bind(this), this.interval);
   }
 
   // TODO Clean up this cruft
