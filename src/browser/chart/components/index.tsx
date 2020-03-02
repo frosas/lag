@@ -1,6 +1,6 @@
 import { scaleLinear } from "d3-scale";
 import React from "react";
-import Pings from "../../pings";
+import Pings, { INTERVAL as PINGS_INTERVAL } from "../../pings";
 import User from "../../user";
 
 interface Props {
@@ -20,7 +20,7 @@ export default class Chart extends React.Component<Props> {
   render() {
     const now = Date.now();
     const { pings } = this.props;
-    this._xScale.domain([now - (pings.max - 1) * pings.interval, now]);
+    this._xScale.domain([now - (pings.max - 1) * PINGS_INTERVAL, now]);
     return (
       <svg>
         {this.props.pings.all.map(ping => (

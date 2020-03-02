@@ -1,21 +1,22 @@
 import { EventEmitter } from "events";
 import Ping, { PingSent } from "./ping";
 
+export const INTERVAL = 1000; // ms
+
 type ConstructorParams = {
   workerUrl: string;
 };
 
 export default class Pings {
   public readonly events = new EventEmitter();
-  public readonly interval = 1000; /* ms */ // How often pings are sent
-  public readonly max = (2 /* minutes */ * 60 * 1000) / this.interval;
+  public readonly max = (2 /* minutes */ * 60 * 1000) / INTERVAL;
   private readonly _all: PingSent[] = [];
   private _lastRespondedPing?: PingSent;
   private readonly _worker: Worker;
 
   constructor({ workerUrl }: ConstructorParams) {
     this._worker = new Worker(workerUrl);
-    setInterval(() => this._ping(), this.interval);
+    setInterval(() => this._ping(), INTERVAL);
   }
 
   get all() {
