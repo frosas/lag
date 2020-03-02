@@ -7,12 +7,10 @@ export type PingSent = Ping & {
 };
 
 type ConstructorParams = {
-  webWorkerUrl: string;
+  worker: Worker;
 };
 
 let nextId = 0;
-
-let worker: Worker;
 
 export default class Ping {
   public readonly events = new EventEmitter();
@@ -22,9 +20,7 @@ export default class Ping {
   public start?: number = Date.now();
   public end?: number;
 
-  constructor({ webWorkerUrl }: ConstructorParams) {
-    // TODO Initialize the worker outside of the module?
-    worker = worker || new Worker(webWorkerUrl);
+  constructor({ worker }: ConstructorParams) {
     const markAsDone = () => {
       this.done = true;
       // eslint-disable-next-line @typescript-eslint/no-use-before-define

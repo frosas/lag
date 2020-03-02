@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import Ping, { PingSent } from "./ping";
 
 type ConstructorParams = {
-  pingWebWorkerUrl: string;
+  workerUrl: string;
 };
 
 export default class Pings {
@@ -11,10 +11,10 @@ export default class Pings {
   public readonly max = (2 /* minutes */ * 60 * 1000) / this.interval;
   private readonly _all: PingSent[] = [];
   private _lastRespondedPing?: PingSent;
-  private _pingWebWorkerUrl: string;
+  private readonly _worker: Worker;
 
-  constructor({ pingWebWorkerUrl }: ConstructorParams) {
-    this._pingWebWorkerUrl = pingWebWorkerUrl;
+  constructor({ workerUrl }: ConstructorParams) {
+    this._worker = new Worker(workerUrl);
     setInterval(() => this._ping(), this.interval);
   }
 
@@ -68,7 +68,7 @@ export default class Pings {
   }
 
   private _addPing() {
-    const ping = new Ping({ webWorkerUrl: this._pingWebWorkerUrl });
+    const ping = new Ping({ worker: this._worker });
     ping.events.on("requested", () => {
       this._all.push(ping.assertSent());
       this.events.emit("add", ping);

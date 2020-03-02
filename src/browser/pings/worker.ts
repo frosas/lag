@@ -1,6 +1,6 @@
 // TODO Disable browser eslint env
 
-import Request from "./request";
+import Request from "./ping/request";
 
 // See https://github.com/Qwaz/webworker-with-typescript/blob/a0c86bd/worker-loader/src/worker.ts
 const worker: Worker = self as any;

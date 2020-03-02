@@ -9,7 +9,7 @@ import User from "./user";
 
 const pings = new Pings({
   // TODO That any
-  pingWebWorkerUrl: assertNotNullable((window as any).app.pingWebWorkerUrl)
+  workerUrl: assertNotNullable((window as any).app.pingWorkerUrl)
 });
 
 const user = new User();

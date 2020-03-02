@@ -17,7 +17,7 @@ const configFactory: webpack.ConfigurationFactory = (_, args) => {
     entry: {
       main: "./src/browser/main",
       "service-worker": "./src/browser/offline-support/service-worker",
-      "ping-web-worker": "./src/browser/pings/ping/web-worker"
+      "ping-worker": "./src/browser/pings/worker"
     },
     output: {
       path: `${__dirname}/dist/browser`,
