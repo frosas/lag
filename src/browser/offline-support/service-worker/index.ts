@@ -20,13 +20,13 @@ const isCacheableRequest = (request: Request) => {
   );
 };
 
-// TODO Find the right event type
+// TODO Use the right event type
 worker.addEventListener("install", (event: any) => {
   debug("Installing...");
   event.waitUntil(worker.skipWaiting().then(() => debug("Installed")));
 });
 
-// TODO Find the right event type
+// TODO Use the right event type
 worker.addEventListener("activate", (event: any) => {
   debug("Activating...");
   event.waitUntil(worker.clients.claim().then(() => debug("Activated")));
@@ -39,7 +39,7 @@ const MAX_ACCEPTABLE_RESPONSE_TIME = 1000; // ms
 
 let nextFetchId = 1;
 
-// TODO Find the right event type
+// TODO Use the right event type
 worker.addEventListener("fetch", (event: any) => {
   const fetchId = (nextFetchId += 1);
   const fetchDebug = (...args: any[]) => debug(`[Fetch #${fetchId}]`, ...args);
@@ -75,7 +75,7 @@ worker.addEventListener("fetch", (event: any) => {
   );
 });
 
-// TODO Find the right event type
+// TODO Use the right event type
 worker.addEventListener("message", (event: any) => {
   switch (event.data) {
     case "toggleDebugging":
