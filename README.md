@@ -9,10 +9,6 @@ $ npm run watch
 
 Open http://localhost:8080
 
-# Enabling debugging
+# Debugging
 
-In the browser console:
-
-```js
-navigator.serviceWorker.controller.postMessage('toggleDebugging')
-```
+Enable console debug/verbose log level in your browser.

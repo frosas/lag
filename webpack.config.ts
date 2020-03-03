@@ -47,6 +47,7 @@ const configFactory: webpack.ConfigurationFactory = (_, args) => {
       new CopyPlugin([{ from: "static" }]),
       new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
       new webpack.BannerPlugin({
+        // TODO Submit fix for banner type not accepting functions
         banner: (() => `Build date: ${getBuildDate()}`) as any
       }),
       new HtmlPlugin({
