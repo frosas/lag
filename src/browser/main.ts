@@ -1,5 +1,5 @@
+import "./error-tracking";
 import "../../styles/main.css";
-
 import PageIcon from "./page-icon";
 import PageTitle from "./page-title";
 import Title from "./title";
