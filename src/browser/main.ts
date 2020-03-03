@@ -8,8 +8,8 @@ import Pings from "./pings";
 import User from "./user";
 
 const pings = new Pings({
-  // TODO That any
-  workerUrl: assertNotNullable((window as any).app.pingWorkerUrl)
+  // TODO Avoid that any
+  workerUrl: (window as any).app.pingWorkerUrl
 });
 
 const user = new User();
@@ -36,11 +36,13 @@ import(/* webpackChunkName: "chart" */ "./chart").then(
 import(/* webpackChunkName: "offline-support" */ "./offline-support").then(
   ({ default: OfflineSupport }) =>
     new OfflineSupport({
-      // TODO That any
-      serviceWorkerUrl: assertNotNullable((window as any).app.serviceWorkerUrl),
+      // TODO Avoid that any
+      serviceWorkerUrl: (window as any).app.serviceWorkerUrl,
       domElement: assertNotNullable(document.querySelector("#offline-support"))
     })
 );
+
+// TODO Compose audio.ts and audio/controls.ts into a single importable
 
 const whenAudioControls = import(
   /* webpackChunkName: "audio-controls" */
