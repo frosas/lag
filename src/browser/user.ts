@@ -4,7 +4,7 @@ import { EventEmitter } from "events";
 const MAX_READ_INTERVAL = 250; // msecs
 
 export default class User {
-  public readonly events = new EventEmitter();
+  readonly events = new EventEmitter();
   private _lastRead?: number;
 
   constructor() {

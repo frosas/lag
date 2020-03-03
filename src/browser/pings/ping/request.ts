@@ -1,5 +1,5 @@
 export default class Request {
-  public readonly loaded: Promise<void>;
+  readonly loaded: Promise<void>;
   private _request = new XMLHttpRequest();
 
   constructor() {
@@ -18,7 +18,7 @@ export default class Request {
     });
   }
 
-  public abort() {
+  abort() {
     this._request.abort();
   }
 

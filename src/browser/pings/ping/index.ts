@@ -13,12 +13,12 @@ type ConstructorParams = {
 let nextId = 0;
 
 export default class Ping {
-  public readonly events = new EventEmitter();
-  public readonly id = `${nextId++}`;
-  public done = false; // Whether it has finished (whether succesfully or not)
-  public failed = false; // Whether it finished failing
-  public start?: number = Date.now();
-  public end?: number;
+  readonly events = new EventEmitter();
+  readonly id = `${nextId++}`;
+  done = false; // Whether it has finished (whether succesfully or not)
+  failed = false; // Whether it finished failing
+  start?: number = Date.now();
+  end?: number;
 
   constructor({ worker }: ConstructorParams) {
     const markAsDone = () => {
@@ -54,11 +54,11 @@ export default class Ping {
     return this.isSent() ? (this.end || Date.now()) - this.start : undefined;
   }
 
-  public isSent(): this is PingSent {
+  isSent(): this is PingSent {
     return (this as PingSent).start !== undefined;
   }
 
-  public assertSent(): PingSent {
+  assertSent(): PingSent {
     return assertType(this, (ping: Ping): ping is PingSent => ping.isSent());
   }
 }

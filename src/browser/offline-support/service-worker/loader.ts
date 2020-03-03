@@ -5,7 +5,7 @@ type ConstructorParams = {
 };
 
 export default class ServiceWorkerLoader {
-  public readonly events = new EventEmitter();
+  readonly events = new EventEmitter();
   private _statusCode = "INITIALIZING";
   private _statusMessage = "initializing...";
 

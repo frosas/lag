@@ -8,8 +8,8 @@ type ConstructorParams = {
 };
 
 export default class Pings {
-  public readonly events = new EventEmitter();
-  public readonly max = (2 /* minutes */ * 60 * 1000) / INTERVAL;
+  readonly events = new EventEmitter();
+  readonly max = (2 /* minutes */ * 60 * 1000) / INTERVAL;
   private readonly _all: PingSent[] = [];
   private _lastRespondedPing?: PingSent;
   private readonly _worker: Worker;
