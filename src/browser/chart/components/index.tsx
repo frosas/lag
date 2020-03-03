@@ -21,6 +21,9 @@ export default class Chart extends React.Component<Props> {
     const now = Date.now();
     const { pings } = this.props;
     this._xScale.domain([now - (pings.max - 1) * PINGS_INTERVAL, now]);
+
+    // TODO Any way to make painting this more performant? Move a single parent
+    // container instead of every <rect> individually?
     return (
       <svg>
         {this.props.pings.all.map(ping => (
