@@ -5,10 +5,8 @@ const worker = self as any;
 
 import { timeout } from "../../../universal/util";
 
-let isDebugEnabled = false;
-
 const debug = (...args: any[]) => {
-  if (isDebugEnabled) console.log("[Service Worker]", ...args);
+  console.debug("[Service Worker]", ...args);
 };
 
 const isCacheableRequest = (request: Request) => {
@@ -73,15 +71,4 @@ worker.addEventListener("fetch", (event: any) => {
       });
     })
   );
-});
-
-// TODO Use the right event type
-worker.addEventListener("message", (event: any) => {
-  switch (event.data) {
-    case "toggleDebugging":
-      isDebugEnabled = !isDebugEnabled;
-      break;
-    default:
-      throw new Error("Unknown message");
-  }
 });
