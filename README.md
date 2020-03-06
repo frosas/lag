@@ -4,7 +4,7 @@
 
 ```bash
 $ npm i
-$ npm run watch
+$ npm run dev
 ```
 
 Open http://localhost:8080
@@ -14,5 +14,5 @@ Open http://localhost:8080
 In the browser console:
 
 ```js
-navigator.serviceWorker.controller.postMessage('toggleDebugging')
+navigator.serviceWorker.controller.postMessage("toggleDebugging");
 ```
