@@ -1,5 +1,3 @@
-// @ts-check
-
 /** @type import("@babel/core").ConfigFunction */
 module.exports = api => ({
   plugins: [

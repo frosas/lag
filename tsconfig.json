@@ -4,6 +4,8 @@
   "compilerOptions": {
     "allowJs": true,
 
+    "checkJs": true,
+
     // Aim for the latest ES version. Babel will take care of transpiling to the
     // final targets.
     "target": "esnext",

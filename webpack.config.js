@@ -1,4 +1,3 @@
-// @ts-check
 /* eslint-env node */
 
 import webpack from "webpack";
