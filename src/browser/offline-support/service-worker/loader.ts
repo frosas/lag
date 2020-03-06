@@ -11,12 +11,12 @@ export default class ServiceWorkerLoader {
 
   constructor({ url }: ConstructorParams) {
     if (!navigator.serviceWorker) {
-      this.setStatus("ERROR", "not supported");
+      this._setStatus("ERROR", "not supported");
       return;
     }
 
     if (navigator.serviceWorker.controller) {
-      this.setStatus("READY", "ready");
+      this._setStatus("READY", "ready");
     }
 
     (async () => {
@@ -25,19 +25,19 @@ export default class ServiceWorkerLoader {
           scope: ".."
         });
         if (navigator.serviceWorker.controller) {
-          this.setStatus("READY", "ready");
+          this._setStatus("READY", "ready");
         } else {
           // With a reload the service worker will take control of the page and
           // it will cache the page resources.
-          this.setStatus("WARNING", "reload required");
+          this._setStatus("WARNING", "reload required");
         }
       } catch (error) {
-        this.setStatus("ERROR", error);
+        this._setStatus("ERROR", error);
       }
     })();
   }
 
-  setStatus(code: string, message: string) {
+  private _setStatus(code: string, message: string) {
     this._statusCode = code;
     this._statusMessage = message;
     this.events.emit("change");
