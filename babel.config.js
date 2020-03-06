@@ -1,6 +1,6 @@
 // @ts-check
 
-/** @type {import("@babel/core").ConfigFunction} */
+/** @type import("@babel/core").ConfigFunction */
 module.exports = api => ({
   plugins: [
     "@babel/plugin-syntax-dynamic-import",
