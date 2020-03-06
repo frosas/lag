@@ -7,7 +7,7 @@
     "build": "npm run webpack -- --mode production",
     "lint": "concurrently -n typescript,eslint \"npm run lint-typescript\" \"npm run lint-eslint\"",
     "lint-eslint": "eslint '**/*.{js,ts,tsx}'",
-    "lint-typescript": "tsc --noEmit",
+    "lint-typescript": "tsc",
     "test": "concurrently -n lint,unit-test,build \"npm run lint\" \"npm run test-unit\" \"npm run build\"",
     "test-unit": "npm run babel-node -- node_modules/.bin/mocha 'src/**/*.test.ts'",
     "watch": "npm_config_loglevel=silent concurrently -k -n webpack-dev-server,lint,test-unit \"npm run webpack-dev-server\" \"npm run watch-lint\" \"npm run watch-test-unit\"",
