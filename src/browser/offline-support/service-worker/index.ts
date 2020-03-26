@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 
+import "../../error-tracking";
+import { timeout } from "../../../universal/util";
+
 // TODO Make worker a ServiceWorker after finding proper typings for ServiceWorker
 const worker = self as any;
-
-import { timeout } from "../../../universal/util";
 
 let isDebugEnabled = false;
 
