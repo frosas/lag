@@ -54,10 +54,7 @@ const configFactory = (_, args) => {
       }),
       new HtmlPlugin({
         template: "html/index.ejs",
-        templateData: {
-          getBuildDate,
-          offlineSupportHtml: renderOfflineSupport(),
-        },
+        templateData: { getBuildDate, renderOfflineSupport },
         inject: false,
         minify: isProd && {
           collapseWhitespace: true,
