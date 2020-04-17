@@ -6,7 +6,7 @@ import Request from "./ping/request";
 // See https://github.com/Qwaz/webworker-with-typescript/blob/a0c86bd/worker-loader/src/worker.ts
 const worker: Worker = self as any;
 
-worker.onmessage = async event => {
+worker.onmessage = async (event) => {
   // TODO Constraint event.data type
   const { pingId } = event.data;
   switch (event.data.type) {

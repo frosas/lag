@@ -26,7 +26,7 @@ export default class Chart extends React.Component<Props> {
     // container instead of every <rect> individually?
     return (
       <svg>
-        {this.props.pings.all.map(ping => (
+        {this.props.pings.all.map((ping) => (
           <rect
             key={ping.id}
             fill={ping.failed ? "#ae3f24" : "#474739"}

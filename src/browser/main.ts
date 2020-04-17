@@ -9,7 +9,7 @@ import User from "./user";
 
 const pings = new Pings({
   // TODO Avoid that any
-  workerUrl: (window as any).app.pingWorkerUrl
+  workerUrl: (window as any).app.pingWorkerUrl,
 });
 
 const user = new User();
@@ -21,7 +21,7 @@ new PageIcon(user, pings);
 new Title({
   element: assertNotNullable(document.querySelector("#title")),
   pings,
-  user
+  user,
 });
 
 import(/* webpackChunkName: "chart" */ "./chart").then(
@@ -29,7 +29,7 @@ import(/* webpackChunkName: "chart" */ "./chart").then(
     new Chart({
       element: assertNotNullable(document.querySelector("#chart")),
       pings,
-      user
+      user,
     })
 );
 
@@ -38,7 +38,7 @@ import(/* webpackChunkName: "offline-support" */ "./offline-support").then(
     new OfflineSupport({
       // TODO Avoid that any
       serviceWorkerUrl: (window as any).app.serviceWorkerUrl,
-      domElement: assertNotNullable(document.querySelector("#offline-support"))
+      domElement: assertNotNullable(document.querySelector("#offline-support")),
     })
 );
 
@@ -60,6 +60,6 @@ Promise.all([whenAudioControls, whenAudio]).then(
       audio: new Audio(user, pings),
       domElement: assertNotNullable(
         document.querySelector("#controls-placeholder")
-      )
+      ),
     })
 );

@@ -6,7 +6,7 @@ enum BulletColor {
   YELLOW = "yellow",
   ORANGE = "orange",
   RED = "red",
-  BLACK = "black"
+  BLACK = "black",
 }
 
 const getBulletUrl = (color: BulletColor) => `images/bullet_${color}.png`;
@@ -42,7 +42,7 @@ export default class PageIcon {
 }
 
 // Preload images so that they're cached before going offline
-Object.values(BulletColor).forEach(color => {
+Object.values(BulletColor).forEach((color) => {
   // We don't use fetch() to ensure request priority is low
   // TODO Keep an eye on https://developers.google.com/web/updates/2019/02/priority-hints
   const el = document.createElement("img");

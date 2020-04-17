@@ -55,10 +55,10 @@ worker.addEventListener("fetch", (event: any) => {
   const whenResponse = fetch(event.request);
 
   // Cache the request/response
-  whenResponse.then(response => {
+  whenResponse.then((response) => {
     fetchDebug(response);
     const responseClone = response.clone();
-    caches.open("v1").then(cache => {
+    caches.open("v1").then((cache) => {
       cache.put(event.request, responseClone).then(() => fetchDebug("Cached"));
     });
   });
@@ -66,9 +66,9 @@ worker.addEventListener("fetch", (event: any) => {
   // Caching strategy: use the network response unless it's taking too long
   // and there's a cached response available.
   event.respondWith(
-    timeout(MAX_ACCEPTABLE_RESPONSE_TIME, whenResponse).catch(error => {
+    timeout(MAX_ACCEPTABLE_RESPONSE_TIME, whenResponse).catch((error) => {
       fetchDebug(error);
-      return caches.match(event.request).then(cachedResponse => {
+      return caches.match(event.request).then((cachedResponse) => {
         fetchDebug("Cached response", cachedResponse);
         return cachedResponse || whenResponse;
       });

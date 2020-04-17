@@ -18,15 +18,15 @@ const configFactory = (_, args) => {
     entry: {
       main: "./src/browser/main",
       "service-worker": "./src/browser/offline-support/service-worker",
-      "ping-worker": "./src/browser/pings/worker"
+      "ping-worker": "./src/browser/pings/worker",
     },
     output: {
       path: `${__dirname}/dist/browser`,
-      filename: `scripts/${assetNameTemplate}.js`
+      filename: `scripts/${assetNameTemplate}.js`,
     },
     resolve: { extensions: [".ts", ".tsx", ".js"] },
     devServer: {
-      stats: "minimal"
+      stats: "minimal",
     },
     module: {
       rules: [
@@ -34,14 +34,14 @@ const configFactory = (_, args) => {
         {
           test: /\.(js|tsx?)$/,
           exclude: /node_modules/,
-          use: [{ loader: "babel-loader", options: { envName: "browser" } }]
+          use: [{ loader: "babel-loader", options: { envName: "browser" } }],
         },
         {
           test: /\.css$/,
           exclude: /node_modules/,
-          use: [MiniCssExtractPlugin.loader, "css-loader"]
-        }
-      ]
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
+        },
+      ],
     },
     plugins: [
       new CleanWebpackPlugin(),
@@ -50,13 +50,13 @@ const configFactory = (_, args) => {
       new webpack.BannerPlugin({
         // TODO Submit fix for banner type not accepting functions
         /** @type {any} */
-        banner: () => `Build date: ${getBuildDate()}`
+        banner: () => `Build date: ${getBuildDate()}`,
       }),
       new HtmlPlugin({
         template: "html/index.ejs",
         templateData: {
           getBuildDate,
-          offlineSupportHtml: renderOfflineSupport()
+          offlineSupportHtml: renderOfflineSupport(),
         },
         inject: false,
         minify: isProd && {
@@ -66,12 +66,12 @@ const configFactory = (_, args) => {
           removeAttributeQuotes: true,
           removeComments: true,
           minifyJS: true,
-          minifyCSS: true
-        }
+          minifyCSS: true,
+        },
       }),
-      new MiniCssExtractPlugin({ filename: `styles/${assetNameTemplate}.css` })
+      new MiniCssExtractPlugin({ filename: `styles/${assetNameTemplate}.css` }),
     ],
-    devtool: isProd ? "source-map" : "cheap-module-eval-source-map"
+    devtool: isProd ? "source-map" : "cheap-module-eval-source-map",
   };
 };
 

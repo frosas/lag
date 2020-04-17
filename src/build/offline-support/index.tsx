@@ -7,7 +7,7 @@ export const render = () => {
   // TODO Combine this with src/browser/offline-support/ServiceWorker
   const serviceWorkerLoader = {
     statusCode: "INITIALIZING",
-    statusMessage: "loading..."
+    statusMessage: "loading...",
   } as ServiceWorkerLoader; // TODO
   return renderToString(
     <OfflineSupport serviceWorkerLoader={serviceWorkerLoader}></OfflineSupport>

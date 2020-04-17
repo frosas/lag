@@ -6,7 +6,7 @@ module.exports = {
   settings: { react: { version: "detect" } },
   rules: {
     "react/prop-types": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
   },
   overrides: [
     {
@@ -15,17 +15,17 @@ module.exports = {
       plugins: ["@typescript-eslint"],
       extends: [
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
       ],
       rules: {
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-var-requires": "off"
-      }
+        "@typescript-eslint/no-var-requires": "off",
+      },
     },
     {
       files: ["**/*.test.ts"],
-      env: { mocha: true }
-    }
-  ]
+      env: { mocha: true },
+    },
+  ],
 };

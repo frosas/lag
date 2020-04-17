@@ -11,7 +11,7 @@ type ConstructorParams = {
 export default class OfflineSupport {
   constructor({ serviceWorkerUrl, domElement }: ConstructorParams) {
     const serviceWorkerLoader = new ServiceWorkerLoader({
-      url: serviceWorkerUrl
+      url: serviceWorkerUrl,
     });
     ReactDOM.render(
       <OfflineSupportComponent

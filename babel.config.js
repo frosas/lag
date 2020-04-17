@@ -1,8 +1,8 @@
 /** @type import("@babel/core").ConfigFunction */
-module.exports = api => ({
+module.exports = (api) => ({
   plugins: [
     "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-proposal-class-properties",
   ],
   presets: [
     [
@@ -19,11 +19,11 @@ module.exports = api => ({
             default:
               throw new Error();
           }
-        })()
-      }
+        })(),
+      },
     ],
     "@babel/preset-react",
-    "@babel/preset-typescript"
+    "@babel/preset-typescript",
   ],
-  sourceType: "unambiguous"
+  sourceType: "unambiguous",
 });

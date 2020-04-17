@@ -22,7 +22,7 @@ export default class ServiceWorkerLoader {
     (async () => {
       try {
         await navigator.serviceWorker.register(url, {
-          scope: ".."
+          scope: "..",
         });
         if (navigator.serviceWorker.controller) {
           this._setStatus("READY", "ready");
