@@ -1,26 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ControlsComponent from "./components/controls";
-import Audio from ".";
+import AudioProcessing from "./processing";
 import PersistedVolume from "./persisted-volume";
 
 type ConstructorParams = {
-  audio: Audio;
+  audioProcessing: AudioProcessing;
   domElement: Element;
 };
 
 export default class AudioControls {
-  constructor({ audio, domElement }: ConstructorParams) {
-    const persistedVolume = new PersistedVolume(audio);
+  constructor({ audioProcessing, domElement }: ConstructorParams) {
+    const persistedVolume = new PersistedVolume(audioProcessing);
 
     const onChangeVolume = (volume: number) => {
-      audio.setVolume(volume);
+      audioProcessing.setVolume(volume);
       persistedVolume.save(volume);
     };
 
     ReactDOM.render(
       <ControlsComponent
-        initialVolume={audio.getVolume()}
+        initialVolume={audioProcessing.getVolume()}
         onChangeVolume={onChangeVolume}
       />,
       domElement
