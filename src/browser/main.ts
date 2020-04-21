@@ -49,15 +49,15 @@ const whenAudioControls = import(
   "./audio/controls"
 ).then(({ default: AudioControls }) => AudioControls);
 
-const whenAudio = import(
-  /* webpackChunkName: "audio" */
-  "./audio"
-).then(({ default: Audio }) => Audio);
+const whenAudioProcessing = import(
+  /* webpackChunkName: "audio-processing" */
+  "./audio/processing"
+).then(({ default: AudioProcessing }) => AudioProcessing);
 
-Promise.all([whenAudioControls, whenAudio]).then(
-  ([AudioControls, Audio]) =>
+Promise.all([whenAudioControls, whenAudioProcessing]).then(
+  ([AudioControls, AudioProcessing]) =>
     new AudioControls({
-      audio: new Audio(user, pings),
+      audioProcessing: new AudioProcessing(user, pings),
       domElement: assertNotNullable(
         document.querySelector("#controls-placeholder")
       ),

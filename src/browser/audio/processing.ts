@@ -3,7 +3,7 @@ import createNoiseBufferSource from "./create-noise-buffer-source";
 import Pings from "../pings";
 import User from "../user";
 
-export default class Audio {
+export default class AudioProcessing {
   private _context = new AudioContext();
   private _gain = this._context.createGain();
 
