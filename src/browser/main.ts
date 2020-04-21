@@ -42,22 +42,11 @@ import(/* webpackChunkName: "offline-support" */ "./offline-support").then(
     })
 );
 
-// TODO Compose audio.ts and audio/controls.ts into a single importable
-
-const whenAudioControls = import(
-  /* webpackChunkName: "audio-controls" */
-  "./audio/controls"
-).then(({ default: AudioControls }) => AudioControls);
-
-const whenAudioProcessing = import(
-  /* webpackChunkName: "audio-processing" */
-  "./audio/processing"
-).then(({ default: AudioProcessing }) => AudioProcessing);
-
-Promise.all([whenAudioControls, whenAudioProcessing]).then(
-  ([AudioControls, AudioProcessing]) =>
-    new AudioControls({
-      audioProcessing: new AudioProcessing(user, pings),
+import(/* webpackChunkName: "audio" */ "./audio").then(
+  ({ default: Audio }) =>
+    new Audio({
+      user,
+      pings,
       domElement: assertNotNullable(
         document.querySelector("#controls-placeholder")
       ),
