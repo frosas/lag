@@ -1,3 +1,5 @@
+// TODO Extract into their own files
+
 export const humanizeLag = (amount: number): string => {
   let fractionDigits = 0;
   let unit = "ms";

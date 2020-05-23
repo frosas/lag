@@ -1,0 +1,1 @@
+- Store pings in the local storage
