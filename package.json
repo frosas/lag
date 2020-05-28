@@ -31,7 +31,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.10.0",
     "@babel/preset-react": "^7.10.0",
-    "@babel/preset-typescript": "^7.9.0",
+    "@babel/preset-typescript": "^7.10.1",
     "@frosas/eslint-config": "^2.0.0",
     "@sentry/browser": "^5.15.5",
     "@types/babel__core": "^7.1.7",
