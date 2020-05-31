@@ -45,7 +45,7 @@ const configFactory = (_, args) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
-      new CopyPlugin([{ from: "static" }]),
+      new CopyPlugin({ patterns: [{ from: "static" }] }),
       new webpack.DefinePlugin({ BUILD_ID: Date.now() }),
       new webpack.BannerPlugin({
         // TODO Submit fix for banner type not accepting functions
