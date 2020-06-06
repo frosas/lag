@@ -14,13 +14,12 @@ module.exports = {
       parser: "@typescript-eslint/parser",
       plugins: ["@typescript-eslint"],
       extends: [
-        "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
+        // TODO "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
       rules: {
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
       },
     },
     {
