@@ -22,8 +22,7 @@ export const assertType = <T>(
   throw new Error(`Couldn't assert type for value '${value}'`);
 };
 
-export const assertNotNullable = <T>(value: T | null | undefined): T =>
-  assertType(
-    value,
-    (isTypeValue: typeof value): isTypeValue is T => isTypeValue != null
-  );
+export const assertNotNullable = <T>(value: T | null | undefined): T => {
+  if (value == null) throw new Error("Unexpected nullable value");
+  return value;
+};
