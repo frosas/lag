@@ -58,6 +58,7 @@ export default class Ping {
     return (this as PingSent).start !== undefined;
   }
 
+  // TODO Find a better way to work with PingSent
   assertSent(): PingSent {
     return assertType(this, (ping: Ping): ping is PingSent => ping.isSent());
   }
