@@ -30,14 +30,14 @@ export default class Ping {
       // TODO Constraint event.data type
       if (event.data.pingId !== this.id) return;
       switch (event.data.type) {
-        case "requested":
+        case "sent":
           this.start = event.data.time;
-          this.events.emit("requested");
+          this.events.emit("sent");
           break;
-        case "responded":
+        case "pong":
           this.end = event.data.time;
           markAsDone();
-          this.events.emit("responded");
+          this.events.emit("pong");
           break;
         case "failed":
           this.failed = true;
@@ -46,7 +46,7 @@ export default class Ping {
       }
     };
     worker.addEventListener("message", onMessage);
-    worker.postMessage({ type: "requested", pingId: this.id });
+    worker.postMessage({ type: "sent", pingId: this.id });
   }
 
   /** @returns The latest lag or null if the ping hasn't been sent yet */
