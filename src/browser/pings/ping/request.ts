@@ -1,28 +1,20 @@
 export default class Request {
   readonly loaded: Promise<void>;
-  private _request = new XMLHttpRequest();
+  private readonly controller = new AbortController();
 
   constructor() {
-    // TODO Switch to fetch() once it allows cancelling (see
-    // https://developer.mozilla.org/en-US/docs/Web/API/FetchController)
-    this.loaded = new Promise((resolve, reject) => {
-      this._request.onreadystatechange = () => {
-        if (this._request.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
-          // This should be the earliest we know the request succeeded
-          resolve();
-        }
-      };
-      this._request.onerror = this._request.onabort = this._request.ontimeout = reject;
-      this._request.open("GET", this._buildUrl(), true);
-      this._request.send();
-    });
+    // TODO Enable CORS (to get error stack traces)
+    this.loaded = fetch(this.buildUrl(), {
+      signal: this.controller.signal,
+      redirect: "error", // Better to fail than performing multiple requests
+    }).then(() => undefined);
   }
 
   abort() {
-    this._request.abort();
+    this.controller.abort();
   }
 
-  private _buildUrl(): string {
+  private buildUrl(): string {
     // To reduce latency, the request should be sent to a service in the edge (e.g.
     // CloudFlare), and it shouldn't incur a round-trip to the origin server.
     //
