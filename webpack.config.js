@@ -9,20 +9,30 @@ import { render as renderOfflineSupport } from "./src/build/offline-support";
 
 const getBuildDate = () => new Date().toUTCString();
 
+const SERVICE_WORKER_ENTRY_NAME = "service-worker";
+
 /** @type webpack.ConfigurationFactory */
 const configFactory = (_, args) => {
   const isProd = args.mode === "production" || !args.mode;
-  const assetNameTemplate = `[name]${isProd ? ".[contenthash]" : ""}`;
+  const createOutputFilename = (/** @type webpack.ChunkData */ chunkData) =>
+    `scripts/[name]${
+      // In dev we don't need to hash the URL (TODO does it do any harm though?),
+      // and not having a consistent service worker URL caused problems (TODO which?)
+      isProd && chunkData.chunk.name !== SERVICE_WORKER_ENTRY_NAME
+        ? ".[contenthash]"
+        : ""
+    }.js`;
 
   return {
     entry: {
       main: "./src/browser/main",
-      "service-worker": "./src/browser/offline-support/service-worker",
+      [SERVICE_WORKER_ENTRY_NAME]:
+        "./src/browser/offline-support/service-worker",
       "ping-worker": "./src/browser/pings/worker",
     },
     output: {
       path: `${__dirname}/dist/browser`,
-      filename: `scripts/${assetNameTemplate}.js`,
+      filename: createOutputFilename,
     },
     resolve: { extensions: [".ts", ".tsx", ".js"] },
     devServer: {
@@ -66,7 +76,9 @@ const configFactory = (_, args) => {
           minifyCSS: true,
         },
       }),
-      new MiniCssExtractPlugin({ filename: `styles/${assetNameTemplate}.css` }),
+      new MiniCssExtractPlugin({
+        filename: `styles/${createOutputFilename}.css`,
+      }),
     ],
     devtool: isProd ? "source-map" : "cheap-module-eval-source-map",
   };
