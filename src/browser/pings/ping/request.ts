@@ -3,10 +3,10 @@ export default class Request {
   private readonly controller = new AbortController();
 
   constructor() {
-    // TODO Enable CORS (to get error stack traces)
     this.loaded = fetch(this.buildUrl(), {
       signal: this.controller.signal,
       redirect: "error", // Better to fail than performing multiple requests
+      mode: "cors",
     }).then(() => undefined);
   }
 
