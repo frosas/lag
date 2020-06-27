@@ -6,7 +6,7 @@ export default class Request {
     this.loaded = fetch(this.buildUrl(), {
       signal: this.controller.signal,
       redirect: "error", // Better to fail than performing multiple requests
-      mode: "cors",
+      mode: "cors", // Enable error stack traces
     }).then(() => undefined);
   }
 
