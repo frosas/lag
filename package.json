@@ -17,7 +17,7 @@
     "dev-test-unit": "onchange -ki 'src/**/*.js' -- npm run test-unit",
     "webpack": "npm run babel-node -- node_modules/.bin/webpack",
     "webpack-analyze": "FILE=`mktemp -t stats` && npm run -s webpack -- --mode production --profile --json > $FILE && npx webpack-bundle-analyzer $FILE dist/browser",
-    "webpack-dev-server": "npm run babel-node -- node_modules/.bin/webpack-dev-server --mode development"
+    "webpack-dev-server": "npm run babel-node -- node_modules/.bin/webpack serve"
   },
   "husky": {
     "hooks": {
@@ -73,7 +73,6 @@
     "source-map-loader": "^1.1.1",
     "typescript": "^4.0.3",
     "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-cli": "^4.0.0"
   }
 }
