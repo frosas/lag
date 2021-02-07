@@ -1,11 +1,7 @@
-if (process.env.NODE_ENV === "production") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { init: initSentry } = require("@sentry/browser");
-  initSentry({
-    dsn: "https://a7399e1672354e7589a0fa0895268ca0@sentry.io/3593031",
-  });
-}
+import * as Sentry from "@sentry/browser";
 
-// Avoids the "All files must be modules when the '--isolatedModules' flag is
-// provided." error. See https://stackoverflow.com/questions/56577201/why-is-isolatedmodules-error-fixed-by-any-import
-export {};
+Sentry.init({
+  dsn: "https://a7399e1672354e7589a0fa0895268ca0@sentry.io/3593031",
+  environment: process.env.NODE_ENV,
+  autoSessionTracking: false, // Don't require the GDPR prompt
+});
