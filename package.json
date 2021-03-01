@@ -35,7 +35,7 @@
     "@frosas/eslint-config": "^3.0.0",
     "@sentry/browser": "^6.2.0",
     "@types/babel__core": "^7.1.12",
-    "@types/chai": "^4.2.14",
+    "@types/chai": "^4.2.15",
     "@types/copy-webpack-plugin": "~6.2.0",
     "@types/d3-scale": "^3.2.2",
     "@types/html-webpack-plugin": "^3.2.4",
