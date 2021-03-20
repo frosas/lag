@@ -30,7 +30,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@frosas/eslint-config": "^3.0.0",
     "@sentry/browser": "^6.2.0",
-    "@types/babel__core": "^7.1.12",
+    "@types/babel__core": "^7.1.14",
     "@types/chai": "^4.2.15",
     "@types/copy-webpack-plugin": "~6.4.0",
     "@types/d3-scale": "^3.2.2",
