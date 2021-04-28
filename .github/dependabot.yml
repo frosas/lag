@@ -1,0 +1,35 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+  open-pull-requests-limit: 99
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 13.a, < 14"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 14.a, < 15"
+  - dependency-name: webpack
+    versions:
+    - 5.24.2
+    - 5.24.3
+    - 5.27.1
+  - dependency-name: html-webpack-plugin
+    versions:
+    - 4.5.0
+    - 4.5.1
+  - dependency-name: "@sentry/browser"
+    versions:
+    - 6.0.3
+  - dependency-name: "@types/copy-webpack-plugin"
+    versions:
+    - 6.3.0
+    - 6.4.0
+  - dependency-name: husky
+    versions:
+    - 5.1.2
+    - 5.1.3
