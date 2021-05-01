@@ -38,7 +38,7 @@
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/mocha": "^8.2.2",
     "@types/node": "^12.20.7",
-    "@types/react": "^17.0.3",
+    "@types/react": "^17.0.4",
     "@types/react-dom": "^17.0.3",
     "@types/webpack-dev-server": "^3.11.3",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
