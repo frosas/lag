@@ -48,7 +48,8 @@ export default class Pings {
   private _removePingsOverLimit() {
     // Don't remove the first of the last unresponded ping, otherwise the lag
     // won't be bigger than the one for the first ping in the list!
-    const firstOfTheLastUnrespondedPings = this._getFirstOfTheLastUnrespondedPings();
+    const firstOfTheLastUnrespondedPings =
+      this._getFirstOfTheLastUnrespondedPings();
     let firstOfTheLastUnrespondedPingsWasRemoved;
     while (this._all.length > this.max) {
       const ping = this._all.shift();
