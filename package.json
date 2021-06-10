@@ -48,7 +48,7 @@
     "compression": "^1.7.2",
     "concurrently": "^6.1.0",
     "copy-webpack-plugin": "^6.4.1",
-    "core-js": "^3.12.1",
+    "core-js": "^3.14.0",
     "css-loader": "^5.2.5",
     "d3-scale": "^3.3.0",
     "eslint": "^7.27.0",
