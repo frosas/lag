@@ -32,7 +32,7 @@ export default class ServiceWorkerLoader {
           this._setStatus("WARNING", "reload required");
         }
       } catch (error) {
-        this._setStatus("ERROR", error);
+        this._setStatus("ERROR", String(error));
       }
     })();
   }
