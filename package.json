@@ -28,7 +28,7 @@
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
-    "@frosas/eslint-config": "^5.0.0",
+    "@frosas/eslint-config": "^5.4.0",
     "@sentry/browser": "^6.6.0",
     "@types/babel__core": "^7.1.14",
     "@types/chai": "^4.2.18",
