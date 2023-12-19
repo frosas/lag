@@ -1,6 +1,5 @@
 {
   "name": "lag",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "babel-node": "babel-node -x '.js,.ts,.tsx' --env-name node",
