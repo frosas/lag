@@ -10,15 +10,17 @@ worker.onmessage = async (event) => {
   // TODO Constraint event.data type
   const { pingId } = event.data;
   switch (event.data.type) {
-    case "sent":
-      worker.postMessage({ type: "sent", pingId, time: Date.now() });
+    case "ping": {
+      const request = new Request();
+      worker.postMessage({ type: "pinged", pingId, time: Date.now() });
       try {
-        await new Request().loaded;
-        worker.postMessage({ type: "pong", pingId, time: Date.now() });
+        await request.loaded;
+        worker.postMessage({ type: "ponged", pingId, time: Date.now() });
       } catch (error) {
         worker.postMessage({ type: "failed", pingId });
       }
       break;
+    }
     default:
       throw new Error("Unknown type");
   }

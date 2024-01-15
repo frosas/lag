@@ -71,11 +71,11 @@ export default class Pings {
 
   private _addPing() {
     const ping = new Ping({ worker: this._worker });
-    ping.events.on("sent", () => {
+    ping.events.on("pinged", () => {
       this._all.push(ping.assertSent());
       this.events.emit("add", ping);
     });
-    ping.events.on("pong", () => {
+    ping.events.on("ponged", () => {
       this._updateLastRespondedPing(ping.assertSent());
     });
   }
