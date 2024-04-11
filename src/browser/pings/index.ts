@@ -1,47 +1,47 @@
-import { EventEmitter } from "events";
-import Ping, { PingSent } from "./ping";
+import { EventEmitter } from "events"
+import Ping, { PingSent } from "./ping"
 
-export const INTERVAL = 1000; // ms
+export const INTERVAL = 1000 // ms
 
 type ConstructorParams = {
-  workerUrl: string;
-};
+  workerUrl: string
+}
 
 export default class Pings {
-  readonly events = new EventEmitter();
-  readonly max = (2 /* minutes */ * 60 * 1000) / INTERVAL;
-  private readonly _all: PingSent[] = [];
-  private _lastRespondedPing?: PingSent;
-  private readonly _worker: Worker;
+  readonly events = new EventEmitter()
+  readonly max = (2 /* minutes */ * 60 * 1000) / INTERVAL
+  private readonly _all: PingSent[] = []
+  private _lastRespondedPing?: PingSent
+  private readonly _worker: Worker
 
   constructor({ workerUrl }: ConstructorParams) {
-    this._worker = new Worker(workerUrl);
-    setInterval(() => this._ping(), INTERVAL);
+    this._worker = new Worker(workerUrl)
+    setInterval(() => this._ping(), INTERVAL)
   }
 
   get all() {
-    return this._all;
+    return this._all
   }
 
   get currentLag() {
     return Math.max(
       this._lastRespondedPing?.lag ?? 0,
-      this._getFirstOfTheLastUnrespondedPings()?.lag ?? 0
-    );
+      this._getFirstOfTheLastUnrespondedPings()?.lag ?? 0,
+    )
   }
 
   private _getFirstOfTheLastUnrespondedPings() {
-    let first;
+    let first
     for (let i = this._all.length - 1; i >= 0; i -= 1) {
-      if (this._all[i].end) break;
-      first = this._all[i];
+      if (this._all[i].end) break
+      first = this._all[i]
     }
-    return first;
+    return first
   }
 
   private _ping() {
-    this._removePingsOverLimit();
-    this._addPing();
+    this._removePingsOverLimit()
+    this._addPing()
   }
 
   // TODO Clean up this cruft
@@ -49,35 +49,35 @@ export default class Pings {
     // Don't remove the first of the last unresponded ping, otherwise the lag
     // won't be bigger than the one for the first ping in the list!
     const firstOfTheLastUnrespondedPings =
-      this._getFirstOfTheLastUnrespondedPings();
-    let firstOfTheLastUnrespondedPingsWasRemoved;
+      this._getFirstOfTheLastUnrespondedPings()
+    let firstOfTheLastUnrespondedPingsWasRemoved
     while (this._all.length > this.max) {
-      const ping = this._all.shift();
-      if (!ping) continue;
+      const ping = this._all.shift()
+      if (!ping) continue
       if (
         firstOfTheLastUnrespondedPings &&
         ping === firstOfTheLastUnrespondedPings
       ) {
-        firstOfTheLastUnrespondedPingsWasRemoved = true;
+        firstOfTheLastUnrespondedPingsWasRemoved = true
       }
     }
     if (
       firstOfTheLastUnrespondedPings &&
       firstOfTheLastUnrespondedPingsWasRemoved
     ) {
-      this._all.unshift(firstOfTheLastUnrespondedPings);
+      this._all.unshift(firstOfTheLastUnrespondedPings)
     }
   }
 
   private _addPing() {
-    const ping = new Ping({ worker: this._worker });
+    const ping = new Ping({ worker: this._worker })
     ping.events.on("pinged", () => {
-      this._all.push(ping.assertSent());
-      this.events.emit("add", ping);
-    });
+      this._all.push(ping.assertSent())
+      this.events.emit("add", ping)
+    })
     ping.events.on("ponged", () => {
-      this._updateLastRespondedPing(ping.assertSent());
-    });
+      this._updateLastRespondedPing(ping.assertSent())
+    })
   }
 
   private _updateLastRespondedPing(ping: PingSent) {
@@ -85,7 +85,7 @@ export default class Pings {
       !this._lastRespondedPing ||
       this._lastRespondedPing.start < ping.start
     ) {
-      this._lastRespondedPing = ping;
+      this._lastRespondedPing = ping
     }
   }
 }

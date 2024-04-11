@@ -1,36 +1,36 @@
-import React from "react";
-import { FunctionComponent } from "react";
-import ServiceWorkerLoader from "../../../browser/offline-support/service-worker/loader";
-import { useForceUpdate } from "../../util";
+import React from "react"
+import { FunctionComponent } from "react"
+import ServiceWorkerLoader from "../../../browser/offline-support/service-worker/loader"
+import { useForceUpdate } from "../../util"
 
-const { useEffect } = React;
+const { useEffect } = React
 
 // TODO How to type statusCode with ServiceWorker#statusCode type?
 const getStatusCodeIcon = (statusCode: string) => {
   switch (statusCode) {
     case "INITIALIZING":
-      return "🟡";
+      return "🟡"
     case "WARNING":
-      return "🟠";
+      return "🟠"
     case "ERROR":
-      return "🔴";
+      return "🔴"
     case "READY":
-      return "🟢";
+      return "🟢"
     default:
-      throw new Error("Unknown status code");
+      throw new Error("Unknown status code")
   }
-};
+}
 
 type Props = {
-  serviceWorkerLoader: ServiceWorkerLoader;
-};
+  serviceWorkerLoader: ServiceWorkerLoader
+}
 
 const OfflineSupport: FunctionComponent<Props> = ({ serviceWorkerLoader }) => {
-  const forceUpdate = useForceUpdate();
+  const forceUpdate = useForceUpdate()
 
   useEffect(() => {
-    serviceWorkerLoader.events.on("change", forceUpdate);
-  }, []);
+    serviceWorkerLoader.events.on("change", forceUpdate)
+  }, [])
 
   return (
     <>
@@ -39,7 +39,7 @@ const OfflineSupport: FunctionComponent<Props> = ({ serviceWorkerLoader }) => {
       {serviceWorkerLoader.statusMessage &&
         ` (${serviceWorkerLoader.statusMessage})`}
     </>
-  );
-};
+  )
+}
 
-export default OfflineSupport;
+export default OfflineSupport

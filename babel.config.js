@@ -13,11 +13,11 @@ module.exports = (api) => ({
         targets: (() => {
           switch (api.env()) {
             case "browser":
-              return "defaults";
+              return "defaults"
             case "node":
-              return { node: true };
+              return { node: true }
             default:
-              throw new Error();
+              throw new Error()
           }
         })(),
       },
@@ -26,4 +26,4 @@ module.exports = (api) => ({
     "@babel/preset-typescript",
   ],
   sourceType: "unambiguous",
-});
+})

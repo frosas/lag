@@ -1,26 +1,26 @@
-import { scaleLinear } from "d3-scale";
-import React from "react";
-import Pings, { INTERVAL as PINGS_INTERVAL } from "../../pings";
-import User from "../../user";
+import { scaleLinear } from "d3-scale"
+import React from "react"
+import Pings, { INTERVAL as PINGS_INTERVAL } from "../../pings"
+import User from "../../user"
 
 interface Props {
-  user: User;
-  pings: Pings;
+  user: User
+  pings: Pings
 }
 
 export default class Chart extends React.Component<Props> {
-  private readonly _barWidth = 100 / this.props.pings.max; // %
-  private readonly _xScale = scaleLinear().range([0, 100]);
+  private readonly _barWidth = 100 / this.props.pings.max // %
+  private readonly _xScale = scaleLinear().range([0, 100])
 
   componentDidMount() {
     // TODO Stop listening on unmount
-    this.props.user.events.on("view", () => this.forceUpdate());
+    this.props.user.events.on("view", () => this.forceUpdate())
   }
 
   render() {
-    const now = Date.now();
-    const { pings } = this.props;
-    this._xScale.domain([now - (pings.max - 1) * PINGS_INTERVAL, now]);
+    const now = Date.now()
+    const { pings } = this.props
+    this._xScale.domain([now - (pings.max - 1) * PINGS_INTERVAL, now])
 
     // TODO Any way to make painting this more performant? Move a single parent
     // container instead of every <rect> individually?
@@ -38,13 +38,13 @@ export default class Chart extends React.Component<Props> {
           />
         ))}
       </svg>
-    );
+    )
   }
 
   _yScale(lag: number) {
     // 0 -> 0, normalLag -> .1, ∞ -> 1
-    const normalLag = 50;
-    const normalizedLag = (Math.atan(lag / normalLag / 10) * 2) / Math.PI;
-    return normalizedLag * 100;
+    const normalLag = 50
+    const normalizedLag = (Math.atan(lag / normalLag / 10) * 2) / Math.PI
+    return normalizedLag * 100
   }
 }

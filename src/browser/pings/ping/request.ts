@@ -1,17 +1,17 @@
 export default class Request {
-  readonly loaded: Promise<void>;
-  private readonly controller = new AbortController();
+  readonly loaded: Promise<void>
+  private readonly controller = new AbortController()
 
   constructor() {
     this.loaded = fetch(this.buildUrl(), {
       signal: this.controller.signal,
       redirect: "error", // Better to fail than performing multiple requests
       mode: "cors", // Enable error stack traces
-    }).then(() => undefined);
+    }).then(() => undefined)
   }
 
   abort() {
-    this.controller.abort();
+    this.controller.abort()
   }
 
   private buildUrl(): string {
@@ -30,6 +30,6 @@ export default class Request {
       "https://cdnjs.cloudflare.com/ajax/libs/taskforce/1.0/widget.min.js?" +
       "nocache&" + // Service worker to not bother to cache
       `${Date.now()}` // Browser to not cache
-    );
+    )
   }
 }

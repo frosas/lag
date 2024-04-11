@@ -1,18 +1,18 @@
-import React, { useState, FunctionComponent, ChangeEvent } from "react";
+import React, { useState, FunctionComponent, ChangeEvent } from "react"
 
 type Props = {
-  initialVolume: number;
-  onChangeVolume: (volume: number) => void;
-};
+  initialVolume: number
+  onChangeVolume: (volume: number) => void
+}
 
 const AudioControls: FunctionComponent<Props> = (props) => {
-  const [volume, setVolume] = useState(props.initialVolume);
+  const [volume, setVolume] = useState(props.initialVolume)
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const volume = parseFloat(event.target.value);
-    setVolume(volume);
-    props.onChangeVolume(volume);
-  };
+    const volume = parseFloat(event.target.value)
+    setVolume(volume)
+    props.onChangeVolume(volume)
+  }
 
   return (
     <form id="controls">
@@ -28,7 +28,7 @@ const AudioControls: FunctionComponent<Props> = (props) => {
         />
       </label>
     </form>
-  );
-};
+  )
+}
 
-export default AudioControls;
+export default AudioControls

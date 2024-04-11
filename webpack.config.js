@@ -1,19 +1,19 @@
 /* eslint-env node */
 
-import webpack from "webpack";
-import CopyPlugin from "copy-webpack-plugin";
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import HtmlPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { render as renderOfflineSupport } from "./src/build/offline-support";
+import webpack from "webpack"
+import CopyPlugin from "copy-webpack-plugin"
+import { CleanWebpackPlugin } from "clean-webpack-plugin"
+import HtmlPlugin from "html-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import { render as renderOfflineSupport } from "./src/build/offline-support"
 
-const getBuildDate = () => new Date().toUTCString();
+const getBuildDate = () => new Date().toUTCString()
 
-const SERVICE_WORKER_ENTRY_NAME = "service-worker";
+const SERVICE_WORKER_ENTRY_NAME = "service-worker"
 
 /** @type webpack.ConfigurationFactory */
 const configFactory = (_, args) => {
-  const isProd = args.mode === "production" || !args.mode;
+  const isProd = args.mode === "production" || !args.mode
   const createOutputFilename = (/** @type webpack.ChunkData */ chunkData) =>
     `scripts/[name]${
       // In dev we don't need to hash the URL (TODO does it do any harm though?),
@@ -21,7 +21,7 @@ const configFactory = (_, args) => {
       isProd && chunkData.chunk.name !== SERVICE_WORKER_ENTRY_NAME
         ? ".[contenthash]"
         : ""
-    }.js`;
+    }.js`
 
   return {
     entry: {
@@ -81,7 +81,7 @@ const configFactory = (_, args) => {
       }),
     ],
     devtool: isProd ? "source-map" : "cheap-module-eval-source-map",
-  };
-};
+  }
+}
 
-export default configFactory;
+export default configFactory
