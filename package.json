@@ -15,9 +15,12 @@
     "dev-lint-typescript": "npm run lint-typescript -- --watch --preserveWatchOutput --pretty",
     "dev-test-unit": "onchange -ki 'src/**/*.js' -- npm run test-unit",
     "prepare": "husky install",
-    "webpack": "npm run babel-node -- node_modules/.bin/webpack",
+    "webpack": "NODE_OPTIONS=--openssl-legacy-provider npm run babel-node -- node_modules/.bin/webpack",
     "webpack-analyze": "FILE=`mktemp -t stats` && npm run -s webpack -- --mode production --profile --json > $FILE && npx webpack-bundle-analyzer $FILE dist/browser",
-    "webpack-dev-server": "npm run babel-node -- node_modules/.bin/webpack serve --mode development"
+    "webpack-dev-server": "npm run webpack -- serve --mode development"
+  },
+  "engines": {
+    "node": "^20.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -29,6 +32,7 @@
     "@babel/preset-typescript": "^7.14.5",
     "@frosas/eslint-config": "^5.0.0",
     "@sentry/browser": "^6.19.7",
+    "@tsconfig/node20": "^20.1.4",
     "@types/babel__core": "^7.1.14",
     "@types/chai": "^4.2.18",
     "@types/copy-webpack-plugin": "~6.4.1",
@@ -36,7 +40,7 @@
     "@types/html-webpack-plugin": "^3.2.5",
     "@types/mini-css-extract-plugin": "1.2",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.18.96",
+    "@types/node": "^20.12.7",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",
     "@types/webpack-dev-server": "^3.11.4",
