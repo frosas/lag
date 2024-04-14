@@ -30,7 +30,7 @@
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
-    "@frosas/eslint-config": "^7.3.0",
+    "@frosas/eslint-config": "^8.1.0",
     "@sentry/browser": "^6.19.7",
     "@tsconfig/node20": "^20.1.4",
     "@types/babel__core": "^7.1.14",

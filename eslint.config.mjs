@@ -1,6 +1,6 @@
-const frosasConfig = require("@frosas/eslint-config")
-const globals = require("globals")
-const { config } = require("typescript-eslint")
+import frosasConfig from "@frosas/eslint-config"
+import globals from "globals"
+import { config } from "typescript-eslint"
 
 const jsConfig = config({
   languageOptions: { parserOptions: { ecmaVersion: 2020 } },
@@ -11,6 +11,6 @@ const configFilesConfig = config({
   languageOptions: { globals: globals.node },
 })
 
-module.exports = config(...frosasConfig, ...jsConfig, ...configFilesConfig, {
+export default config(...frosasConfig, ...jsConfig, ...configFilesConfig, {
   ignores: ["!**/.*.js", "dist/"],
 })
