@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const frosasConfig = require("@frosas/eslint-config")
 const globals = require("globals")
-const { default: tsEslint, config } = require("typescript-eslint")
+const { config } = require("typescript-eslint")
 const reactConfigRecommended = require("eslint-plugin-react/configs/recommended")
 
 const reactConfig = config({
@@ -17,18 +15,11 @@ const reactConfig = config({
   },
 })
 
-const tsConfig = config(...tsEslint.configs.recommended, {
-  rules: {
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-  },
-})
-
 const jsConfig = config({
   languageOptions: { parserOptions: { ecmaVersion: 2020 } },
 })
 
-const nodeConfig = config({
+const configFilesConfig = config({
   files: ["*.{js,ts,tsx}"],
   languageOptions: { globals: globals.node },
 })
@@ -36,8 +27,7 @@ const nodeConfig = config({
 module.exports = config(
   ...frosasConfig,
   ...reactConfig,
-  ...tsConfig,
   ...jsConfig,
-  ...nodeConfig,
+  ...configFilesConfig,
   { ignores: ["!**/.*.js", "dist/"] },
 )
