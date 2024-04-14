@@ -24,19 +24,20 @@ const tsConfig = config(...tsEslint.configs.recommended, {
   },
 })
 
+const jsConfig = config({
+  languageOptions: { parserOptions: { ecmaVersion: 2020 } },
+})
+
+const nodeConfig = config({
+  files: ["*.{js,ts,tsx}"],
+  languageOptions: { globals: globals.node },
+})
+
 module.exports = config(
   ...frosasConfig,
   ...reactConfig,
   ...tsConfig,
-  {
-    files: ["**/*.js", "**/*.ts", "**/*.tsx"],
-    languageOptions: {
-      parserOptions: { ecmaVersion: 2020 },
-      globals: {
-        ...globals.es2020,
-        ...globals.node,
-      },
-    },
-  },
+  ...jsConfig,
+  ...nodeConfig,
   { ignores: ["!**/.*.js", "dist/"] },
 )
