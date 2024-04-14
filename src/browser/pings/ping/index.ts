@@ -23,7 +23,6 @@ export default class Ping {
   constructor({ worker }: ConstructorParams) {
     const markAsDone = () => {
       this.done = true
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       worker.removeEventListener("message", onMessage)
     }
     const onMessage = (event: MessageEvent) => {
