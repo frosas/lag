@@ -2,10 +2,8 @@
 
 const frosasConfig = require("@frosas/eslint-config")
 const globals = require("globals")
-const tsEslint = require("typescript-eslint")
+const { default: tsEslint, config } = require("typescript-eslint")
 const reactConfigRecommended = require("eslint-plugin-react/configs/recommended")
-
-const { config } = tsEslint
 
 const reactConfig = config({
   files: ["**/*.{jsx,tsx}"],
