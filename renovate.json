@@ -1,9 +1,4 @@
 {
-  "extends": ["config:base"],
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
-    }
-  ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>frosas/renovate-config"]
 }
