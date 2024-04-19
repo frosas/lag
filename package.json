@@ -20,7 +20,7 @@
     "webpack-dev-server": "npm run webpack -- serve --mode development"
   },
   "engines": {
-    "node": "^20.11.1"
+    "node": "^20"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
