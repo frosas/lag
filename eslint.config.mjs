@@ -1,5 +1,4 @@
-import frosasConfig, { config } from "@frosas/eslint-config"
-import globals from "globals"
+import frosasConfig, { config, globals } from "@frosas/eslint-config"
 
 const jsConfig = config({
   languageOptions: { parserOptions: { ecmaVersion: 2020 } },
