@@ -16,7 +16,6 @@
     "dev-test-unit": "onchange -ki 'src/**/*.js' -- npm run test-unit",
     "prepare": "husky",
     "webpack": "NODE_OPTIONS=--openssl-legacy-provider npm run babel-node -- node_modules/.bin/webpack",
-    "webpack-analyze": "FILE=`mktemp -t stats` && npm run -s webpack -- --mode production --profile --json > $FILE && npx webpack-bundle-analyzer $FILE dist/browser",
     "webpack-dev-server": "npm run webpack -- serve --mode development"
   },
   "engines": {
