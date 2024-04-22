@@ -1,6 +1,5 @@
 /* eslint-env node */
 
-import webpack from "webpack"
 import CopyPlugin from "copy-webpack-plugin"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import HtmlPlugin from "html-webpack-plugin"
@@ -11,10 +10,12 @@ const getBuildDate = () => new Date().toUTCString()
 
 const SERVICE_WORKER_ENTRY_NAME = "service-worker"
 
-/** @type webpack.ConfigurationFactory */
+/** @type import('webpack').ConfigurationFactory */
 const configFactory = (_, args) => {
   const isProd = args.mode === "production" || !args.mode
-  const createOutputFilename = (/** @type webpack.ChunkData */ chunkData) =>
+  const createOutputFilename = (
+    /** @type import('webpack').ChunkData */ chunkData,
+  ) =>
     `scripts/[name]${
       // In dev we don't need to hash the URL (TODO does it do any harm though?),
       // and not having a consistent service worker URL caused problems (TODO which?)
@@ -56,11 +57,6 @@ const configFactory = (_, args) => {
     plugins: [
       new CleanWebpackPlugin(),
       new CopyPlugin({ patterns: [{ from: "static" }] }),
-      new webpack.BannerPlugin({
-        // TODO Submit fix for banner type not accepting functions
-        /** @type {any} */
-        banner: () => `Build date: ${getBuildDate()}`,
-      }),
       new HtmlPlugin({
         template: "html/index.ejs",
         templateData: { getBuildDate, renderOfflineSupport },
