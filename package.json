@@ -17,9 +17,6 @@
     "webpack": "NODE_OPTIONS=--openssl-legacy-provider tsx node_modules/.bin/webpack",
     "webpack-dev-server": "npm run webpack -- serve --mode development"
   },
-  "engines": {
-    "node": "^20"
-  },
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
