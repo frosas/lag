@@ -46,7 +46,7 @@
     "concurrently": "^8.2.2",
     "copy-webpack-plugin": "^6.4.1",
     "core-js": "^3.37.0",
-    "css-loader": "^5.2.6",
+    "css-loader": "^7.0.0",
     "d3-scale": "^4.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
