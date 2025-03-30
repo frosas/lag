@@ -31,7 +31,7 @@
     "@types/chai": "^4.2.18",
     "@types/copy-webpack-plugin": "~6.4.1",
     "@types/d3-scale": "^4.0.1",
-    "@types/eslint": "^8.56.10",
+    "@types/eslint": "^9.0.0",
     "@types/html-webpack-plugin": "^3.2.5",
     "@types/mini-css-extract-plugin": "1.2",
     "@types/mocha": "^10.0.6",
