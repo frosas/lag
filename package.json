@@ -29,7 +29,7 @@
     "@tsconfig/node22": "^22.0.1",
     "@types/babel__core": "^7.1.14",
     "@types/chai": "^4.2.18",
-    "@types/copy-webpack-plugin": "~6.4.1",
+    "@types/copy-webpack-plugin": "~10.1.0",
     "@types/d3-scale": "^4.0.1",
     "@types/eslint": "^8.56.10",
     "@types/html-webpack-plugin": "^3.2.5",
