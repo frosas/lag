@@ -3,18 +3,19 @@
   "private": true,
   "scripts": {
     "build": "npm run webpack -- --mode production",
+    "node-tsx": "node --import tsx",
     "lint": "concurrently -n typescript,eslint \"npm run lint-typescript\" \"npm run lint-eslint\"",
     "lint-eslint": "eslint .",
     "lint-typescript": "tsc",
     "test": "concurrently -n lint,unit-test,build \"npm run lint\" \"npm run test-unit\" \"npm run build\"",
-    "test-unit": "tsx node_modules/.bin/mocha 'src/**/*.test.ts'",
+    "test-unit": "npm run node-tsx -- node_modules/.bin/mocha 'src/**/*.test.ts'",
     "dev": "npm_config_loglevel=silent concurrently -k -n webpack-dev-server,lint,test-unit \"npm run webpack-dev-server\" \"npm run dev-lint\" \"npm run dev-test-unit\"",
     "dev-lint": "concurrently -k -n typescript,eslint \"npm run dev-lint-typescript\" \"npm run dev-lint-eslint\"",
     "dev-lint-eslint": "onchange -ki --exclude-path .gitignore '**/*.{js,ts,tsx}' -- npm run lint-eslint -- --fix",
     "dev-lint-typescript": "npm run lint-typescript -- --watch --preserveWatchOutput --pretty",
     "dev-test-unit": "onchange -ki 'src/**/*.js' -- npm run test-unit",
     "prepare": "husky",
-    "webpack": "NODE_OPTIONS=--openssl-legacy-provider tsx node_modules/.bin/webpack",
+    "webpack": "NODE_OPTIONS=--openssl-legacy-provider npm run node-tsx -- node_modules/.bin/webpack",
     "webpack-dev-server": "npm run webpack -- serve --mode development"
   },
   "devDependencies": {
