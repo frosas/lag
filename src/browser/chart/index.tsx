@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import ChartComponent from "./components"
 import Pings from "../pings"
 import User from "../user"
@@ -12,6 +12,6 @@ interface ConstructorParams {
 
 export default class Chart {
   constructor({ user, pings, element }: ConstructorParams) {
-    ReactDOM.render(<ChartComponent user={user} pings={pings} />, element)
+    createRoot(element).render(<ChartComponent user={user} pings={pings} />)
   }
 }

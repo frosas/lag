@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import ControlsComponent from "./components/controls"
 import AudioProcessing from "./processing"
 import PersistedVolume from "./persisted-volume"
@@ -18,12 +18,11 @@ export default class AudioControls {
       persistedVolume.save(volume)
     }
 
-    ReactDOM.render(
+    createRoot(domElement).render(
       <ControlsComponent
         initialVolume={audioProcessing.getVolume()}
         onChangeVolume={onChangeVolume}
       />,
-      domElement,
     )
   }
 }

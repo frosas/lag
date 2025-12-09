@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import ServiceWorkerLoader from "./service-worker/loader"
 import OfflineSupportComponent from "../../universal/offline-support/components"
 
@@ -13,11 +13,10 @@ export default class OfflineSupport {
     const serviceWorkerLoader = new ServiceWorkerLoader({
       url: serviceWorkerUrl,
     })
-    ReactDOM.render(
+    createRoot(domElement).render(
       <OfflineSupportComponent
         serviceWorkerLoader={serviceWorkerLoader}
       ></OfflineSupportComponent>,
-      domElement,
     )
   }
 }
