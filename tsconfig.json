@@ -8,7 +8,7 @@
     "target": "esnext", // Enables webpack tree-shaking (?) and code splitting
     "module": "esnext", // Let Babel do it
     "jsx": "preserve",
-    "moduleResolution": "node", // Allow importing defaults from non-ES modules
+    "moduleResolution": "bundler", // Aligns resolution with ESM/bundler tooling
     "esModuleInterop": true,
     "sourceMap": true, // Disallow features that require cross-file information for emit
     "isolatedModules": true,
