@@ -38,6 +38,10 @@ export default class AudioProcessing {
   setVolume = (volume: number) => {
     this._gain.gain.value = volume
     // Save processor/battery when possible
-    volume ? this._context.resume() : this._context.suspend()
+    if (volume) {
+      this._context.resume()
+    } else {
+      this._context.suspend()
+    }
   }
 }

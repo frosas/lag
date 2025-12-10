@@ -16,6 +16,7 @@ worker.onmessage = async (event) => {
       try {
         await request.loaded
         worker.postMessage({ type: "ponged", pingId, time: Date.now() })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         worker.postMessage({ type: "failed", pingId })
       }
