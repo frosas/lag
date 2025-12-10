@@ -1,4 +1,4 @@
-import { EventEmitter } from "events"
+import EventEmitter from "eventemitter3"
 
 type ConstructorParams = {
   url: string
@@ -23,6 +23,7 @@ export default class ServiceWorkerLoader {
       try {
         await navigator.serviceWorker.register(url, {
           scope: "..",
+          type: "module",
         })
         if (navigator.serviceWorker.controller) {
           this._setStatus("READY", "ready")

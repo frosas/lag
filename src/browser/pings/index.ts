@@ -1,4 +1,4 @@
-import { EventEmitter } from "events"
+import EventEmitter from "eventemitter3"
 import Ping, { PingSent } from "./ping"
 
 export const INTERVAL = 1000 // ms
@@ -15,7 +15,7 @@ export default class Pings {
   private readonly _worker: Worker
 
   constructor({ workerUrl }: ConstructorParams) {
-    this._worker = new Worker(workerUrl)
+    this._worker = new Worker(workerUrl, { type: "module" })
     setInterval(() => this._ping(), INTERVAL)
   }
 

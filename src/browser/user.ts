@@ -1,4 +1,4 @@
-import { EventEmitter } from "events"
+import EventEmitter from "eventemitter3"
 
 // User won't notice lower intervals than these
 const MAX_READ_INTERVAL = 250 // msecs
