@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@frosas/eslint-config": "^8.3.3",
-    "@sentry/browser": "^8.55.0",
+    "@sentry/browser": "^10.0.0",
     "@tsconfig/node22": "^22.0.1",
     "@types/chai": "^4.2.18",
     "@types/d3-scale": "^4.0.1",
