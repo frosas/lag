@@ -1,3 +1,5 @@
+/// <reference lib="webworker" />
+
 /* eslint-disable no-console */
 
 import "../../error-tracking"
@@ -21,14 +23,12 @@ const isCacheableRequest = (request: Request) => {
   )
 }
 
-// TODO Use the right event type
-worker.addEventListener("install", (event: any) => {
+worker.addEventListener("install", (event: ExtendableEvent) => {
   debug("Installing...")
   event.waitUntil(worker.skipWaiting().then(() => debug("Installed")))
 })
 
-// TODO Use the right event type
-worker.addEventListener("activate", (event: any) => {
+worker.addEventListener("activate", (event: ExtendableEvent) => {
   debug("Activating...")
   event.waitUntil(worker.clients.claim().then(() => debug("Activated")))
 })
@@ -40,8 +40,7 @@ const MAX_ACCEPTABLE_RESPONSE_TIME = 1000 // ms
 
 let nextFetchId = 1
 
-// TODO Use the right event type
-worker.addEventListener("fetch", (event: any) => {
+worker.addEventListener("fetch", (event: FetchEvent) => {
   const fetchId = (nextFetchId += 1)
   const fetchDebug = (...args: any[]) => debug(`[Fetch #${fetchId}]`, ...args)
 
@@ -76,8 +75,7 @@ worker.addEventListener("fetch", (event: any) => {
   )
 })
 
-// TODO Use the right event type
-worker.addEventListener("message", (event: any) => {
+worker.addEventListener("message", (event: ExtendableMessageEvent) => {
   switch (event.data) {
     case "toggleDebugging":
       isDebugEnabled = !isDebugEnabled
