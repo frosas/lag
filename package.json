@@ -22,7 +22,7 @@
     "@frosas/eslint-config": "^8.3.3",
     "@sentry/browser": "^8.55.0",
     "@tsconfig/node24": "^24.0.3",
-    "@types/chai": "^4.2.18",
+    "@types/chai": "^5.0.0",
     "@types/d3-scale": "^4.0.1",
     "@types/eslint": "^8.56.10",
     "@types/mocha": "^10.0.6",
