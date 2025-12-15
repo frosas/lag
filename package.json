@@ -14,8 +14,7 @@
     "dev-lint-typescript": "npm run lint-typescript -- --watch --preserveWatchOutput --pretty",
     "dev-test-unit": "vitest watch",
     "dev-web-server": "vite",
-    "prepare": "husky",
-    "preview": "vite preview"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@frosas/eslint-config": "^8.3.3",
