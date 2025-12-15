@@ -52,6 +52,11 @@ export default defineConfig({
       },
     },
   ],
+  server: {
+    headers: {
+      "Service-Worker-Allowed": "/",
+    },
+  },
   publicDir: "static",
   build: {
     outDir: "dist/browser",
