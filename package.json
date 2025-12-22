@@ -21,7 +21,7 @@
     "@sentry/browser": "^8.55.0",
     "@tsconfig/node24": "^24.0.3",
     "@types/d3-scale": "^4.0.1",
-    "@types/eslint": "^8.56.10",
+    "@types/eslint": "^9.0.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
