@@ -1,7 +1,5 @@
 /// <reference lib="webworker" />
 
-/* eslint-disable no-console */
-
 import "../../error-tracking"
 import { timeout } from "../../../universal/util"
 
