@@ -1,7 +1,7 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
-import ServiceWorkerLoader from "./service-worker/loader"
 import OfflineSupportComponent from "../../universal/offline-support/components"
+import ServiceWorkerLoader from "./service-worker/loader"
 
 type ConstructorParams = {
   serviceWorkerUrl: string

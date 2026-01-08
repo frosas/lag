@@ -2,10 +2,10 @@ import "./error-tracking"
 import "../../styles/main.css"
 import PageIcon from "./page-icon"
 import PageTitle from "./page-title"
-import Title from "./title"
-import { assertNotNullable } from "./util"
 import Pings from "./pings"
+import Title from "./title"
 import User from "./user"
+import { assertNotNullable } from "./util"
 
 const pings = new Pings({
   // TODO Avoid that any

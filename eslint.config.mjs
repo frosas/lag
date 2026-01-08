@@ -1,5 +1,5 @@
-import { defineConfig } from "eslint/config"
 import frosasConfig, { globals } from "@frosas/eslint-config"
+import { defineConfig } from "eslint/config"
 
 export default defineConfig([
   ...frosasConfig,

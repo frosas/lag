@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, ChangeEvent } from "react"
+import React, { ChangeEvent, FunctionComponent, useState } from "react"
 
 type Props = {
   initialVolume: number

@@ -1,7 +1,7 @@
-import User from "../user"
 import Pings from "../pings"
-import AudioProcessing from "./processing"
+import User from "../user"
 import AudioControls from "./controls"
+import AudioProcessing from "./processing"
 
 type ConstructorParams = {
   user: User

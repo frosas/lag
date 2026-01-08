@@ -1,7 +1,7 @@
 import { polarity } from "../../universal/math"
-import createNoiseBufferSource from "./create-noise-buffer-source"
 import Pings from "../pings"
 import User from "../user"
+import createNoiseBufferSource from "./create-noise-buffer-source"
 
 export default class AudioProcessing {
   private _context = new AudioContext()

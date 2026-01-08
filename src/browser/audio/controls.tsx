@@ -1,8 +1,8 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
 import ControlsComponent from "./components/controls"
-import AudioProcessing from "./processing"
 import PersistedVolume from "./persisted-volume"
+import AudioProcessing from "./processing"
 
 type ConstructorParams = {
   audioProcessing: AudioProcessing

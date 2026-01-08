@@ -1,8 +1,8 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
-import ChartComponent from "./components"
 import Pings from "../pings"
 import User from "../user"
+import ChartComponent from "./components"
 
 interface ConstructorParams {
   user: User
