@@ -3,16 +3,46 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "dev": "npm_config_loglevel=silent concurrently -k -n vite,typecheck,lint,test-unit npm:dev-web-server npm:dev-typecheck npm:dev-lint npm:dev-test-unit",
-    "dev-lint": "onchange -ki --exclude-path .gitignore '**/*.{js,ts,tsx}' -- npm run lint -- --fix",
-    "dev-typecheck": "npm run typecheck -- --watch --preserveWatchOutput --pretty",
-    "dev-test-unit": "vitest watch",
-    "dev-web-server": "vite",
+    "dev": "wireit",
     "lint": "eslint . --max-warnings=0",
     "prepare": "husky",
     "typecheck": "tsc",
-    "test": "concurrently -n lint,typecheck,unit-test,build npm:lint npm:typecheck npm:test-unit npm:build",
+    "test": "wireit",
     "test-unit": "vitest run"
+  },
+  "wireit": {
+    "dev": {
+      "dependencies": [
+        "dev-web-server",
+        "dev-typecheck",
+        "dev-lint",
+        "dev-test-unit"
+      ]
+    },
+    "dev-web-server": {
+      "command": "vite",
+      "service": true
+    },
+    "dev-typecheck": {
+      "command": "npm run typecheck -- --watch --preserveWatchOutput --pretty",
+      "service": true
+    },
+    "dev-lint": {
+      "command": "onchange -ki --exclude-path .gitignore '**/*.{js,ts,tsx}' -- npm run lint -- --fix",
+      "service": true
+    },
+    "dev-test-unit": {
+      "command": "vitest watch",
+      "service": true
+    },
+    "test": {
+      "dependencies": [
+        "lint",
+        "typecheck",
+        "test-unit",
+        "build"
+      ]
+    }
   },
   "devDependencies": {
     "@frosas/eslint-config": "^10.0.1",
@@ -25,7 +55,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
     "compression": "^1.7.2",
-    "concurrently": "^9.0.0",
     "d3-scale": "^4.0.0",
     "eslint": "^9.0.0",
     "eslint-plugin-react": "^7.34.1",
@@ -36,6 +65,7 @@
     "react-dom": "^19.2.3",
     "typescript": "^5.4.5",
     "vite": "^7.2.7",
-    "vitest": "^4.0.0"
+    "vitest": "^4.0.0",
+    "wireit": "^0.14.12"
   }
 }
