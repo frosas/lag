@@ -1,7 +1,8 @@
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import react from "@vitejs/plugin-react"
-import { defineConfig, type IndexHtmlTransformContext } from "vite"
+import { defineConfig } from "vitest/config"
+import type { IndexHtmlTransformContext } from "vite"
 import { render as renderOfflineSupport } from "./src/build/offline-support"
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url))
@@ -56,6 +57,10 @@ export default defineConfig({
     headers: {
       "Service-Worker-Allowed": "/",
     },
+  },
+  test: {
+    environment: "node",
+    include: ["src/**/*.test.ts"],
   },
   publicDir: "static",
   build: {
