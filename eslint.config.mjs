@@ -11,6 +11,6 @@ export default defineConfig([
     languageOptions: { globals: globals.node },
   },
   {
-    ignores: ["!**/.*.js", "dist/"],
+    ignores: ["!**/.*.js", "dist/", ".turbo/"],
   },
 ])

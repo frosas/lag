@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "dev-web-server": {
+      "persistent": true,
+      "cache": false
+    },
+    "dev-typecheck": {
+      "persistent": true,
+      "cache": false
+    },
+    "dev-lint": {
+      "persistent": true,
+      "cache": false
+    },
+    "dev-test-unit": {
+      "persistent": true,
+      "cache": false
+    }
+  }
+}
