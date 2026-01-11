@@ -1,4 +1,7 @@
-import frosasConfig, { globals } from "@frosas/eslint-config"
+import frosasConfig, {
+  buildGitIgnoreConfig,
+  globals,
+} from "@frosas/eslint-config"
 import { defineConfig } from "eslint/config"
 
 export default defineConfig([
@@ -10,7 +13,5 @@ export default defineConfig([
     files: ["*.{js,ts,tsx}"],
     languageOptions: { globals: globals.node },
   },
-  {
-    ignores: ["!**/.*.js", "dist/", ".turbo/"],
-  },
+  buildGitIgnoreConfig(import.meta.dirname),
 ])
