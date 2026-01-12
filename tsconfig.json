@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "strict": true,
     "noEmit": true,
-    "lib": ["dom"]
+    "lib": ["DOM", "WebWorker"]
   },
   "exclude": ["node_modules", "dist"]
 }

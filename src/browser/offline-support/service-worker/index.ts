@@ -1,14 +1,12 @@
-/// <reference lib="webworker" />
-
 import "../../error-tracking"
 import { timeout } from "../../../universal/util"
 
-// TODO Make worker a ServiceWorker after finding proper typings for ServiceWorker
-const worker = self as any
+declare const self: ServiceWorkerGlobalScope
 
 let isDebugEnabled = false
 
 const debug = (...args: any[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   if (isDebugEnabled) console.log("[Service Worker]", ...args)
 }
 
@@ -21,14 +19,14 @@ const isCacheableRequest = (request: Request) => {
   )
 }
 
-worker.addEventListener("install", (event: ExtendableEvent) => {
+self.addEventListener("install", (event: ExtendableEvent) => {
   debug("Installing...")
-  event.waitUntil(worker.skipWaiting().then(() => debug("Installed")))
+  event.waitUntil(self.skipWaiting().then(() => debug("Installed")))
 })
 
-worker.addEventListener("activate", (event: ExtendableEvent) => {
+self.addEventListener("activate", (event: ExtendableEvent) => {
   debug("Activating...")
-  event.waitUntil(worker.clients.claim().then(() => debug("Activated")))
+  event.waitUntil(self.clients.claim().then(() => debug("Activated")))
 })
 
 // From http://www.nngroup.com/articles/response-times-3-important-limits/: "1.0
@@ -38,8 +36,9 @@ const MAX_ACCEPTABLE_RESPONSE_TIME = 1000 // ms
 
 let nextFetchId = 1
 
-worker.addEventListener("fetch", (event: FetchEvent) => {
+self.addEventListener("fetch", (event: FetchEvent) => {
   const fetchId = (nextFetchId += 1)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const fetchDebug = (...args: any[]) => debug(`[Fetch #${fetchId}]`, ...args)
 
   fetchDebug(event.request)
@@ -52,11 +51,13 @@ worker.addEventListener("fetch", (event: FetchEvent) => {
   const whenResponse = fetch(event.request)
 
   // Cache the request/response
-  whenResponse.then((response) => {
+  void whenResponse.then((response) => {
     fetchDebug(response)
     const responseClone = response.clone()
-    caches.open("v1").then((cache) => {
-      cache.put(event.request, responseClone).then(() => fetchDebug("Cached"))
+    void caches.open("v1").then((cache) => {
+      void cache
+        .put(event.request, responseClone)
+        .then(() => fetchDebug("Cached"))
     })
   })
 
@@ -73,7 +74,7 @@ worker.addEventListener("fetch", (event: FetchEvent) => {
   )
 })
 
-worker.addEventListener("message", (event: ExtendableMessageEvent) => {
+self.addEventListener("message", (event: ExtendableMessageEvent) => {
   switch (event.data) {
     case "toggleDebugging":
       isDebugEnabled = !isDebugEnabled

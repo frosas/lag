@@ -1,8 +1,9 @@
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import react from "@vitejs/plugin-react"
-import { defineConfig } from "vitest/config"
 import type { IndexHtmlTransformContext } from "vite"
+import { defineConfig } from "vitest/config"
+import { AppData } from "./src/build/app-data"
 import { render as renderOfflineSupport } from "./src/build/offline-support"
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url))
@@ -40,16 +41,11 @@ export default defineConfig({
           PING_WORKER_CHUNK_NAME,
           "/src/browser/pings/worker.ts",
         )
+        const appData: AppData = { serviceWorkerUrl, pingWorkerUrl }
         return html
           .replace("__OFFLINE_SUPPORT__", renderOfflineSupport())
           .replace("__BUILD_DATE__", buildDate())
-          .replace(
-            "__APP_DATA__",
-            JSON.stringify({
-              serviceWorkerUrl,
-              pingWorkerUrl,
-            }),
-          )
+          .replace("__APP_DATA__", JSON.stringify(appData))
       },
     },
   ],

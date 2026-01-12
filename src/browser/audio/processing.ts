@@ -39,9 +39,9 @@ export default class AudioProcessing {
     this._gain.gain.value = volume
     // Save processor/battery when possible
     if (volume) {
-      this._context.resume()
+      void this._context.resume()
     } else {
-      this._context.suspend()
+      void this._context.suspend()
     }
   }
 }

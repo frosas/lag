@@ -3,22 +3,37 @@
 import "../error-tracking"
 import Request from "./ping/request"
 
-// See https://github.com/Qwaz/webworker-with-typescript/blob/a0c86bd/worker-loader/src/worker.ts
-const worker: Worker = self as any
+interface OnMessageEventData {
+  type: "ping"
+  pingId: string
+}
 
-worker.onmessage = async (event) => {
-  // TODO Constraint event.data type
-  const { pingId } = event.data
+export type PostMessageEventData = {
+  pingId: string
+} & (
+  | { type: "pinged"; time: number }
+  | { type: "ponged"; time: number }
+  | { type: "failed" }
+)
+
+declare const self: DedicatedWorkerGlobalScope
+
+function postMessage(message: PostMessageEventData) {
+  self.postMessage(message)
+}
+
+self.onmessage = async (event: MessageEvent<OnMessageEventData>) => {
   switch (event.data.type) {
     case "ping": {
+      const { pingId } = event.data
       const request = new Request()
-      worker.postMessage({ type: "pinged", pingId, time: Date.now() })
+      postMessage({ type: "pinged", pingId, time: Date.now() })
       try {
         await request.loaded
-        worker.postMessage({ type: "ponged", pingId, time: Date.now() })
+        postMessage({ type: "ponged", pingId, time: Date.now() })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        worker.postMessage({ type: "failed", pingId })
+        postMessage({ type: "failed", pingId })
       }
       break
     }

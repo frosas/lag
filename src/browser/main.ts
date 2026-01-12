@@ -1,5 +1,6 @@
 import "./error-tracking"
 import "../../styles/main.css"
+import type { AppData } from "../build/app-data"
 import PageIcon from "./page-icon"
 import PageTitle from "./page-title"
 import Pings from "./pings"
@@ -7,9 +8,16 @@ import Title from "./title"
 import User from "./user"
 import { assertNotNullable } from "./util"
 
+declare global {
+  interface Window {
+    __APP_DATA__: AppData
+  }
+}
+
+const appData = window.__APP_DATA__
+
 const pings = new Pings({
-  // TODO Avoid that any
-  workerUrl: (window as any).app.pingWorkerUrl,
+  workerUrl: appData.pingWorkerUrl,
 })
 
 const user = new User()
@@ -24,7 +32,7 @@ new Title({
   user,
 })
 
-import(/* webpackChunkName: "chart" */ "./chart").then(
+void import("./chart").then(
   ({ default: Chart }) =>
     new Chart({
       element: assertNotNullable(document.querySelector("#chart")),
@@ -33,16 +41,15 @@ import(/* webpackChunkName: "chart" */ "./chart").then(
     }),
 )
 
-import(/* webpackChunkName: "offline-support" */ "./offline-support").then(
+void import(/* webpackChunkName: "offline-support" */ "./offline-support").then(
   ({ default: OfflineSupport }) =>
     new OfflineSupport({
-      // TODO Avoid that any
-      serviceWorkerUrl: (window as any).app.serviceWorkerUrl,
+      serviceWorkerUrl: appData.serviceWorkerUrl,
       domElement: assertNotNullable(document.querySelector("#offline-support")),
     }),
 )
 
-import(/* webpackChunkName: "audio" */ "./audio").then(
+void import(/* webpackChunkName: "audio" */ "./audio").then(
   ({ default: Audio }) =>
     new Audio({
       user,

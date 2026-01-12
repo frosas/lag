@@ -17,7 +17,7 @@ export const assertType = <T>(
   value: any,
   isType: (isTypeValue: typeof value) => isTypeValue is T,
 ): T => {
-  if (isType(value)) return value as T
+  if (isType(value)) return value
   // TODO Is there a way to mention the type (T) we were expecting?
   throw new Error(`Couldn't assert type for value '${value}'`)
 }

@@ -1,5 +1,6 @@
 import EventEmitter from "eventemitter3"
 import { assertType } from "../../util"
+import { PostMessageEventData } from "../worker"
 
 export type PingSent = Ping & {
   start: number
@@ -15,7 +16,7 @@ let nextId = 0
 export default class Ping {
   readonly events = new EventEmitter()
   readonly id = `${nextId++}`
-  done = false // Whether it has finished (whether succesfully or not)
+  done = false // Whether it has finished (either successfully or not)
   failed = false // Whether it finished failing
   start?: number = Date.now()
   end?: number
@@ -25,8 +26,7 @@ export default class Ping {
       this.done = true
       worker.removeEventListener("message", onMessage)
     }
-    const onMessage = (event: MessageEvent) => {
-      // TODO Constraint event.data type
+    const onMessage = (event: MessageEvent<PostMessageEventData>) => {
       if (event.data.pingId !== this.id) return
       switch (event.data.type) {
         case "pinged":

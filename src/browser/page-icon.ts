@@ -21,9 +21,9 @@ const getColor = (lag: number) =>
 const getIconUrl = (lag: number) => getBulletUrl(getColor(lag))
 
 const getIconLinkElement = () => {
-  let icon = document.querySelector("link[rel~=icon]") as HTMLLinkElement
+  let icon = document.querySelector<HTMLLinkElement>("link[rel~=icon]")
   if (!icon) {
-    icon = document.createElement("link") as HTMLLinkElement
+    icon = document.createElement("link")
     icon.rel = "icon"
     document.head.appendChild(icon)
   }
