@@ -45,7 +45,7 @@ export default defineConfig({
         return html
           .replace("__OFFLINE_SUPPORT__", renderOfflineSupport())
           .replace("__BUILD_DATE__", buildDate())
-          .replace("__APP_DATA__", JSON.stringify(appData))
+          .replace("__APP_DATA_PLACEHOLDER__", JSON.stringify(appData))
       },
     },
   ],
