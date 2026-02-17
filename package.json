@@ -27,7 +27,7 @@
     "@vitejs/plugin-react": "^5.1.2",
     "compression": "^1.7.2",
     "d3-scale": "^4.0.0",
-    "eslint": "^9.0.0",
+    "eslint": "^10.0.0",
     "eslint-plugin-react": "^7.34.1",
     "eventemitter3": "^5.0.1",
     "husky": "^9.0.11",
