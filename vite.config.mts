@@ -62,7 +62,7 @@ export default defineConfig({
   build: {
     outDir: "dist/browser",
     assetsDir: "scripts",
-    rollupOptions: {
+    rolldownOptions: {
       input: {
         main: path.resolve(rootDir, "index.html"),
         [SERVICE_WORKER_CHUNK_NAME]: path.resolve(
