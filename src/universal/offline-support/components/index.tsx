@@ -30,7 +30,10 @@ const OfflineSupport: FunctionComponent<Props> = ({ serviceWorkerLoader }) => {
 
   useEffect(() => {
     serviceWorkerLoader.events.on("change", forceUpdate)
-  }, [])
+    return () => {
+      serviceWorkerLoader.events.off("change", forceUpdate)
+    }
+  }, [forceUpdate, serviceWorkerLoader])
 
   return (
     <>
