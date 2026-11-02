@@ -31,17 +31,25 @@ export default class AudioProcessing {
     })
 
     this.setVolume(0)
+    void this.suspend()
   }
-
-  getVolume = () => this._gain.gain.value
 
   setVolume = (volume: number) => {
     this._gain.gain.value = volume
-    // Save processor/battery when possible
-    if (volume) {
-      void this._context.resume()
-    } else {
-      void this._context.suspend()
-    }
+  }
+
+  /** Call it from a user gesture event handler: Safari requires it. */
+  resume = () => this._context.resume()
+
+  // Save processor/battery when possible
+  suspend = () => this._context.suspend()
+
+  onStopped = (listener: () => void) => {
+    let wasRunning = false
+    this._context.addEventListener("statechange", () => {
+      const isRunning = this._context.state === "running"
+      if (wasRunning && !isRunning) listener()
+      wasRunning = isRunning
+    })
   }
 }
