@@ -41,6 +41,7 @@ export default class Ping {
         case "failed":
           this.failed = true
           markAsDone()
+          this.events.emit("failed")
           break
       }
     }
