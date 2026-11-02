@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "strict": true,
     "noEmit": true,
-    "lib": ["DOM", "WebWorker"],
+    "lib": ["ESNext", "DOM", "WebWorker"],
     "types": ["vite/client"]
   },
   "exclude": ["node_modules", "dist"]

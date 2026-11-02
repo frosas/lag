@@ -12,6 +12,9 @@ export default class Pings {
   readonly max = (2 /* minutes */ * 60 * 1000) / INTERVAL
   private readonly _all: PingSent[] = []
   private _lastRespondedPing?: PingSent
+  // Pings sent after the last responded one, except redundant failed ones.
+  // After a long outage, they may be no longer in the list.
+  private _unrespondedPings: PingSent[] = []
   private readonly _worker: Worker
 
   constructor({ workerUrl }: ConstructorParams) {
@@ -26,17 +29,8 @@ export default class Pings {
   get currentLag() {
     return Math.max(
       this._lastRespondedPing?.lag ?? 0,
-      this._getFirstOfTheLastUnrespondedPings()?.lag ?? 0,
+      this._unrespondedPings[0]?.lag ?? 0,
     )
-  }
-
-  private _getFirstOfTheLastUnrespondedPings() {
-    let first
-    for (let i = this._all.length - 1; i >= 0; i -= 1) {
-      if (this._all[i].end) break
-      first = this._all[i]
-    }
-    return first
   }
 
   private _ping() {
@@ -44,40 +38,32 @@ export default class Pings {
     this._addPing()
   }
 
-  // TODO Clean up this cruft
   private _removePingsOverLimit() {
-    // Don't remove the first of the last unresponded ping, otherwise the lag
-    // won't be bigger than the one for the first ping in the list!
-    const firstOfTheLastUnrespondedPings =
-      this._getFirstOfTheLastUnrespondedPings()
-    let firstOfTheLastUnrespondedPingsWasRemoved
-    while (this._all.length > this.max) {
-      const ping = this._all.shift()
-      if (!ping) continue
-      if (
-        firstOfTheLastUnrespondedPings &&
-        ping === firstOfTheLastUnrespondedPings
-      ) {
-        firstOfTheLastUnrespondedPingsWasRemoved = true
-      }
-    }
-    if (
-      firstOfTheLastUnrespondedPings &&
-      firstOfTheLastUnrespondedPingsWasRemoved
-    ) {
-      this._all.unshift(firstOfTheLastUnrespondedPings)
-    }
+    while (this._all.length > this.max) this._all.shift()
   }
 
   private _addPing() {
     const ping = new Ping({ worker: this._worker })
     ping.events.on("pinged", () => {
-      this._all.push(ping.assertSent())
+      const sentPing = ping.assertSent()
+      this._all.push(sentPing)
+      this._unrespondedPings.push(sentPing)
       this.events.emit("add", ping)
     })
     ping.events.on("ponged", () => {
       this._updateLastRespondedPing(ping.assertSent())
     })
+    ping.events.on("failed", () => this._removeRedundantFailedPings())
+  }
+
+  // A failed ping won't be responded, so in a run of failed pings only the
+  // first one can become the first unresponded ping. Removing the rest stops
+  // the unresponded pings from growing during an outage.
+  private _removeRedundantFailedPings() {
+    this._unrespondedPings = this._unrespondedPings.filter(
+      (ping, index, pings) =>
+        !(ping.failed && index > 0 && pings[index - 1].failed),
+    )
   }
 
   private _updateLastRespondedPing(ping: PingSent) {
@@ -86,6 +72,9 @@ export default class Pings {
       this._lastRespondedPing.start < ping.start
     ) {
       this._lastRespondedPing = ping
+      this._unrespondedPings = this._unrespondedPings.filter(
+        (unrespondedPing) => unrespondedPing.start > ping.start,
+      )
     }
   }
 }
