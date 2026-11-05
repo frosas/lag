@@ -1,7 +1,7 @@
 {
   "name": "lag",
   "private": true,
-  "packageManager": "npm@11.14.0+sha512.ea37d9cea2bc11f5869d379941ef9b80cc78220884667ee4d5e338184f1213cd41de261c879d9d55230ed610b63a735b14b230cefc14914c6c38e7143c6d9723",
+  "packageManager": "npm@12.2.2+sha512.2a09606d9c9a71fee31fe147b8d46a56e0b3422f15848d9aec9f3b231e3716c3d3b99a065a62175c6759b4150e03bf6fc0bf8825112a511573ba903b3ec41370",
   "scripts": {
     "build": "vite build",
     "dev": "turbo dev-lint dev-typecheck dev-test-unit dev-web-server",
