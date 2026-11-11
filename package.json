@@ -16,7 +16,7 @@
     "test-unit": "vitest run"
   },
   "devDependencies": {
-    "@frosas/eslint-config": "^11.0.0",
+    "@frosas/eslint-config": "^11.0.2",
     "@sentry/browser": "^11.0.0",
     "@tsconfig/node26": "^26.0.1",
     "@types/d3-scale": "^4.0.1",
