@@ -1,16 +1,25 @@
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import react from "@vitejs/plugin-react"
-import type { IndexHtmlTransformContext } from "vite"
+import { type IndexHtmlTransformContext, runnerImport } from "vite"
 import { defineConfig } from "vitest/config"
-import { AppData } from "./src/build/app-data"
-import { render as renderOfflineSupport } from "./src/build/offline-support"
+import type { AppData } from "./src/build/app-data.ts"
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url))
 const SERVICE_WORKER_CHUNK_NAME = "service-worker"
 const PING_WORKER_CHUNK_NAME = "ping-worker"
 
 const buildDate = () => new Date().toUTCString()
+
+// Loaded through Vite rather than imported, as Node can't load TSX files natively
+const renderOfflineSupport = async () => {
+  const { module } = await runnerImport<
+    typeof import("./src/build/offline-support/index.tsx")
+  >(path.resolve(rootDir, "src/build/offline-support/index.tsx"), {
+    plugins: [react()],
+  })
+  return module.render()
+}
 
 const resolveWorkerUrl = (
   ctx: IndexHtmlTransformContext | undefined,
@@ -30,7 +39,7 @@ export default defineConfig({
     react(),
     {
       name: "inject-html-data",
-      transformIndexHtml(html, ctx) {
+      async transformIndexHtml(html, ctx) {
         const serviceWorkerUrl = resolveWorkerUrl(
           ctx,
           SERVICE_WORKER_CHUNK_NAME,
@@ -43,7 +52,7 @@ export default defineConfig({
         )
         const appData: AppData = { serviceWorkerUrl, pingWorkerUrl }
         return html
-          .replace("__OFFLINE_SUPPORT__", renderOfflineSupport())
+          .replace("__OFFLINE_SUPPORT__", await renderOfflineSupport())
           .replace("__BUILD_DATE__", buildDate())
           .replace("__APP_DATA_PLACEHOLDER__", JSON.stringify(appData))
       },
