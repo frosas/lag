@@ -1,4 +1,4 @@
-import "./error-tracking"
+import "./error-tracking/page"
 import "../../styles/main.css"
 import type { AppData } from "../build/app-data"
 import PageIcon from "./page-icon"

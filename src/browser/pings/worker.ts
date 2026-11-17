@@ -1,6 +1,6 @@
 // TODO Disable browser eslint env
 
-import "../error-tracking"
+import "../error-tracking/worker"
 import Request from "./ping/request"
 
 interface OnMessageEventData {
