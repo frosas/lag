@@ -1,4 +1,4 @@
-import "../../error-tracking"
+import "../../error-tracking/worker"
 import { timeout } from "../../../universal/util"
 
 declare const self: ServiceWorkerGlobalScope
