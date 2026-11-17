@@ -29,6 +29,7 @@
     "d3-scale": "^4.0.0",
     "eslint": "^10.13.0",
     "eventemitter3": "^5.0.1",
+    "happy-dom": "^21.0.4",
     "husky": "^9.0.11",
     "onchange": "^7.1.0",
     "react": "^19.2.3",

@@ -1,9 +1,8 @@
 import React from "react"
 import { FunctionComponent } from "react"
 import ServiceWorkerLoader from "../../../browser/offline-support/service-worker/loader"
-import { useForceUpdate } from "../../util"
 
-const { useEffect } = React
+const { useCallback, useSyncExternalStore } = React
 
 // TODO How to type statusCode with ServiceWorker#statusCode type?
 const getStatusCodeIcon = (statusCode: string) => {
@@ -22,25 +21,40 @@ const getStatusCodeIcon = (statusCode: string) => {
 }
 
 type Props = {
-  serviceWorkerLoader: ServiceWorkerLoader
+  serviceWorkerLoader: Pick<
+    ServiceWorkerLoader,
+    "events" | "statusCode" | "statusMessage"
+  >
 }
 
 const OfflineSupport: FunctionComponent<Props> = ({ serviceWorkerLoader }) => {
-  const forceUpdate = useForceUpdate()
-
-  useEffect(() => {
-    serviceWorkerLoader.events.on("change", forceUpdate)
-    return () => {
-      serviceWorkerLoader.events.off("change", forceUpdate)
-    }
-  }, [forceUpdate, serviceWorkerLoader])
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      serviceWorkerLoader.events.on("change", onChange)
+      return () => {
+        serviceWorkerLoader.events.off("change", onChange)
+      }
+    },
+    [serviceWorkerLoader],
+  )
+  const getStatusCode = () => serviceWorkerLoader.statusCode
+  const getStatusMessage = () => serviceWorkerLoader.statusMessage
+  const statusCode = useSyncExternalStore(
+    subscribe,
+    getStatusCode,
+    getStatusCode,
+  )
+  const statusMessage = useSyncExternalStore(
+    subscribe,
+    getStatusMessage,
+    getStatusMessage,
+  )
 
   return (
     <>
       {"Offline support: "}
-      {getStatusCodeIcon(serviceWorkerLoader.statusCode)}
-      {serviceWorkerLoader.statusMessage &&
-        ` (${serviceWorkerLoader.statusMessage})`}
+      {getStatusCodeIcon(statusCode)}
+      {statusMessage && ` (${statusMessage})`}
     </>
   )
 }
