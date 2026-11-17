@@ -19,6 +19,12 @@ export default class ServiceWorkerLoader {
       this._setStatus("READY", "ready")
     }
 
+    // The service worker claims the page once it activates, so the page can
+    // become controlled without a reload.
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      this._setStatus("READY", "ready")
+    })
+
     void (async () => {
       try {
         await navigator.serviceWorker.register(url, {
